@@ -12,8 +12,8 @@
 
 <?php do_action('tailpress_content_after'); ?>
 
-<footer id="colophon" class=" text-zinc-800 bg-[#D4CFC7]" role="contentinfo">
-    <div class="px-6 md:px-12 pt-10 md:pt-14 pb-12 rounded-tr-[32px] bg-[#bcb8b3]">
+<footer id="colophon" class=" text-zinc-800 bg-beige-1" role="contentinfo">
+    <div class="px-6 md:px-12 pt-10 md:pt-14 pb-12 rounded-tr-[32px] bg-beige-2">
         <?php do_action('tailpress_footer'); ?>
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6">
             <div class="md:col-span-2">

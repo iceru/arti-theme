@@ -31,8 +31,8 @@ window.addEventListener('load', function () {
     function openMenu() {
         menuOverlay.classList.remove(...closedClasses)
         menuOverlay.classList.add(...openClasses)
-        siteHeader?.classList.remove('bg-[#D4CFC7]')
-        siteHeader?.classList.add('bg-[#bcb8b3]')
+        siteHeader?.classList.remove('bg-beige-1')
+        siteHeader?.classList.add('bg-beige-2')
         menuToggle.setAttribute('aria-expanded', 'true')
         menuToggle.setAttribute('aria-label', 'Close menu')
         menuToggle.querySelector('.site-menu-line-top')?.classList.add('translate-y-0', 'rotate-45')
@@ -45,8 +45,8 @@ window.addEventListener('load', function () {
     function closeMenu() {
         menuOverlay.classList.remove(...openClasses)
         menuOverlay.classList.add(...closedClasses)
-        siteHeader?.classList.remove('bg-[#bcb8b3]')
-        siteHeader?.classList.add('bg-[#D4CFC7]')
+        siteHeader?.classList.remove('bg-beige-2')
+        siteHeader?.classList.add('bg-beige-1')
         menuToggle.setAttribute('aria-expanded', 'false')
         menuToggle.setAttribute('aria-label', 'Open menu')
         menuToggle.querySelector('.site-menu-line-top')?.classList.remove('translate-y-0', 'rotate-45')
@@ -299,9 +299,8 @@ function initStudioScrollSpy() {
         links.forEach(function (link) {
             const dot = link.querySelector('.studio-nav-dot')
             const isActive = link === activeLink
-            link.classList.toggle('font-semibold', isActive)
-            link.classList.toggle('text-[#242424]', isActive)
-            link.classList.toggle('text-[rgba(30,30,30,0.48)]', !isActive)
+            link.classList.toggle('opacity-100', isActive)
+            link.classList.toggle('opacity-40', !isActive)
             if (dot) {
                 dot.classList.toggle('opacity-0', !isActive)
             }
@@ -339,8 +338,6 @@ function initArtiWayAccordion($) {
         'bg-cover',
         'bg-center',
         'bg-no-repeat',
-        'bg-blend-multiply',
-        'bg-[rgba(109,85,80,0.58)]'
     ].join(' ')
 
     function closeItem($item) {
@@ -348,7 +345,7 @@ function initArtiWayAccordion($) {
         $trigger.removeClass(activeRowClasses)
         $trigger.css('background-image', '')
         $trigger.attr('aria-expanded', 'false')
-        $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').removeClass('!text-[#D4CFC7]')
+        $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').removeClass('!text-beige-1')
         $item.find('.arti-way-panel').stop(true, true).slideUp(220).addClass('hidden')
     }
 
@@ -358,11 +355,11 @@ function initArtiWayAccordion($) {
         $trigger.addClass(activeRowClasses)
 
         if (image) {
-            $trigger.css('background-image', 'linear-gradient(rgba(109,85,80,0.58), rgba(109,85,80,0.58)), url(' + image + ')')
+            $trigger.css('background-image', `url(${image})`)
         }
 
         $trigger.attr('aria-expanded', 'true')
-        $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').addClass('!text-[#D4CFC7]')
+        $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').addClass('!text-beige-1')
         $item.find('.arti-way-panel').removeClass('hidden').stop(true, true).slideDown(220)
     }
 

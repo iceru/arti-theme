@@ -10,6 +10,10 @@
     --color-secondary: var(--wp--preset--color--secondary);
     --color-dark: var(--wp--preset--color--dark);
     --color-light: var(--wp--preset--color--light);
+    --color-light-brown: #686868;
+    --color-dark-brown: #333333;
+    --color-beige-2: #B5B1AC;
+    --color-beige-1: #D4CFC7;
 
     --text-xs: var(--wp--preset--font-size--xs, 0.75rem);
     --text-sm: var(--wp--preset--font-size--sm, 0.875rem);

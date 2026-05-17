@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<section class="bg-[#D4CFC7] pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
+<section class="bg-beige-1 pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
     <div class="grid grid-cols-[minmax(220px,300px)_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
         <aside
             class="relative min-h-full border-r border-black/8 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.16)_1px,transparent_1px)] bg-[size:25px_25px] max-md:border-r-0 max-md:border-b max-md:border-black/8 max-md:bg-[size:22px_22px]"
@@ -16,60 +16,56 @@ get_header();
             <nav
                 class="sticky top-11 flex flex-col gap-3.5 px-8 pt-32 pb-8 max-md:static max-md:flex-row max-md:flex-wrap max-md:gap-x-5 max-md:gap-y-4 max-md:px-5 max-md:pt-8 max-md:pb-6">
                 <a href="#about-us"
-                    class="studio-nav-link !no-underline text-[0.72rem] font-semibold uppercase tracking-[0.38em] text-[#242424]">
+                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-100">
                     <span class="studio-nav-dot mr-[0.45rem]">&bull;</span>About Us
                 </a>
                 <a href="#the-arti-way"
-                    class="studio-nav-link !no-underline text-[0.72rem] uppercase tracking-[0.38em] text-[rgba(30,30,30,0.48)]"><span class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>The Arti
+                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
+                        class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>The Arti
                     Way</a>
                 <a href="#expertise"
-                    class="studio-nav-link !no-underline text-[0.72rem] uppercase tracking-[0.38em] text-[rgba(30,30,30,0.48)]"><span class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Expertise</a>
+                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
+                        class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Expertise</a>
                 <a href="#awards"
-                    class="studio-nav-link !no-underline text-[0.72rem] uppercase tracking-[0.38em] text-[rgba(30,30,30,0.48)]"><span class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Awards</a>
+                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
+                        class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Awards</a>
             </nav>
         </aside>
 
         <div class="px-8 pt-32 max-md:px-5 max-md:pt-14">
             <section class="min-h-[84vh] max-md:min-h-0" aria-labelledby="studio-about-title">
-                <p class="mb-9 text-[0.68rem] uppercase tracking-[0.5em] text-black/66" id="about-us">About Us</p>
-                <h1 class="mb-7 text-[1.85rem] leading-[1.2] font-medium uppercase tracking-[0.18em] text-[#252525] max-md:text-[1.32rem] max-md:tracking-[0.14em]"
+                <h4 class="mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown" id="about-us">About
+                    Us
+                </h4>
+                <h1 class="mb-7 text-sm leading-[1.2] font-medium uppercase tracking-[0.18em] text-dark-brown max-md:text-[1.32rem] max-md:tracking-[0.14em]"
                     id="studio-about-title">
                     Collaboration In Form
                 </h1>
                 <p
-                    class="m-0 max-w-[620px] text-[0.82rem] leading-[1.85] text-black/56 max-md:text-[0.78rem] max-md:leading-[1.7]">
-                    Established in 2004, Arti Design Studio is Jakarta-based practice reconnecting people with nature
-                    through
-                    experimental design. With a portfolio of 100+ projects and a growing skyline of completed works, we
-                    use data and
-                    research to solve the environmental and social challenges of the modern city. We aren't just
-                    designing for today;
-                    we are building the future of culture and community.
+                    class="m-0 max-w-[620px] text-[0.82rem] leading-[1.85] text-light-brown max-md:text-[0.78rem] max-md:leading-[1.7]">
+                    Established in 2020, Arti Design Studio is a Jakarta-based practice reconnecting people with nature
+                    through experimental design. With a portfolio of 100+ projects and a growing skyline of completed
+                    works, we use data and research to solve the environmental and societal challenges of the modern
+                    city. We aren’t just designing for today; we are building the future of culture and community.
                 </p>
 
-                <figure class="mt-14 ml-auto w-full max-w-[370px] max-md:mx-auto max-md:mt-10 max-md:max-w-[320px]">
-                    <?php if (has_post_thumbnail()): ?>
-                        <?php the_post_thumbnail('large', ['class' => 'block aspect-[3/4] w-full object-cover', 'alt' => esc_attr__('Arti Studio Team', 'tailpress')]); ?>
-                    <?php else: ?>
-                        <div class="block aspect-[3/4] w-full bg-linear-to-b from-[#4d4d4d] to-[#2f2f2f]"
-                            aria-hidden="true"></div>
-                    <?php endif; ?>
-                </figure>
+                <div class="mt-16 flex justify-end">
+                    <img src="<?php echo esc_url(get_theme_file_uri('/images/about.jpg')); ?>"
+                        class="max-w-[270px] object-cover" alt="About Arti Design Studio">
+                </div>
             </section>
 
             <section class="pt-12 max-md:pt-10" id="the-arti-way" aria-labelledby="arti-way-title">
-                <div class="border-t border-black/15 pt-6">
-                    <p class="mb-10 text-[0.68rem] uppercase tracking-[0.5em] text-black/66">The Arti Way</p>
-                    <h2 class="mb-5 text-[1.85rem] leading-[1.2] font-medium uppercase tracking-[0.2em] text-[#252525] max-md:text-[1.22rem]"
+                <div class="border-t border-black/15 pt-4">
+                    <h4 class="mb-14 text-[12px] uppercase tracking-[0.5em] text-light-brown">The Arti Way</h4>
+                    <h3 class="mb-5 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown max-md:text-[1.22rem]"
                         id="arti-way-title">
-                        Practiced Within, Reflected Beyond
-                    </h2>
-                    <p class="m-0 max-w-[620px] text-[0.78rem] leading-[1.8] text-black/56">
-                        The four principles of ARTI also guide the way we design beyond the studio. They shape how our
-                        work
-                        meets the world and how each project enriches daily life, respects its environments, and
-                        strengthens the
-                        places it becomes part of, and relevant for the future it will take part in.
+                        PRACTICED WITHIN, REFLECTED BEYOND
+                    </h3>
+                    <p class="m-0 max-w-[428px] text-[9px] leading-[1.8] text-light-brown">
+                        The four principles of A.R.T.I also guide the way we design beyond the studio. They shape how
+                        our work meets the world and how each project enriches daily life, respects its environments,
+                        and strengthens the places it becomes part of, and relevant for the future it will take part in.
                     </p>
                 </div>
 
@@ -80,9 +76,9 @@ get_header();
 
                 <div class="arti-way-accordion border-t border-black/14">
                     <article class="arti-way-item border-b border-black/14"
-                        data-bg="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=80">
+                        data-bg="<?php echo esc_url(get_theme_file_uri('/images/artisan.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
                             aria-expanded="true">
                             <span
                                 class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">01</span>
@@ -98,7 +94,7 @@ get_header();
                                     respect for craft.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Building With Subtle Details</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Focusing on proportions,
                                         materials, and crafted enriching elements that reveal their quality through
@@ -106,7 +102,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Recognizable Arti-Esque Spaces</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Shaping projects with a
                                         clear design language, creating spaces that are memorable, coherent, and
@@ -117,9 +113,9 @@ get_header();
                     </article>
 
                     <article class="arti-way-item border-b border-black/14"
-                        data-bg="https://images.unsplash.com/photo-1464146072230-91cabc968266?auto=format&fit=crop&w=1600&q=80">
+                        data-bg="<?php echo esc_url(get_theme_file_uri('/images/responsible.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
                             aria-expanded="false">
                             <span
                                 class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">02</span>
@@ -135,7 +131,7 @@ get_header();
                                     and remains useful over time.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Life-Centered Systems</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Programs, circulation, and
                                         environmental strategies are integrated to improve daily comfort and long-term
@@ -143,7 +139,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Material Responsibility</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">From sourcing to
                                         durability, we prioritize practical and responsible decisions that reduce waste
@@ -154,9 +150,9 @@ get_header();
                     </article>
 
                     <article class="arti-way-item border-b border-black/14"
-                        data-bg="https://images.unsplash.com/photo-1472224371017-08207f84aaae?auto=format&fit=crop&w=1600&q=80">
+                        data-bg="<?php echo esc_url(get_theme_file_uri('/images/tradition.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
                             aria-expanded="false">
                             <span
                                 class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">03</span>
@@ -172,7 +168,7 @@ get_header();
                                     rooted and relevant.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Preserving and Elevating Cultural Values</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Local narratives,
                                         practices, and identities are carefully studied and thoughtfully reinterpreted
@@ -180,7 +176,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Site-Sensitive Design</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Each design responds
                                         directly to climate, context, and topography so the building relates naturally
@@ -191,9 +187,9 @@ get_header();
                     </article>
 
                     <article class="arti-way-item border-b border-black/14"
-                        data-bg="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1600&q=80">
+                        data-bg="<?php echo esc_url(get_theme_file_uri('/images/innovation.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
                             aria-expanded="false">
                             <span
                                 class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">04</span>
@@ -209,7 +205,7 @@ get_header();
                                     context.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Future-Ready Thinking</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Spatial flexibility,
                                         environmental foresight, and design experimentation support buildings that adapt
@@ -217,7 +213,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
                                         Cross-Disciplinary Process</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Collaboration across
                                         craft, research, and technology allows architecture to solve complexity with
@@ -231,7 +227,7 @@ get_header();
 
             <section class="pt-20 max-md:pt-14" id="expertise" aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-10 text-[0.68rem] uppercase tracking-[0.5em] text-black/66">Expertise</p>
+                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-black/66">Expertise</p>
                 </div>
 
                 <?php
@@ -255,13 +251,13 @@ get_header();
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
                             ?>
                             <article>
-                                <h2 class="mb-6 text-[1.55rem] leading-[1.2] font-medium uppercase tracking-[0.2em] text-[#252525] max-md:text-[1.1rem]"
+                                <h2 class="mb-6 text-[1.55rem] leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown max-md:text-[1.1rem]"
                                     id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
                                     <?php the_title(); ?>
                                 </h2>
 
                                 <?php if (!empty($expertise_description)): ?>
-                                    <p class="m-0 mb-12 max-w-[820px] text-[0.78rem] leading-[1.8] text-black/56">
+                                    <p class="m-0 mb-12 max-w-[820px] text-[0.78rem] leading-[1.8] text-light-brown">
                                         <?php echo esc_html($expertise_description); ?>
                                     </p>
                                 <?php endif; ?>
@@ -302,14 +298,15 @@ get_header();
                                             <article>
                                                 <div class="overflow-hidden bg-black/5">
                                                     <?php if (!empty($item_image_url)): ?>
-                                                        <img src="<?php echo esc_url($item_image_url); ?>" alt="<?php echo esc_attr($item_title); ?>"
+                                                        <img src="<?php echo esc_url($item_image_url); ?>"
+                                                            alt="<?php echo esc_attr($item_title); ?>"
                                                             class="block aspect-[16/10] w-full object-cover">
                                                     <?php else: ?>
                                                         <div class="aspect-[16/10] w-full bg-black/10"></div>
                                                     <?php endif; ?>
                                                 </div>
                                                 <?php if (!empty($item_title)): ?>
-                                                    <h3 class="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d]">
+                                                    <h3 class="mt-4 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d]">
                                                         <?php echo esc_html($item_title); ?>
                                                     </h3>
                                                 <?php endif; ?>
@@ -322,6 +319,102 @@ get_header();
                     </div>
                     <?php wp_reset_postdata(); ?>
                 <?php endif; ?>
+            </section>
+
+            <section class="pt-20 max-md:pt-14" id="experiences" aria-labelledby="experiences-title">
+                <div class="border-t border-black/15 pt-6">
+                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-black/66">Experiences</p>
+                </div>
+
+                <?php
+                $experiences_query = new WP_Query([
+                    'post_type' => ['experience', 'experiences'],
+                    'posts_per_page' => 6,
+                    'orderby' => 'menu_order',
+                    'order' => 'ASC',
+                ]);
+                ?>
+
+                <div>
+                    <h2 class="mb-6 text-[1.55rem] leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown max-md:text-[1.1rem]"
+                        id="experiences-title">
+                        Practice Through Places
+                    </h2>
+
+                    <?php if ($experiences_query->have_posts()): ?>
+                        <ul class="m-0 list-none divide-y divide-black/12 p-0">
+                            <?php while ($experiences_query->have_posts()):
+                                $experiences_query->the_post(); ?>
+                                <li class="py-4 text-[0.78rem] leading-[1.8] text-black/62"><?php the_title(); ?></li>
+                            <?php endwhile; ?>
+                        </ul>
+                        <?php wp_reset_postdata(); ?>
+                    <?php else: ?>
+                        <ul class="m-0 list-none divide-y divide-black/12 p-0">
+                            <li class="py-4 text-[0.78rem] leading-[1.8] text-black/48">
+                                Example (no data): Community Design Residency - Jakarta
+                            </li>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+            </section>
+
+            <section class="pt-20 max-md:pt-14" id="awards" aria-labelledby="awards-title">
+                <div class="border-t border-black/15 pt-6">
+                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-black/66">Awards</p>
+
+                    <p class="m-0 mb-16 max-w-[860px] text-[0.78rem] leading-[1.8] text-light-brown max-md:mb-12">
+                        Arti Design Studio is a multi-disciplinary and award-winning practice that places
+                        sustainability,
+                        community, and craftsmanship at the heart of every project.
+                    </p>
+                </div>
+
+                <?php
+                $awards_query = new WP_Query([
+                    'post_type' => 'awards',
+                    'posts_per_page' => -1,
+                    'orderby' => 'meta_value_num',
+                    'meta_key' => 'year',
+                    'order' => 'DESC',
+                ]);
+                ?>
+
+                <div class="border-t border-black/12">
+                    <div
+                        class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-4 text-[12px] tracking-[0.08em] text-black/54">
+                        <p class="m-0">List</p>
+                        <p class="m-0 ">Year</p>
+                    </div>
+
+                    <?php if ($awards_query->have_posts()): ?>
+                        <?php while ($awards_query->have_posts()):
+                            $awards_query->the_post();
+                            $award_year = function_exists('get_field') ? get_field('year') : '';
+                            if (empty($award_year)) {
+                                $award_year = get_the_date('Y');
+                            }
+                            ?>
+                            <div
+                                class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[0.78rem] leading-[1.7] text-black/62">
+                                <p class="m-0"><?php the_title(); ?></p>
+                                <p class="m-0 "><?php echo esc_html((string) $award_year); ?></p>
+                            </div>
+                        <?php endwhile; ?>
+                        <?php wp_reset_postdata(); ?>
+                    <?php else: ?>
+                        <div
+                            class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[0.78rem] leading-[1.7] text-black/48">
+                            <p class="m-0">Example 1 (no data): National Architecture Merit Award - Best Installation</p>
+                            <p class="m-0 ">2022</p>
+                        </div>
+                        <div
+                            class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[0.78rem] leading-[1.7] text-black/48">
+                            <p class="m-0">Example 2 (no data): Regional Design Prize - Community Space Category</p>
+                            <p class="m-0 ">2019</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </section>
         </div>
     </div>
