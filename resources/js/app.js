@@ -18,8 +18,8 @@ window.addEventListener('load', function () {
     }
 
     const menuToggle = document.getElementById('site-menu-toggle')
-    const menuClose = document.getElementById('site-menu-close')
     const menuOverlay = document.getElementById('site-menu-overlay')
+    const siteHeader = document.getElementById('site-header')
 
     if (!menuToggle || !menuOverlay) {
         return
@@ -31,14 +31,28 @@ window.addEventListener('load', function () {
     function openMenu() {
         menuOverlay.classList.remove(...closedClasses)
         menuOverlay.classList.add(...openClasses)
+        siteHeader?.classList.remove('bg-[#D4CFC7]')
+        siteHeader?.classList.add('bg-[#bcb8b3]')
         menuToggle.setAttribute('aria-expanded', 'true')
+        menuToggle.setAttribute('aria-label', 'Close menu')
+        menuToggle.querySelector('.site-menu-line-top')?.classList.add('translate-y-0', 'rotate-45')
+        menuToggle.querySelector('.site-menu-line-top')?.classList.remove('-translate-y-1')
+        menuToggle.querySelector('.site-menu-line-bottom')?.classList.add('translate-y-0', '-rotate-45')
+        menuToggle.querySelector('.site-menu-line-bottom')?.classList.remove('translate-y-1')
         document.body.classList.add('overflow-hidden')
     }
 
     function closeMenu() {
         menuOverlay.classList.remove(...openClasses)
         menuOverlay.classList.add(...closedClasses)
+        siteHeader?.classList.remove('bg-[#bcb8b3]')
+        siteHeader?.classList.add('bg-[#D4CFC7]')
         menuToggle.setAttribute('aria-expanded', 'false')
+        menuToggle.setAttribute('aria-label', 'Open menu')
+        menuToggle.querySelector('.site-menu-line-top')?.classList.remove('translate-y-0', 'rotate-45')
+        menuToggle.querySelector('.site-menu-line-top')?.classList.add('-translate-y-1')
+        menuToggle.querySelector('.site-menu-line-bottom')?.classList.remove('translate-y-0', '-rotate-45')
+        menuToggle.querySelector('.site-menu-line-bottom')?.classList.add('translate-y-1')
         document.body.classList.remove('overflow-hidden')
     }
 
@@ -51,12 +65,6 @@ window.addEventListener('load', function () {
         }
         openMenu()
     })
-
-    if (menuClose) {
-        menuClose.addEventListener('click', function () {
-            closeMenu()
-        })
-    }
 
     menuOverlay.addEventListener('click', function (e) {
         if (e.target === menuOverlay) {
@@ -71,7 +79,195 @@ window.addEventListener('load', function () {
     })
 
     initStudioScrollSpy()
+    initHomepageBloat()
 })
+
+function initHomepageBloat() {
+    const hero = document.querySelector('.homepage-hero')
+    if (!hero) {
+        return
+    }
+
+    const canvas = hero.querySelector('.homepage-hero__canvas')
+    if (!canvas) {
+        return
+    }
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: true })
+    if (!ctx) {
+        return
+    }
+
+    const bgVar = hero.style.getPropertyValue('--hero-bg').trim()
+    const imgUrl = bgVar.replace(/^url\(["']?/, '').replace(/["']?\)$/, '')
+    if (!imgUrl) {
+        return
+    }
+
+    const image = new Image()
+    image.src = imgUrl
+
+    const baseCanvas = document.createElement('canvas')
+    const baseCtx = baseCanvas.getContext('2d', { willReadFrequently: true })
+    if (!baseCtx) {
+        return
+    }
+
+    let hover = false
+    let tx = 0
+    let ty = 0
+    let cx = 0
+    let cy = 0
+    let rafId = null
+
+    function resizeCanvas() {
+        const rect = hero.getBoundingClientRect()
+        const width = Math.max(1, Math.floor(rect.width))
+        const height = Math.max(1, Math.floor(rect.height))
+
+        if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width
+            canvas.height = height
+            baseCanvas.width = width
+            baseCanvas.height = height
+        }
+
+        return { width, height }
+    }
+
+    function drawBase(width, height) {
+        ctx.clearRect(0, 0, width, height)
+        baseCtx.clearRect(0, 0, width, height)
+
+        if (!image.complete || !image.naturalWidth || !image.naturalHeight) {
+            return
+        }
+
+        const imgRatio = image.naturalWidth / image.naturalHeight
+        const boxRatio = width / height
+        let drawW = width
+        let drawH = height
+        let drawX = 0
+        let drawY = 0
+
+        if (imgRatio > boxRatio) {
+            drawW = height * imgRatio
+            drawX = (width - drawW) / 2
+        } else {
+            drawH = width / imgRatio
+            drawY = (height - drawH) / 2
+        }
+
+        baseCtx.save()
+        baseCtx.globalAlpha = 0.5
+        baseCtx.drawImage(image, drawX, drawY, drawW, drawH)
+        baseCtx.restore()
+        ctx.drawImage(baseCanvas, 0, 0)
+    }
+
+    function drawFrame() {
+        const size = resizeCanvas()
+        const width = size.width
+        const height = size.height
+
+        drawBase(width, height)
+        if (!image.complete || !image.naturalWidth || !image.naturalHeight) {
+            return
+        }
+
+        if (!hover) {
+            return
+        }
+
+        cx += (tx - cx) * 0.18
+        cy += (ty - cy) * 0.18
+
+        const radius = 140
+        const strength = 0.4
+        const baseData = baseCtx.getImageData(0, 0, width, height)
+        const output = new ImageData(new Uint8ClampedArray(baseData.data), width, height)
+        const src = baseData.data
+        const dest = output.data
+        const left = Math.max(0, Math.floor(cx - radius))
+        const right = Math.min(width - 1, Math.ceil(cx + radius))
+        const top = Math.max(0, Math.floor(cy - radius))
+        const bottom = Math.min(height - 1, Math.ceil(cy + radius))
+
+        for (let y = top; y <= bottom; y++) {
+            for (let x = left; x <= right; x++) {
+                const dx = x - cx
+                const dy = y - cy
+                const distance = Math.sqrt(dx * dx + dy * dy)
+
+                if (distance > radius) {
+                    continue
+                }
+
+                const edge = distance / radius
+                const pull = 1 - strength * Math.pow(1 - edge, 2)
+                const sx = Math.max(0, Math.min(width - 1, Math.round(cx + dx * pull)))
+                const sy = Math.max(0, Math.min(height - 1, Math.round(cy + dy * pull)))
+                const sourceIndex = (sy * width + sx) * 4
+                const destIndex = (y * width + x) * 4
+
+                dest[destIndex] = src[sourceIndex]
+                dest[destIndex + 1] = src[sourceIndex + 1]
+                dest[destIndex + 2] = src[sourceIndex + 2]
+                dest[destIndex + 3] = src[sourceIndex + 3]
+            }
+        }
+
+        ctx.putImageData(output, 0, 0)
+    }
+
+    function animateLens() {
+        drawFrame()
+
+        rafId = window.requestAnimationFrame(animateLens)
+    }
+
+    function ensureAnimation() {
+        if (!rafId) {
+            rafId = window.requestAnimationFrame(animateLens)
+        }
+    }
+
+    image.onload = function () {
+        drawFrame()
+    }
+
+    window.addEventListener('resize', function () {
+        drawFrame()
+    })
+
+    hero.addEventListener('mousemove', function (e) {
+        const rect = hero.getBoundingClientRect()
+        tx = e.clientX - rect.left
+        ty = e.clientY - rect.top
+        if (!hover) {
+            cx = tx
+            cy = ty
+        }
+        hover = true
+        ensureAnimation()
+    })
+
+    hero.addEventListener('mouseenter', function () {
+        hover = true
+        ensureAnimation()
+    })
+
+    hero.addEventListener('mouseleave', function () {
+        hover = false
+        drawFrame()
+        if (rafId) {
+            window.cancelAnimationFrame(rafId)
+            rafId = null
+        }
+    })
+
+    drawFrame()
+}
 
 function initStudioScrollSpy() {
     const links = Array.from(document.querySelectorAll('.studio-nav-link'))

@@ -82,3 +82,11 @@
   }
 }
 
+.homepage-hero {
+  --r: 115px;
+}
+
+.homepage-hero__canvas {
+  pointer-events: none;
+}
+
