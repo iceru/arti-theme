@@ -1,4 +1,5 @@
 @theme {
+    --font-sans: "Elza", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --breakpoint-xs: 480px;
     --breakpoint-sm: 600px;
     --breakpoint-md: 782px;

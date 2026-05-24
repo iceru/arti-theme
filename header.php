@@ -16,15 +16,21 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class('bg-white text-zinc-900 antialiased'); ?>>
+<body <?php body_class('bg-white text-zinc-900 antialiased font-sans'); ?>>
     <?php do_action('tailpress_site_before'); ?>
+    <?php
+    $loader_video_path = get_theme_file_path('/images/loader.mp4');
+    $loader_video_uri = get_theme_file_uri('/images/loader.mp4');
+    ?>
 
     <div id="site-loader"
         class="fixed inset-0 z-[100] flex items-center justify-center bg-beige-2 opacity-100 transition-opacity duration-700">
         <div class="relative flex h-28 w-28 items-center justify-center">
-            <video class="h-20 w-20 object-contain opacity-90" autoplay muted loop playsinline>
-                <source src="<?php echo esc_url(get_theme_file_uri('/images/loader.mp4')); ?>" type="video/mp4">
-            </video>
+            <?php if (file_exists($loader_video_path)): ?>
+                <video class="h-20 w-20 object-contain opacity-90" autoplay muted loop playsinline>
+                    <source src="<?php echo esc_url($loader_video_uri); ?>" type="video/mp4">
+                </video>
+            <?php endif; ?>
             <span class="absolute text-5xl leading-none text-zinc-800 animate-pulse" aria-hidden="true">a</span>
         </div>
     </div>
@@ -32,7 +38,7 @@
     <div id="page" class="min-h-screen flex flex-col opacity-0 transition-opacity duration-700">
         <?php do_action('tailpress_header'); ?>
 
-        <header id="site-header" class="relative z-[60] bg-beige-1 py-5 px-8 transition-colors duration-300">
+        <header id="site-header" class="relative z-40 bg-beige-1 py-5 px-9 transition-colors duration-300">
             <div class="flex items-center justify-between">
                 <a href="<?php echo esc_url(home_url('/')); ?>"
                     class="!no-underline text-zinc-900 text-4xl md:text-5xl font-light leading-none tracking-tight lowercase">
@@ -50,25 +56,32 @@
         </header>
 
         <div id="site-menu-overlay"
-            class="pointer-events-none fixed inset-x-0 top-[88px] z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out max-md:top-[88px]">
-            <div class="mx-0 bg-beige-2/95 px-6 md:px-12 pt-12 pb-8 shadow-xl backdrop-blur-[1px]">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6">
-                    <nav class="md:col-span-5 grid grid-cols-2 gap-y-8 text-sm uppercase tracking-[0.42em]">
+            class="pointer-events-none fixed top-[78px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
+            <div
+                class="mx-0 flex h-[16vh] min-h-[160px] max-h-[320px] flex-col justify-between bg-beige-2 px-6 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 -top-[80px] relative">
+                    <nav
+                        class="md:col-span-6 md:col-start-4 grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
                         <a href="<?php echo esc_url(home_url('/studio')); ?>"
                             class="!no-underline text-zinc-900 hover:opacity-70">Studio</a>
                         <a href="/news" class="!no-underline text-zinc-900 hover:opacity-70">News</a>
+
                         <a href="/works" class="!no-underline text-zinc-900 hover:opacity-70">Works</a>
                         <a href="/contact" class="!no-underline text-zinc-900 hover:opacity-70">Contact</a>
                     </nav>
-                    <div class="md:col-span-7"></div>
-                    <p class="md:col-span-3 text-zinc-600 text-sm">&copy; Copyright Arti Design Studio,
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 text-zinc-600 text-sm md:grid-cols-12 md:gap-6 text-[9px]">
+                    <p class="md:col-span-3">&copy; Copyright Arti Design Studio,
                         <?php echo esc_html(date_i18n('Y')); ?>
                     </p>
-                    <p class="md:col-span-2 text-zinc-600 text-sm">Instagram</p>
-                    <p class="md:col-span-4 text-zinc-600 text-sm">Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
+                    <p class="md:col-span-3">Instagram</p>
+                    <p class="md:col-span-3">Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
-                    <div class="md:col-span-3 flex md:justify-end"><span
-                            class="text-5xl leading-none text-zinc-800 font-serif">a</span></div>
+                    <div class="md:col-span-3 flex md:justify-end">
+                        <img src="<?php echo esc_url(get_theme_file_uri('/images/logo-short.png')); ?>" alt=""
+                            class="h-5 w-auto object-contain">
+                    </div>
                 </div>
             </div>
         </div>

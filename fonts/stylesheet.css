@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Elza';
+    src: url('Elza-Medium.eot');
+    src: url('Elza-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Elza-Medium.woff2') format('woff2'),
+        url('Elza-Medium.woff') format('woff'),
+        url('Elza-Medium.ttf') format('truetype'),
+        url('Elza-Medium.svg#Elza-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Elza';
+    src: url('Elza-Regular.eot');
+    src: url('Elza-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Elza-Regular.woff2') format('woff2'),
+        url('Elza-Regular.woff') format('woff'),
+        url('Elza-Regular.ttf') format('truetype'),
+        url('Elza-Regular.svg#Elza-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

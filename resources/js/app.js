@@ -20,6 +20,7 @@ window.addEventListener('load', function () {
     const menuToggle = document.getElementById('site-menu-toggle')
     const menuOverlay = document.getElementById('site-menu-overlay')
     const siteHeader = document.getElementById('site-header')
+    initContactTabs()
 
     if (!menuToggle || !menuOverlay) {
         return
@@ -340,18 +341,29 @@ function initArtiWayAccordion($) {
         'bg-no-repeat',
     ].join(' ')
 
-    function closeItem($item) {
+    function closeItem($item, instant = false) {
         const $trigger = $item.find('.arti-way-trigger')
+        const $panel = $item.find('.arti-way-panel')
         $trigger.removeClass(activeRowClasses)
         $trigger.css('background-image', '')
         $trigger.attr('aria-expanded', 'false')
         $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').removeClass('!text-beige-1')
-        $item.find('.arti-way-panel').stop(true, true).slideUp(220).addClass('hidden')
+
+        $panel.stop(true, true).removeClass('hidden')
+        if (instant) {
+            $panel.hide().addClass('hidden')
+            return
+        }
+
+        $panel.slideUp(220, function () {
+            $(this).addClass('hidden')
+        })
     }
 
-    function openItem($item) {
+    function openItem($item, instant = false) {
         const image = $item.data('bg')
         const $trigger = $item.find('.arti-way-trigger')
+        const $panel = $item.find('.arti-way-panel')
         $trigger.addClass(activeRowClasses)
 
         if (image) {
@@ -360,17 +372,24 @@ function initArtiWayAccordion($) {
 
         $trigger.attr('aria-expanded', 'true')
         $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').addClass('!text-beige-1')
-        $item.find('.arti-way-panel').removeClass('hidden').stop(true, true).slideDown(220)
+
+        $panel.stop(true, true).removeClass('hidden')
+        if (instant) {
+            $panel.show()
+            return
+        }
+
+        $panel.hide().slideDown(220)
     }
 
     $accordion.find('.arti-way-item').each(function (index) {
         const $item = $(this)
         if (index !== 0) {
-            closeItem($item)
+            closeItem($item, true)
         }
     })
 
-    openItem($accordion.find('.arti-way-item').first())
+    openItem($accordion.find('.arti-way-item').first(), true)
 
     $accordion.on('click', '.arti-way-trigger', function () {
         const $current = $(this).closest('.arti-way-item')
@@ -401,3 +420,42 @@ function bootstrapArtiWayAccordion() {
 }
 
 bootstrapArtiWayAccordion()
+
+function initContactTabs() {
+    const tabsRoot = document.querySelector('[data-contact-tabs]')
+    if (!tabsRoot) {
+        return
+    }
+
+    const triggers = Array.from(document.querySelectorAll('[data-tab-trigger]'))
+    const panels = Array.from(document.querySelectorAll('[data-tab-panel]'))
+    if (!triggers.length || !panels.length) {
+        return
+    }
+
+    function setActive(tabKey) {
+        triggers.forEach(function (trigger) {
+            const isActive = trigger.getAttribute('data-tab-trigger') === tabKey
+            trigger.setAttribute('aria-selected', isActive ? 'true' : 'false')
+            trigger.classList.toggle('border-zinc-500', isActive)
+            trigger.classList.toggle('text-zinc-700', isActive)
+            trigger.classList.toggle('border-zinc-400/45', !isActive)
+            trigger.classList.toggle('text-zinc-700/75', !isActive)
+        })
+
+        panels.forEach(function (panel) {
+            const isActive = panel.getAttribute('data-tab-panel') === tabKey
+            panel.classList.toggle('hidden', !isActive)
+        })
+    }
+
+    triggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+            const tabKey = trigger.getAttribute('data-tab-trigger')
+            if (!tabKey) {
+                return
+            }
+            setActive(tabKey)
+        })
+    })
+}

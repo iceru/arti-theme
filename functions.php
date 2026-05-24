@@ -41,6 +41,12 @@ tailpress();
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('jquery');
+    wp_enqueue_style(
+        'arti-fonts',
+        get_theme_file_uri('/fonts/stylesheet.css'),
+        [],
+        filemtime(get_theme_file_path('/fonts/stylesheet.css'))
+    );
 });
 
 /**
