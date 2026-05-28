@@ -48,9 +48,9 @@
                     aria-controls="site-menu-overlay"
                     class="relative inline-flex h-10 w-10 items-center justify-center text-zinc-500 transition hover:text-zinc-700">
                     <span
-                        class="site-menu-line site-menu-line-top absolute block h-px w-8 -translate-y-1 bg-current transition-transform duration-300"></span>
+                        class="site-menu-line site-menu-line-top absolute block h-px w-6 md:w-8 -translate-y-1 bg-current transition-transform duration-300"></span>
                     <span
-                        class="site-menu-line site-menu-line-bottom absolute block h-px w-8 translate-y-1 bg-current transition-transform duration-300"></span>
+                        class="site-menu-line site-menu-line-bottom absolute block h-px w-6 md:w-8 translate-y-1 bg-current transition-transform duration-300"></span>
                 </button>
             </div>
         </header>
@@ -58,10 +58,10 @@
         <div id="site-menu-overlay"
             class="pointer-events-none fixed top-[78px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
             <div
-                class="mx-0 flex h-[16vh] min-h-[160px] max-h-[320px] flex-col justify-between bg-beige-2 px-6 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 -top-[80px] relative">
+                class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 md:-top-[80px] relative">
                     <nav
-                        class="md:col-span-6 md:col-start-4 grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
+                        class="md:col-span-6 md:col-start-4 flex flex-col md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
                         <a href="<?php echo esc_url(home_url('/studio')); ?>"
                             class="!no-underline text-zinc-900 hover:opacity-70">Studio</a>
                         <a href="/news" class="!no-underline text-zinc-900 hover:opacity-70">News</a>
@@ -71,7 +71,8 @@
                     </nav>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 text-zinc-600 text-sm md:grid-cols-12 md:gap-6 text-[9px]">
+                <div
+                    class="hidden md:grid grid-cols-1 gap-4 text-light-brown text-sm md:grid-cols-12 md:gap-6 text-[9px]">
                     <p class="md:col-span-3">&copy; Copyright Arti Design Studio,
                         <?php echo esc_html(date_i18n('Y')); ?>
                     </p>
@@ -79,6 +80,20 @@
                     <p class="md:col-span-3">Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
                     <div class="md:col-span-3 flex md:justify-end">
+                        <img src="<?php echo esc_url(get_theme_file_uri('/images/logo-short.png')); ?>" alt=""
+                            class="h-5 w-auto object-contain">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:hidden text-light-brown text-[9px] mt-24">
+                    <p>Instagram</p>
+                    <p>Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
+                        &mdash; 15345</p>
+                </div>
+                <div class="flex md:hidden justify-between items-end mt-8 text-light-brown text-[9px]">
+                    <p>&copy; Copyright Arti Design Studio,
+                        <?php echo esc_html(date_i18n('Y')); ?>
+                    </p>
+                    <div>
                         <img src="<?php echo esc_url(get_theme_file_uri('/images/logo-short.png')); ?>" alt=""
                             class="h-5 w-auto object-contain">
                     </div>
