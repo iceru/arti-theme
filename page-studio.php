@@ -11,7 +11,7 @@ get_header();
 <section class="bg-beige-1 pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
     <div class="grid grid-cols-[minmax(220px,300px)_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
         <aside
-            class="relative min-h-full border-r border-black/8 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.16)_1px,transparent_1px)] bg-[size:25px_25px] max-md:border-r-0 max-md:border-b max-md:border-black/8 max-md:bg-[size:22px_22px]"
+            class="hidden md:block relative min-h-full border-r border-black/8 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.16)_1px,transparent_1px)] bg-[size:25px_25px] max-md:border-r-0 max-md:border-b max-md:border-black/8 max-md:bg-[size:22px_22px]"
             aria-label="Studio sections">
             <nav
                 class="sticky top-11 flex flex-col gap-3.5 px-8 pt-32 pb-8 max-md:static max-md:flex-row max-md:flex-wrap max-md:gap-x-5 max-md:gap-y-4 max-md:px-5 max-md:pt-8 max-md:pb-6">
@@ -32,9 +32,10 @@ get_header();
             </nav>
         </aside>
 
-        <div class="px-8 pt-32 max-md:px-5 max-md:pt-14">
+        <div class="px-4 md:px-8 pt-32 max-md:px-5 max-md:pt-14">
             <section class="min-h-[84vh] max-md:min-h-0" aria-labelledby="studio-about-title">
-                <h4 class="mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown" id="about-us">About
+                <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown"
+                    id="about-us">About
                     Us
                 </h4>
                 <h1 class="mb-7 text-sm leading-[1.2] font-medium uppercase tracking-[0.18em] text-dark-brown max-md:text-[1.32rem] max-md:tracking-[0.14em]"
@@ -57,7 +58,7 @@ get_header();
 
             <section class="pt-12 max-md:pt-10" id="the-arti-way" aria-labelledby="arti-way-title">
                 <div class="border-t border-black/15 pt-4">
-                    <h4 class="mb-14 text-[12px] uppercase tracking-[0.5em] text-light-brown">The Arti Way</h4>
+                    <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[0.5em] text-light-brown">The Arti Way</h4>
                     <h3 class="mb-5 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown max-md:text-[1.22rem]"
                         id="arti-way-title">
                         PRACTICED WITHIN, REFLECTED BEYOND
@@ -71,20 +72,20 @@ get_header();
 
                 <div>
                     <img src="<?php echo esc_url(get_theme_file_uri('/images/arti-way.png')); ?>"
-                        class="max-w-[490px] my-16" alt="The Arti Way">
+                        class="w-full md:max-w-[490px] my-16" alt="The Arti Way">
                 </div>
 
-                <div class="arti-way-accordion border-t border-black/14">
+                <div class="arti-way-accordion">
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/artisan.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300 "
                             aria-expanded="true">
                             <span
-                                class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">01</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">01</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[0.86rem] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Artisan</span>
-                            <span class="arti-way-title text-[1.02rem] text-black/72">Design with Depth &amp;
+                                class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Artisan</span>
+                            <span class="arti-way-title text-[12px] text-black/72">Design with Depth &amp;
                                 Character</span>
                         </button>
                         <div class="arti-way-panel px-0 ">
@@ -94,7 +95,7 @@ get_header();
                                     respect for craft.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Building With Subtle Details</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Focusing on proportions,
                                         materials, and crafted enriching elements that reveal their quality through
@@ -102,7 +103,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Recognizable Arti-Esque Spaces</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Shaping projects with a
                                         clear design language, creating spaces that are memorable, coherent, and
@@ -115,13 +116,13 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/responsible.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">02</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">02</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[0.86rem] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Responsible</span>
-                            <span class="arti-way-title text-[1.02rem] text-black/72">Architecture that Supports
+                                class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Responsible</span>
+                            <span class="arti-way-title text-[12px] text-black/72">Architecture that Supports
                                 Life</span>
                         </button>
                         <div class="arti-way-panel hidden px-0">
@@ -131,7 +132,7 @@ get_header();
                                     and remains useful over time.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Life-Centered Systems</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Programs, circulation, and
                                         environmental strategies are integrated to improve daily comfort and long-term
@@ -139,7 +140,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Material Responsibility</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">From sourcing to
                                         durability, we prioritize practical and responsible decisions that reduce waste
@@ -152,13 +153,13 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/tradition.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">03</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">03</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[0.86rem] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Tradition</span>
-                            <span class="arti-way-title text-[1.02rem] text-black/72">Rooted in Culture, Responsive to
+                                class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Tradition</span>
+                            <span class="arti-way-title text-[12px] text-black/72">Rooted in Culture, Responsive to
                                 Place</span>
                         </button>
                         <div class="arti-way-panel hidden px-0">
@@ -168,7 +169,7 @@ get_header();
                                     rooted and relevant.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Preserving and Elevating Cultural Values</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Local narratives,
                                         practices, and identities are carefully studied and thoughtfully reinterpreted
@@ -176,7 +177,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Site-Sensitive Design</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Each design responds
                                         directly to climate, context, and topography so the building relates naturally
@@ -186,16 +187,16 @@ get_header();
                         </div>
                     </article>
 
-                    <article class="arti-way-item border-b border-black/14"
+                    <article class="arti-way-item"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/innovation.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-10 py-6 text-left transition-colors duration-300 max-md:grid max-md:grid-cols-[64px_1fr]"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number w-20 shrink-0 text-[0.7rem] tracking-[0.4em] text-black/70">04</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">04</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[0.86rem] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Innovation</span>
-                            <span class="arti-way-title text-[1.02rem] text-black/72">Fresh Perspective for a Better
+                                class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Innovation</span>
+                            <span class="arti-way-title text-[12px] text-black/72">Fresh Perspective for a Better
                                 Future</span>
                         </button>
                         <div class="arti-way-panel hidden px-0">
@@ -205,7 +206,7 @@ get_header();
                                     context.</p>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Future-Ready Thinking</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Spatial flexibility,
                                         environmental foresight, and design experimentation support buildings that adapt
@@ -213,7 +214,7 @@ get_header();
                                 </div>
                                 <div>
                                     <h3
-                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-black/62">
+                                        class="mb-3 text-[0.62rem] font-semibold uppercase tracking-[31%] text-dark-brown">
                                         Cross-Disciplinary Process</h3>
                                     <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Collaboration across
                                         craft, research, and technology allows architecture to solve complexity with
@@ -345,13 +346,13 @@ get_header();
                         <ul class="m-0 list-none divide-y divide-black/12 p-0">
                             <?php while ($experiences_query->have_posts()):
                                 $experiences_query->the_post(); ?>
-                                <li class="py-4 text-[0.78rem] leading-[1.8] text-black/62"><?php the_title(); ?></li>
+                                <li class="py-4 text-[0.78rem] leading-[1.8] text-dark-brown"><?php the_title(); ?></li>
                             <?php endwhile; ?>
                         </ul>
                         <?php wp_reset_postdata(); ?>
                     <?php else: ?>
                         <ul class="m-0 list-none divide-y divide-black/12 p-0">
-                            <li class="py-4 text-[0.78rem] leading-[1.8] text-black/48">
+                            <li class="py-4 text-[0.78rem] leading-[1.8] text-dark-brown">
                                 Example (no data): Community Design Residency - Jakarta
                             </li>
                         </ul>
@@ -380,11 +381,11 @@ get_header();
                 ]);
                 ?>
 
-                <div class="border-t border-black/12">
+                <div>
                     <div
-                        class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-4 text-[12px] tracking-[0.08em] text-black/54">
+                        class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-4 text-[9px] tracking-[0.08em] text-light-brown">
                         <p class="m-0">List</p>
-                        <p class="m-0 ">Year</p>
+                        <p class="m-0 hidden md:block">Year</p>
                     </div>
 
                     <?php if ($awards_query->have_posts()): ?>
@@ -396,7 +397,7 @@ get_header();
                             }
                             ?>
                             <div
-                                class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[0.78rem] leading-[1.7] text-black/62">
+                                class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[9px] leading-[1.7] text-dark-brown">
                                 <p class="m-0"><?php the_title(); ?></p>
                                 <p class="m-0 "><?php echo esc_html((string) $award_year); ?></p>
                             </div>
@@ -404,12 +405,12 @@ get_header();
                         <?php wp_reset_postdata(); ?>
                     <?php else: ?>
                         <div
-                            class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[0.78rem] leading-[1.7] text-black/48">
+                            class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[9px] leading-[1.7] text-dark-brown">
                             <p class="m-0">Example 1 (no data): National Architecture Merit Award - Best Installation</p>
                             <p class="m-0 ">2022</p>
                         </div>
                         <div
-                            class="grid grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[0.78rem] leading-[1.7] text-black/48">
+                            class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[9px] leading-[1.7] text-dark-brown">
                             <p class="m-0">Example 2 (no data): Regional Design Prize - Community Space Category</p>
                             <p class="m-0 ">2019</p>
                         </div>

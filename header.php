@@ -38,7 +38,7 @@
     <div id="page" class="min-h-screen flex flex-col opacity-0 transition-opacity duration-700">
         <?php do_action('tailpress_header'); ?>
 
-        <header id="site-header" class="relative z-40 bg-beige-1 py-5 px-9 transition-colors duration-300">
+        <header id="site-header" class="relative z-40 bg-beige-1 py-5 px-4 md:px-9 transition-colors duration-300">
             <div class="flex items-center justify-between">
                 <a href="<?php echo esc_url(home_url('/')); ?>"
                     class="!no-underline text-zinc-900 text-4xl md:text-5xl font-light leading-none tracking-tight lowercase">

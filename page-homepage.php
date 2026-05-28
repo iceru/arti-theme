@@ -16,7 +16,7 @@ get_header();
     <nav
         class="relative z-10 flex items-center gap-10 text-zinc-800 text-[12px] bg-beige-1 py-8 px-8 tracking-[0.45em] uppercase font-medium md:gap-16">
         <a href="/studio" class="!no-underline hover:opacity-70 transition">Studio</a>
-        <a href="#" class="!no-underline hover:opacity-70 transition">Works</a>
+        <a href="/works" class="!no-underline hover:opacity-70 transition">Works</a>
     </nav>
 </section>
 
