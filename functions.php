@@ -162,17 +162,16 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
         while ($query->have_posts()):
             $query->the_post();
 
-            $status = function_exists('get_field') ? (string) get_field('status') : '';
+            $type = function_exists('get_field') ? (string) get_field('type') : '';
             $icon_outside = function_exists('get_field') ? get_field('icon_outside') : '';
-            $icon_inside = function_exists('get_field') ? get_field('icon_inside') : '';
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             $category_label = (!is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : '';
             ?>
             <article class="grid grid-cols-[1fr_300px] gap-6 max-md:grid-cols-1 max-md:gap-4">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
-                    <div class="overflow-hidden bg-black/8">
+                    <div class="overflow-hidden ">
                         <?php if (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('large', ['class' => 'block h-[420px] rounded-br-[110px] md:rounded-br-[250px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] max-md:h-[260px]']); ?>
+                            <?php the_post_thumbnail('large', ['class' => 'block h-[445px] rounded-br-[110px] md:rounded-br-[250px] w-full object-cover transition-transform duration-500 max-md:h-[260px]']); ?>
                         <?php else: ?>
                             <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[110px] md:rounded-br-[250px]"></div>
                         <?php endif; ?>
@@ -180,27 +179,29 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                 </a>
                 <div class="pt-3">
                     <div class="mb-6 flex items-center gap-2">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-sm bg-[#3b3b3b] text-white">
+                        <span class="inline-flex h-10 w-10 items-center">
                             <?php
                             if (is_numeric($icon_outside)) {
-                                echo wp_get_attachment_image((int) $icon_outside, 'thumbnail', false, ['class' => 'h-5 w-5 object-contain']);
+                                echo wp_get_attachment_image((int) $icon_outside, 'thumbnail', false, ['class' => 'h-10 w-10 object-contain']);
                             } elseif (is_array($icon_outside) && !empty($icon_outside['url'])) {
-                                echo '<img src="' . esc_url($icon_outside['url']) . '" alt="" class="h-5 w-5 object-contain">';
+                                echo '<img src="' . esc_url($icon_outside['url']) . '" alt="" class="h-10 w-10 object-contain">';
+                            } elseif (is_string($icon_outside) && trim($icon_outside) !== '') {
+                                echo '<img src="' . esc_url($icon_outside) . '" alt="" class="h-10 w-10 object-contain">';
                             } else {
                                 echo '<span class="block h-3 w-3 rounded-full bg-white/90"></span>';
                             }
                             ?>
                         </span>
                     </div>
-                    <h2 class="m-0 text-[12px] font-medium uppercase tracking-[0.38em] text-[#2f2f2f]">
+                    <h2 class="m-0 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">
                         <?php echo esc_html(get_the_title()); ?>
                     </h2>
-                    <?php if (!empty($category_label)): ?>
+                    <!-- <?php if (!empty($category_label)): ?>
                         <p class="mt-1 text-[0.62rem] text-black/52"><?php echo esc_html($category_label); ?></p>
+                    <?php endif; ?> -->
+                    <?php if (!empty($type)): ?>
+                        <p class="mt-2 text-[9px] uppercase tracking-[0.1em] text-light-brown"><?php echo esc_html($type); ?></p>
                     <?php endif; ?>
-                    <!-- <?php if (!empty($status)): ?>
-        <p class="mt-2 text-[0.6rem] uppercase tracking-[0.28em] text-black/46"><?php echo esc_html($status); ?></p>
-        <?php endif; ?> -->
                 </div>
             </article>
             <?php

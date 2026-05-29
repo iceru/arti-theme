@@ -245,6 +245,9 @@ $resolve_attachment_id = static function ($item): int {
                     <?php elseif (is_array($model_image) && !empty($model_image['url'])): ?>
                         <img src="<?php echo esc_url($model_image['url']); ?>"
                             alt="<?php echo esc_attr(get_the_title()); ?>" class="block h-auto w-full object-cover">
+                    <?php elseif (is_string($model_image) && trim($model_image) !== ''): ?>
+                        <img src="<?php echo esc_url($model_image); ?>"
+                            alt="<?php echo esc_attr(get_the_title()); ?>" class="block h-auto w-full object-cover">
                     <?php elseif (has_post_thumbnail()): ?>
                         <?php the_post_thumbnail('large', ['class' => 'block h-auto w-full object-cover']); ?>
                     <?php endif; ?>

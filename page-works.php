@@ -94,7 +94,7 @@ $initial_works_query = new WP_Query([
         </div>
 
         <div class="flex">
-            <p class="hidden md:block mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d] w-[20%]">Works</p>
+            <p class="hidden md:block mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d] w-[22%]">Works</p>
 
             <div id="works-cards" class="space-y-14 w-full">
                 <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>
