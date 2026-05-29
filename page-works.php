@@ -54,16 +54,17 @@ $initial_works_query = new WP_Query([
 </style>
 
 <section class="bg-beige-1 pb-16 pt-8 md:pt-10">
-    <div class="px-6 md:px-8">
-        <div class="mb-8 flex items-start justify-between gap-6 py-10">
+    <div class="px-4 md:px-8">
+        <div class="mb-8 flex items-start justify-between gap-6 md:py-10">
             <div class="w-full">
-                <div class="inline-flex items-center gap-3 border-0 bg-transparent p-0 text-[0.72rem] uppercase tracking-[0.42em] text-[#5a5a5a]">
+                <div
+                    class="inline-flex items-center gap-3 border-0 bg-transparent p-0 text-[0.72rem] uppercase tracking-[0.42em] text-[#5a5a5a]">
                     <span id="works-filter-count"
                         class="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-[#2e2e2e] px-2 text-[0.76rem] font-medium tracking-normal text-white">0</span>
                     <span id="works-filter-toggle-label">Filter -</span>
                 </div>
 
-                <div id="works-filter-panel" class="mt-10">
+                <div id="works-filter-panel" class="md:mt-10">
                     <ul class="m-0 grid list-none gap-y-6 gap-x-10 p-0 md:grid-cols-3">
                         <?php if (!empty($work_terms) && !is_wp_error($work_terms)): ?>
                             <?php foreach ($work_terms as $term): ?>
@@ -93,7 +94,7 @@ $initial_works_query = new WP_Query([
         </div>
 
         <div class="flex">
-            <p class="mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d] w-[20%]">Works</p>
+            <p class="hidden md:block mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d] w-[20%]">Works</p>
 
             <div id="works-cards" class="space-y-14 w-full">
                 <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>

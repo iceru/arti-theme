@@ -382,14 +382,9 @@ function initArtiWayAccordion($) {
         $panel.hide().slideDown(220)
     }
 
-    $accordion.find('.arti-way-item').each(function (index) {
-        const $item = $(this)
-        if (index !== 0) {
-            closeItem($item, true)
-        }
+    $accordion.find('.arti-way-item').each(function () {
+        closeItem($(this), true)
     })
-
-    openItem($accordion.find('.arti-way-item').first(), true)
 
     $accordion.on('click', '.arti-way-trigger', function () {
         const $current = $(this).closest('.arti-way-item')

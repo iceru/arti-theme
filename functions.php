@@ -172,9 +172,9 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden bg-black/8">
                         <?php if (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('large', ['class' => 'block h-[420px] rounded-br-[250px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] max-md:h-[260px]']); ?>
+                            <?php the_post_thumbnail('large', ['class' => 'block h-[420px] rounded-br-[110px] md:rounded-br-[250px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] max-md:h-[260px]']); ?>
                         <?php else: ?>
-                            <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[250px]"></div>
+                            <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[110px] md:rounded-br-[250px]"></div>
                         <?php endif; ?>
                     </div>
                 </a>
@@ -210,7 +210,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
         ?>
         <article class="grid grid-cols-[1fr_300px] gap-6 max-md:grid-cols-1 max-md:gap-4">
             <div>
-                <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[250px]"></div>
+                <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[110px] md:rounded-br-[250px]"></div>
             </div>
             <div class="pt-3">
                 <div class="mb-6 flex items-center gap-2">

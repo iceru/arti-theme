@@ -33,7 +33,7 @@ get_header();
         </aside>
 
         <div class="px-4 md:px-8 pt-32 max-md:px-5 max-md:pt-14">
-            <section class="min-h-[84vh] max-md:min-h-0" aria-labelledby="studio-about-title">
+            <section class="md:pb-32 pb-14" aria-labelledby="studio-about-title">
                 <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown"
                     id="about-us">About
                     Us
@@ -43,7 +43,7 @@ get_header();
                     Collaboration In Form
                 </h1>
                 <p
-                    class="m-0 max-w-[620px] text-[0.82rem] leading-[1.85] text-light-brown max-md:text-[0.78rem] max-md:leading-[1.7]">
+                    class="m-0 max-w-[620px] text-[9px] leading-[1.85] text-light-brown max-md:text-[9px] max-md:leading-[1.7]">
                     Established in 2020, Arti Design Studio is a Jakarta-based practice reconnecting people with nature
                     through experimental design. With a portfolio of 100+ projects and a growing skyline of completed
                     works, we use data and research to solve the environmental and societal challenges of the modern
@@ -80,7 +80,7 @@ get_header();
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/artisan.png')); ?>">
                         <button type="button"
                             class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300 "
-                            aria-expanded="true">
+                            aria-expanded="false">
                             <span
                                 class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">01</span>
                             <span
@@ -88,7 +88,7 @@ get_header();
                             <span class="arti-way-title text-[12px] text-black/72">Design with Depth &amp;
                                 Character</span>
                         </button>
-                        <div class="arti-way-panel px-0 ">
+                        <div class="arti-way-panel hidden px-0 ">
                             <div class="grid grid-cols-3 gap-8 max-md:grid-cols-1 max-md:gap-6 py-12">
                                 <p class="m-0 text-[0.76rem] leading-[1.8] text-black/70">Design with a maker's
                                     sensitivity, shaping spaces through refined judgment, deliberate choices, and a deep
@@ -228,7 +228,7 @@ get_header();
 
             <section class="pt-20 max-md:pt-14" id="expertise" aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-black/66">Expertise</p>
+                    <p class="mb-20 text-[12px] uppercase tracking-[0.31em] text-light-brown">Expertise</p>
                 </div>
 
                 <?php
@@ -248,23 +248,23 @@ get_header();
                             $expertise_query->the_post();
                             $expertise_index++;
 
-                            $expertise_description = function_exists('get_field') ? get_field('description') : '';
+                            $expertise_description = wp_strip_all_tags(get_the_content());
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
                             ?>
                             <article>
-                                <h2 class="mb-6 text-[1.55rem] leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown max-md:text-[1.1rem]"
+                                <h2 class="mb-8 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
                                     id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
                                     <?php the_title(); ?>
                                 </h2>
 
                                 <?php if (!empty($expertise_description)): ?>
-                                    <p class="m-0 mb-12 max-w-[820px] text-[0.78rem] leading-[1.8] text-light-brown">
+                                    <p class="m-0 mb-12 max-w-[721px] text-[9px] leading-[1.8] text-light-brown">
                                         <?php echo esc_html($expertise_description); ?>
                                     </p>
                                 <?php endif; ?>
 
                                 <?php if (!empty($expertise_items) && is_array($expertise_items)): ?>
-                                    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                                    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
                                         <?php foreach ($expertise_items as $item): ?>
                                             <?php
                                             $item_title = '';
@@ -297,17 +297,17 @@ get_header();
                                             }
                                             ?>
                                             <article>
-                                                <div class="overflow-hidden bg-black/5">
+                                                <div class="overflow-hidden">
                                                     <?php if (!empty($item_image_url)): ?>
                                                         <img src="<?php echo esc_url($item_image_url); ?>"
                                                             alt="<?php echo esc_attr($item_title); ?>"
-                                                            class="block aspect-[16/10] w-full object-cover">
+                                                            class="block aspect-[16/10] rounded-bl-2xl w-full object-cover">
                                                     <?php else: ?>
-                                                        <div class="aspect-[16/10] w-full bg-black/10"></div>
+                                                        <div class="aspect-[16/10] w-full rounded-bl-2xl bg-black/10"></div>
                                                     <?php endif; ?>
                                                 </div>
                                                 <?php if (!empty($item_title)): ?>
-                                                    <h3 class="mt-4 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d]">
+                                                    <h3 class="mt-4 text-[12px] font-medium uppercase tracking-[0.31em] text-[#2d2d2d]">
                                                         <?php echo esc_html($item_title); ?>
                                                     </h3>
                                                 <?php endif; ?>
@@ -322,61 +322,23 @@ get_header();
                 <?php endif; ?>
             </section>
 
-            <section class="pt-20 max-md:pt-14" id="experiences" aria-labelledby="experiences-title">
-                <div class="border-t border-black/15 pt-6">
-                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-black/66">Experiences</p>
-                </div>
-
-                <?php
-                $experiences_query = new WP_Query([
-                    'post_type' => ['experience', 'experiences'],
-                    'posts_per_page' => 6,
-                    'orderby' => 'menu_order',
-                    'order' => 'ASC',
-                ]);
-                ?>
-
-                <div>
-                    <h2 class="mb-6 text-[1.55rem] leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown max-md:text-[1.1rem]"
-                        id="experiences-title">
-                        Practice Through Places
-                    </h2>
-
-                    <?php if ($experiences_query->have_posts()): ?>
-                        <ul class="m-0 list-none divide-y divide-black/12 p-0">
-                            <?php while ($experiences_query->have_posts()):
-                                $experiences_query->the_post(); ?>
-                                <li class="py-4 text-[0.78rem] leading-[1.8] text-dark-brown"><?php the_title(); ?></li>
-                            <?php endwhile; ?>
-                        </ul>
-                        <?php wp_reset_postdata(); ?>
-                    <?php else: ?>
-                        <ul class="m-0 list-none divide-y divide-black/12 p-0">
-                            <li class="py-4 text-[0.78rem] leading-[1.8] text-dark-brown">
-                                Example (no data): Community Design Residency - Jakarta
-                            </li>
-                        </ul>
-                    <?php endif; ?>
-                </div>
-            </section>
-
             <section class="pt-20 max-md:pt-14" id="awards" aria-labelledby="awards-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-black/66">Awards</p>
+                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-light-brown">Awards</p>
 
-                    <p class="m-0 mb-16 max-w-[860px] text-[0.78rem] leading-[1.8] text-light-brown max-md:mb-12">
+                    <p class="m-0 mb-16 max-w-[700px] text-[9px] leading-[1.8] text-light-brown max-md:mb-12">
                         Arti Design Studio is a multi-disciplinary and award-winning practice that places
-                        sustainability,
-                        community, and craftsmanship at the heart of every project.
+                        sustainability, community, and craftsmanship at the heart of every project. Through
+                        narrative-led design and deep engagement, we shape environments that inspire and endure.
                     </p>
                 </div>
 
                 <?php
                 $awards_query = new WP_Query([
-                    'post_type' => 'awards',
+                    'post_type' => ['award', 'awards'],
+                    'post_status' => 'publish',
                     'posts_per_page' => -1,
-                    'orderby' => 'meta_value_num',
-                    'meta_key' => 'year',
+                    'orderby' => 'date',
                     'order' => 'DESC',
                 ]);
                 ?>
@@ -391,8 +353,19 @@ get_header();
                     <?php if ($awards_query->have_posts()): ?>
                         <?php while ($awards_query->have_posts()):
                             $awards_query->the_post();
-                            $award_year = function_exists('get_field') ? get_field('year') : '';
-                            if (empty($award_year)) {
+                            $award_year = '';
+                            $award_text_sources = [
+                                wp_strip_all_tags(get_the_content()),
+                            ];
+
+                            foreach ($award_text_sources as $award_text_source) {
+                                if (preg_match('/\b(19|20)\d{2}\b/', (string) $award_text_source, $award_year_match)) {
+                                    $award_year = $award_year_match[0];
+                                    break;
+                                }
+                            }
+
+                            if ($award_year === '') {
                                 $award_year = get_the_date('Y');
                             }
                             ?>
