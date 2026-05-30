@@ -11,25 +11,28 @@ get_header();
 <section class="bg-beige-1 pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
     <div class="grid grid-cols-[minmax(220px,300px)_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
         <aside
-            class="hidden md:block relative min-h-full border-r border-black/8 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.16)_1px,transparent_1px)] bg-[size:25px_25px] max-md:border-r-0 max-md:border-b max-md:border-black/8 max-md:bg-[size:22px_22px]"
+            class="hidden md:block relative min-h-full bg-beige-1 max-md:border-r-0 max-md:border-b max-md:border-black/8"
             aria-label="Studio sections">
-            <nav
-                class="sticky top-11 flex flex-col gap-3.5 px-8 pt-32 pb-8 max-md:static max-md:flex-row max-md:flex-wrap max-md:gap-x-5 max-md:gap-y-4 max-md:px-5 max-md:pt-8 max-md:pb-6">
-                <a href="#about-us"
-                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-100">
-                    <span class="studio-nav-dot mr-[0.45rem]">&bull;</span>About Us
-                </a>
-                <a href="#the-arti-way"
-                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
-                        class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>The Arti
-                    Way</a>
-                <a href="#expertise"
-                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
-                        class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Expertise</a>
-                <a href="#awards"
-                    class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
-                        class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Awards</a>
-            </nav>
+            <div class="absolute inset-0 bg-repeat bg-[length:1500px_auto] bg-top opacity-40 pointer-events-none"
+                style="background-image: url('<?php echo esc_url(get_theme_file_uri('/images/bg.png')); ?>');"></div>
+            <div class="sticky top-11 ml-6 pt-28 z-10">
+                <nav class="relative bg-beige-1 inline-flex flex-col gap-3 py-2 px-4 ">
+                    <a href="#about-us"
+                        class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-100">
+                        <span class="studio-nav-dot mr-[0.45rem]">&bull;</span>About Us
+                    </a>
+                    <a href="#the-arti-way"
+                        class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
+                            class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>The Arti
+                        Way</a>
+                    <a href="#expertise"
+                        class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
+                            class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Expertise</a>
+                    <a href="#awards"
+                        class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-40"><span
+                            class="studio-nav-dot mr-[0.45rem] opacity-0">&bull;</span>Awards</a>
+                </nav>
+            </div>
         </aside>
 
         <div class="px-4 md:px-8 pt-32 max-md:px-5 max-md:pt-14">
