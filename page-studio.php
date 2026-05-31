@@ -35,8 +35,8 @@ get_header();
             </div>
         </aside>
 
-        <div class="px-4 md:px-8 pt-32 max-md:px-5 max-md:pt-14">
-            <section class="md:pb-32 pb-14" aria-labelledby="studio-about-title">
+        <div class="min-w-0 pt-32 max-md:px-5 max-md:pt-14">
+            <section class="md:pb-32 pb-14 px-8" aria-labelledby="studio-about-title">
                 <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown"
                     id="about-us">About
                     Us
@@ -59,7 +59,7 @@ get_header();
                 </div>
             </section>
 
-            <section class="pt-12 max-md:pt-10" id="the-arti-way" aria-labelledby="arti-way-title">
+            <section class="pt-12 max-md:pt-10 px-8" id="the-arti-way" aria-labelledby="arti-way-title">
                 <div class="border-t border-black/15 pt-4">
                     <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[0.5em] text-light-brown">The Arti Way</h4>
                     <h3 class="mb-5 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown max-md:text-[1.22rem]"
@@ -229,7 +229,7 @@ get_header();
                 </div>
             </section>
 
-            <section class="pt-20 max-md:pt-14" id="expertise" aria-labelledby="expertise-title">
+            <section class="min-w-0 pt-20 max-md:pt-14 pl-8" id="expertise" aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
                     <p class="mb-20 text-[12px] uppercase tracking-[0.31em] text-light-brown">Expertise</p>
                 </div>
@@ -244,7 +244,7 @@ get_header();
                 ?>
 
                 <?php if ($expertise_query->have_posts()): ?>
-                    <div class="space-y-24 max-md:space-y-16">
+                    <div class="min-w-0 space-y-24 max-md:space-y-16">
                         <?php
                         $expertise_index = 0;
                         while ($expertise_query->have_posts()):
@@ -254,7 +254,7 @@ get_header();
                             $expertise_description = wp_strip_all_tags(get_the_content());
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
                             ?>
-                            <article>
+                            <article class="min-w-0 overflow-hidden">
                                 <h2 class="mb-8 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
                                     id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
                                     <?php the_title(); ?>
@@ -267,55 +267,61 @@ get_header();
                                 <?php endif; ?>
 
                                 <?php if (!empty($expertise_items) && is_array($expertise_items)): ?>
-                                    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-                                        <?php foreach ($expertise_items as $item): ?>
-                                            <?php
-                                            $item_title = '';
-                                            $item_image_url = '';
+                                    <?php $use_horizontal_track = count($expertise_items) > 3; ?>
+                                    <div class="<?php echo $use_horizontal_track ? 'expertise-items-track w-full max-w-full overflow-x-auto overflow-y-hidden pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : ''; ?>"
+                                        <?php echo $use_horizontal_track ? 'data-horizontal-scroll-lock="true"' : ''; ?>>
+                                        <div
+                                            class="<?php echo $use_horizontal_track ? 'flex w-max max-w-none gap-5' : 'grid grid-cols-1 gap-5 md:grid-cols-3'; ?>">
+                                            <?php foreach ($expertise_items as $item): ?>
+                                                <?php
+                                                $item_title = '';
+                                                $item_image_url = '';
 
-                                            if (is_object($item) && isset($item->ID)) {
-                                                $item_title = get_the_title($item->ID);
-                                                $item_image_url = get_the_post_thumbnail_url($item->ID, 'large');
-                                                if (function_exists('get_field') && !$item_image_url) {
-                                                    $item_image = get_field('image', $item->ID);
-                                                    if (is_array($item_image) && !empty($item_image['url'])) {
-                                                        $item_image_url = $item_image['url'];
-                                                    } elseif (is_numeric($item_image)) {
-                                                        $item_image_url = wp_get_attachment_image_url((int) $item_image, 'large');
+                                                if (is_object($item) && isset($item->ID)) {
+                                                    $item_title = get_the_title($item->ID);
+                                                    $item_image_url = get_the_post_thumbnail_url($item->ID, 'large');
+                                                    if (function_exists('get_field') && !$item_image_url) {
+                                                        $item_image = get_field('image', $item->ID);
+                                                        if (is_array($item_image) && !empty($item_image['url'])) {
+                                                            $item_image_url = $item_image['url'];
+                                                        } elseif (is_numeric($item_image)) {
+                                                            $item_image_url = wp_get_attachment_image_url((int) $item_image, 'large');
+                                                        }
+                                                    }
+                                                } elseif (is_array($item)) {
+                                                    $item_title = isset($item['title']) ? (string) $item['title'] : '';
+                                                    if (empty($item_title) && isset($item['name'])) {
+                                                        $item_title = (string) $item['name'];
+                                                    }
+
+                                                    if (!empty($item['image']) && is_array($item['image']) && !empty($item['image']['url'])) {
+                                                        $item_image_url = $item['image']['url'];
+                                                    } elseif (!empty($item['image']) && is_numeric($item['image'])) {
+                                                        $item_image_url = wp_get_attachment_image_url((int) $item['image'], 'large');
+                                                    } elseif (!empty($item['thumbnail']) && is_array($item['thumbnail']) && !empty($item['thumbnail']['url'])) {
+                                                        $item_image_url = $item['thumbnail']['url'];
                                                     }
                                                 }
-                                            } elseif (is_array($item)) {
-                                                $item_title = isset($item['title']) ? (string) $item['title'] : '';
-                                                if (empty($item_title) && isset($item['name'])) {
-                                                    $item_title = (string) $item['name'];
-                                                }
-
-                                                if (!empty($item['image']) && is_array($item['image']) && !empty($item['image']['url'])) {
-                                                    $item_image_url = $item['image']['url'];
-                                                } elseif (!empty($item['image']) && is_numeric($item['image'])) {
-                                                    $item_image_url = wp_get_attachment_image_url((int) $item['image'], 'large');
-                                                } elseif (!empty($item['thumbnail']) && is_array($item['thumbnail']) && !empty($item['thumbnail']['url'])) {
-                                                    $item_image_url = $item['thumbnail']['url'];
-                                                }
-                                            }
-                                            ?>
-                                            <article>
-                                                <div class="overflow-hidden">
-                                                    <?php if (!empty($item_image_url)): ?>
-                                                        <img src="<?php echo esc_url($item_image_url); ?>"
-                                                            alt="<?php echo esc_attr($item_title); ?>"
-                                                            class="block aspect-[16/10] rounded-bl-2xl w-full object-cover">
-                                                    <?php else: ?>
-                                                        <div class="aspect-[16/10] w-full rounded-bl-2xl bg-black/10"></div>
+                                                ?>
+                                                <article
+                                                    class="<?php echo $use_horizontal_track ? 'w-[260px] shrink-0 md:w-[420px]' : ''; ?>">
+                                                    <div class="overflow-hidden">
+                                                        <?php if (!empty($item_image_url)): ?>
+                                                            <img src="<?php echo esc_url($item_image_url); ?>"
+                                                                alt="<?php echo esc_attr($item_title); ?>"
+                                                                class="block aspect-[16/10] rounded-bl-2xl w-full object-cover">
+                                                        <?php else: ?>
+                                                            <div class="aspect-[16/10] w-full rounded-bl-2xl bg-black/10"></div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <?php if (!empty($item_title)): ?>
+                                                        <h3 class="mt-4 text-[12px] font-medium uppercase tracking-[0.31em] text-[#2d2d2d]">
+                                                            <?php echo esc_html($item_title); ?>
+                                                        </h3>
                                                     <?php endif; ?>
-                                                </div>
-                                                <?php if (!empty($item_title)): ?>
-                                                    <h3 class="mt-4 text-[12px] font-medium uppercase tracking-[0.31em] text-[#2d2d2d]">
-                                                        <?php echo esc_html($item_title); ?>
-                                                    </h3>
-                                                <?php endif; ?>
-                                            </article>
-                                        <?php endforeach; ?>
+                                                </article>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 <?php endif; ?>
                             </article>
@@ -325,7 +331,7 @@ get_header();
                 <?php endif; ?>
             </section>
 
-            <section class="pt-20 max-md:pt-14" id="awards" aria-labelledby="awards-title">
+            <section class="pt-20 max-md:pt-14 px-8" id="awards" aria-labelledby="awards-title">
                 <div class="border-t border-black/15 pt-6">
                     <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-light-brown">Awards</p>
 
@@ -396,6 +402,131 @@ get_header();
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tracks = Array.from(document.querySelectorAll('.expertise-items-track[data-horizontal-scroll-lock="true"]'));
+        if (!tracks.length) {
+            return;
+        }
+
+        const trackStates = new WeakMap();
+        const SCROLL_EASE = 0.18;
+        const STOP_THRESHOLD = 0.5;
+        let lenisResumeTimer = 0;
+
+        function pauseLenisBriefly() {
+            if (!window.lenis || typeof window.lenis.stop !== 'function' || typeof window.lenis.start !== 'function') {
+                return;
+            }
+
+            window.lenis.stop();
+            window.clearTimeout(lenisResumeTimer);
+            lenisResumeTimer = window.setTimeout(function () {
+                window.lenis.start();
+            }, 120);
+        }
+
+        function getTrackState(track) {
+            if (!trackStates.has(track)) {
+                trackStates.set(track, {
+                    target: track.scrollLeft,
+                    rafId: 0,
+                });
+            }
+            return trackStates.get(track);
+        }
+
+        function animateTrack(track) {
+            const state = getTrackState(track);
+            const diff = state.target - track.scrollLeft;
+
+            if (Math.abs(diff) <= STOP_THRESHOLD) {
+                track.scrollLeft = state.target;
+                state.rafId = 0;
+                return;
+            }
+
+            track.scrollLeft += diff * SCROLL_EASE;
+            state.rafId = window.requestAnimationFrame(function () {
+                animateTrack(track);
+            });
+        }
+
+        function queueTrackScroll(track, deltaY) {
+            const state = getTrackState(track);
+            const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+            state.target = Math.max(0, Math.min(maxScrollLeft, state.target + deltaY));
+
+            if (!state.rafId) {
+                state.rafId = window.requestAnimationFrame(function () {
+                    animateTrack(track);
+                });
+            }
+        }
+
+        function getActiveTrack() {
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            return tracks.find(function (track) {
+                const rect = track.getBoundingClientRect();
+                const topTrigger = viewportHeight * 0.22;
+                const bottomTrigger = viewportHeight * 0.92;
+                return rect.top >= topTrigger && rect.bottom <= bottomTrigger;
+            }) || null;
+        }
+
+        function moveTrackWithWheel(track, deltaY) {
+            if (!track || deltaY === 0) {
+                return false;
+            }
+
+            if (track.scrollWidth <= track.clientWidth) {
+                return false;
+            }
+
+            const state = getTrackState(track);
+            const maxScrollLeft = track.scrollWidth - track.clientWidth;
+            const currentOrTarget = Math.max(track.scrollLeft, state.target);
+            const currentOrTargetMin = Math.min(track.scrollLeft, state.target);
+            const canScrollRight = currentOrTarget < (maxScrollLeft - 1);
+            const canScrollLeft = currentOrTargetMin > 1;
+
+            if ((deltaY > 0 && canScrollRight) || (deltaY < 0 && canScrollLeft)) {
+                queueTrackScroll(track, deltaY);
+                return true;
+            }
+
+            return false;
+        }
+
+        tracks.forEach(function (track) {
+            // Strong lock when cursor is on/inside the horizontal track.
+            track.addEventListener('wheel', function (event) {
+                const deltaY = event.deltaY || 0;
+                if (moveTrackWithWheel(track, deltaY)) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    pauseLenisBriefly();
+                }
+            }, { passive: false });
+        });
+
+        // Fallback lock when cursor is outside track but Expertise area is in view.
+        window.addEventListener('wheel', function (event) {
+            const track = getActiveTrack();
+            if (!track) {
+                return;
+            }
+
+            const deltaY = event.deltaY || 0;
+            if (moveTrackWithWheel(track, deltaY)) {
+                event.preventDefault();
+                event.stopPropagation();
+                pauseLenisBriefly();
+            }
+        }, { passive: false });
+    });
+</script>
 
 <?php
 get_footer();

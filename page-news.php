@@ -84,6 +84,7 @@ $initial_news_query = new WP_Query([
         const $toggleLabel = $('#news-filter-toggle-label');
         const $counter = $('#news-filter-count');
         const $cards = $('#news-cards');
+        const $track = $('#news-track');
         const selected = new Set();
 
         function updateCounter() {
@@ -128,6 +129,18 @@ $initial_news_query = new WP_Query([
             $panel.toggleClass('hidden');
             const isOpen = !$panel.hasClass('hidden');
             $toggleLabel.text(isOpen ? 'Filter -' : 'Filter +');
+        });
+
+        // Use vertical wheel movement to scroll news items horizontally.
+        $track.on('wheel', function (event) {
+            const nativeEvent = event.originalEvent;
+            const deltaY = nativeEvent.deltaY || 0;
+            const deltaX = nativeEvent.deltaX || 0;
+
+            if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                event.preventDefault();
+                this.scrollLeft += deltaY;
+            }
         });
 
         $(document).on('click', '.news-category-btn', function () {
