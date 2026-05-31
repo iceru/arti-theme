@@ -12,7 +12,7 @@
 
 <?php do_action('tailpress_content_after'); ?>
 
-<footer id="colophon" class=" text-zinc-800 bg-beige-1" role="contentinfo">
+<footer id="colophon" class=" text-dark-brown bg-beige-1" role="contentinfo">
     <div class="px-4 md:px-12 py-6 md:py-12 rounded-tr-[32px] bg-beige-2">
         <?php do_action('tailpress_footer'); ?>
         <div class="grid grid-cols-2 md:grid-cols-12 gap-8 md:gap-6">
@@ -23,15 +23,15 @@
             <div class="col-span-1 md:col-span-2 md:col-start-3 text-[9px]">
                 <p class="mb-4 md:mb-6">Instagram</p>
                 <a href="https://www.instagram.com/arti.designstudio/" target="_blank"
-                    class="text-zinc-600">@arti.designstudio</a>
+                    class="text-light-brown">@arti.designstudio</a>
             </div>
             <div class="col-span-1 md:col-span-2 md:col-start-5 text-[9px]">
                 <p class="mb-4 md:mb-6">Email</p>
-                <p class="text-zinc-600">info@arti-design.com</p>
+                <p class="text-light-brown">info@arti-design.com</p>
             </div>
             <div class="col-span-2 md:col-span-3 md:col-start-7 text-[9px]">
                 <p class="mb-4 md:mb-6">Address</p>
-                <p class="text-zinc-600">Jl. Horizon Broadway, Kec. Cisauk<br>Tangerang, Banten - 15345</p>
+                <p class="text-light-brown">Jl. Horizon Broadway, Kec. Cisauk<br>Tangerang, Banten - 15345</p>
             </div>
             <div class="hidden md:flex md:col-span-1 md:col-start-12 md:justify-end items-start">
                 <img src="<?php echo esc_url(get_theme_file_uri('/images/logo-short.png')); ?>" alt=""
@@ -40,7 +40,7 @@
         </div>
 
         <div class="flex justify-between items-end">
-            <div class="mt-14 md:mt-24 text-[9px] text-zinc-600">
+            <div class="mt-14 md:mt-24 text-[9px] text-light-brown">
                 &copy; Copyright Arti Design Studio,
                 <?php echo esc_html(date_i18n('Y')); ?>
             </div>

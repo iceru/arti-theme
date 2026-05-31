@@ -8,52 +8,71 @@
 get_header();
 
 $work_taxonomy = arti_get_work_taxonomy();
-$work_terms = [];
-if (!empty($work_taxonomy)) {
-    $work_terms = get_terms([
-        'taxonomy' => $work_taxonomy,
-        'hide_empty' => true,
-    ]);
-}
+$work_types = function_exists('arti_get_work_type_filters') ? arti_get_work_type_filters() : [];
 
 $initial_works_query = new WP_Query([
     'post_type' => 'work',
     'post_status' => 'publish',
     'posts_per_page' => 12,
     'orderby' => 'date',
-    'order' => 'DESC',
+    'order' => 'ASC',
 ]);
 ?>
 
 <style>
+    #works-cards>article {
+        opacity: 0.42;
+        transform: scale(0.9);
+        transform-origin: center center;
+        transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1), opacity 420ms ease;
+        will-change: transform, opacity;
+    }
+
+    #works-cards>article.is-active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
     .works-filter-btn {
         display: inline-flex;
         align-items: center;
-        gap: 12px;
-        opacity: 0.9;
-        transition: opacity 220ms ease, color 220ms ease;
+        gap: 14px;
+        opacity: 1;
+        color: #3f3f3f;
+        font-size: 9px;
+        line-height: 1.2;
+        letter-spacing: 0;
+        transition: color 220ms ease;
     }
 
     .works-filter-btn:hover {
-        opacity: 1;
+        color: #2f2f2f;
     }
 
     .works-filter-btn .works-filter-marker {
-        width: 14px;
-        height: 14px;
-        border-radius: 4px;
-        border: 1px solid rgba(51, 51, 51, 0.35);
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 5px 0 5px 0;
+        border: 2px solid #9a9792;
         background: transparent;
         transition: background-color 220ms ease, border-color 220ms ease;
+        flex-shrink: 0;
     }
 
     .works-filter-btn.is-active .works-filter-marker {
-        background: #333333;
-        border-color: #333333;
+        background: #2f2f2f;
+        border-color: #2f2f2f;
+    }
+
+    @media (max-width: 768px) {
+        .works-filter-btn {
+            font-size: 9px;
+        }
     }
 </style>
 
-<section class="bg-beige-1 pb-16 pt-8 md:pt-10">
+<section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
     <div class="px-4 md:px-8">
         <div class="mb-8 flex items-start justify-between gap-6 md:py-10">
             <div class="w-full">
@@ -65,15 +84,14 @@ $initial_works_query = new WP_Query([
                 </div>
 
                 <div id="works-filter-panel" class="md:mt-10">
-                    <ul class="m-0 grid list-none gap-y-6 gap-x-10 p-0 md:grid-cols-3">
-                        <?php if (!empty($work_terms) && !is_wp_error($work_terms)): ?>
-                            <?php foreach ($work_terms as $term): ?>
+                    <ul class="m-0 grid list-none gap-y-6 gap-x-10 p-0 md:grid-cols-3 max-w-[500px]">
+                        <?php if (!empty($work_types)): ?>
+                            <?php foreach ($work_types as $type): ?>
                                 <li>
-                                    <button type="button"
-                                        class="works-filter-btn text-left text-[1.85rem] leading-[1.12] text-dark-brown max-md:text-[1.22rem]"
-                                        data-term-id="<?php echo esc_attr((string) $term->term_id); ?>">
+                                    <button type="button" class="works-filter-btn text-left "
+                                        data-work-type="<?php echo esc_attr($type); ?>">
                                         <span class="works-filter-marker" aria-hidden="true"></span>
-                                        <span><?php echo esc_html($term->name); ?></span>
+                                        <span class="tracking-wider"><?php echo esc_html($type); ?></span>
                                     </button>
                                 </li>
                             <?php endforeach; ?>
@@ -86,15 +104,17 @@ $initial_works_query = new WP_Query([
                 <label for="works-search" class="sr-only">Search works</label>
                 <div class="flex items-center gap-3 pb-2">
                     <input type="search" id="works-search" placeholder="Search"
-                        class="w-full border-0 bg-transparent p-0 text-right text-[0.64rem] uppercase tracking-[0.42em] text-[#5a5a5a] placeholder:text-[#7a7a7a] focus:outline-none">
+                        class="w-full border-0 bg-transparent p-0 text-right text-[12px] uppercase tracking-[0.42em] text-dark-brown border-b border-beige-2 pb-4 placeholder:text-[#7a7a7a] focus:outline-none">
                     <img src="<?php echo esc_url(get_template_directory_uri() . '/images/search.png'); ?>"
-                        alt="Search Icon" class="h-4 w-4 object-contain">
+                        alt="Search Icon" class="h-4 w-4 object-contain mb-4">
                 </div>
             </div>
         </div>
 
         <div class="flex">
-            <p class="hidden md:block mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d] w-[22%]">Works</p>
+            <p class="hidden md:block mb-8 text-[12px] uppercase tracking-[0.31em]
+            text-dark-brown w-[22%] font-medium">
+                Works</p>
 
             <div id="works-cards" class="space-y-14 w-full">
                 <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>
@@ -109,11 +129,67 @@ $initial_works_query = new WP_Query([
         const $counter = $('#works-filter-count');
         const $search = $('#works-search');
         const $cards = $('#works-cards');
-        const selectedTerms = new Set();
+        const selectedTypes = new Set();
         let searchTimer = null;
+        let scrollTicking = false;
+
+        function getWorkItems() {
+            return $cards.children('article');
+        }
+
+        function setActiveByIndex(index) {
+            const $items = getWorkItems();
+            if (!$items.length) {
+                return;
+            }
+
+            const safeIndex = Math.max(0, Math.min(index, $items.length - 1));
+            $items.removeClass('is-active');
+            $items.eq(safeIndex).addClass('is-active');
+        }
+
+        function updateActiveItemByViewportCenter() {
+            const $items = getWorkItems();
+            if (!$items.length) {
+                return;
+            }
+
+            const viewportCenterY = window.innerHeight / 2;
+            let nearestIndex = 0;
+            let nearestDistance = Infinity;
+
+            $items.each(function (idx) {
+                const rect = this.getBoundingClientRect();
+                const itemCenterY = rect.top + (rect.height / 2);
+                const distance = Math.abs(itemCenterY - viewportCenterY);
+
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    nearestIndex = idx;
+                }
+            });
+
+            setActiveByIndex(nearestIndex);
+        }
+
+        function queueActiveUpdate() {
+            if (scrollTicking) {
+                return;
+            }
+
+            scrollTicking = true;
+            window.requestAnimationFrame(function () {
+                updateActiveItemByViewportCenter();
+                scrollTicking = false;
+            });
+        }
+
+        function initWorkScrollState() {
+            setActiveByIndex(0);
+        }
 
         function updateCounter() {
-            $counter.text(selectedTerms.size);
+            $counter.text(selectedTypes.size);
         }
 
         function fetchWorks() {
@@ -124,7 +200,7 @@ $initial_works_query = new WP_Query([
                 data: {
                     action: 'arti_filter_work_posts',
                     nonce: '<?php echo esc_js(wp_create_nonce('arti_filter_work_nonce')); ?>',
-                    terms: Array.from(selectedTerms),
+                    types: Array.from(selectedTypes),
                     search: $search.val()
                 },
                 beforeSend: function () {
@@ -136,6 +212,8 @@ $initial_works_query = new WP_Query([
                     }
                     $cards.html(response.data.html);
                     $counter.text(response.data.selected_count || 0);
+                    initWorkScrollState();
+                    queueActiveUpdate();
                 },
                 complete: function () {
                     $cards.css('opacity', '1');
@@ -144,17 +222,17 @@ $initial_works_query = new WP_Query([
         }
 
         $(document).on('click', '.works-filter-btn', function () {
-            const id = String($(this).data('term-id') || '');
+            const type = String($(this).data('work-type') || '').trim();
 
-            if (!id) {
+            if (!type) {
                 return;
             }
 
-            if (selectedTerms.has(id)) {
-                selectedTerms.delete(id);
+            if (selectedTypes.has(type)) {
+                selectedTypes.delete(type);
                 $(this).removeClass('is-active');
             } else {
-                selectedTerms.add(id);
+                selectedTypes.add(type);
                 $(this).addClass('is-active');
             }
 
@@ -169,7 +247,10 @@ $initial_works_query = new WP_Query([
             }, 280);
         });
 
+        $(window).on('scroll resize', queueActiveUpdate);
+
         updateCounter();
+        initWorkScrollState();
     });
 </script>
 

@@ -148,6 +148,43 @@ function arti_get_work_taxonomy(): ?string
 }
 
 /**
+ * Get all unique non-empty "type" field values from published work posts.
+ *
+ * @return string[]
+ */
+function arti_get_work_type_filters(): array
+{
+    $work_ids = get_posts([
+        'post_type' => 'work',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+        'no_found_rows' => true,
+        'orderby' => 'date',
+        'order' => 'ASC',
+    ]);
+
+    if (empty($work_ids)) {
+        return [];
+    }
+
+    $types = [];
+    foreach ($work_ids as $work_id) {
+        $raw_type = get_post_meta((int) $work_id, 'type', true);
+        $type = trim((string) $raw_type);
+        if ($type === '') {
+            continue;
+        }
+        $types[] = $type;
+    }
+
+    $types = array_values(array_unique($types));
+    natcasesort($types);
+
+    return array_values($types);
+}
+
+/**
  * Render works cards HTML for AJAX and template usage.
  *
  * @param WP_Query $query    Works query instance.
@@ -167,7 +204,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             $category_label = (!is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : '';
             ?>
-            <article class="grid grid-cols-[1fr_300px] gap-6 max-md:grid-cols-1 max-md:gap-4">
+            <article class="grid grid-cols-[65%_35%] gap-6 max-md:grid-cols-1 max-md:gap-4">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden ">
                         <?php if (has_post_thumbnail()): ?>
@@ -209,22 +246,13 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
         wp_reset_postdata();
     else:
         ?>
-        <article class="grid grid-cols-[1fr_300px] gap-6 max-md:grid-cols-1 max-md:gap-4">
-            <div>
-                <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[110px] md:rounded-br-[250px]"></div>
-            </div>
-            <div class="pt-3">
-                <div class="mb-6 flex items-center gap-2">
-                    <span class="inline-flex h-8 w-8 items-center justify-center rounded-sm bg-[#3b3b3b] text-white">
-                        <span class="block h-3 w-3 rounded-full bg-white/90"></span>
-                    </span>
-                </div>
-                <h2 class="m-0 text-[12px] font-medium uppercase tracking-[0.38em] text-[#2f2f2f]">
-                    Example (no data): Sample Work Showcase
-                </h2>
-                <p class="mt-1 text-[0.62rem] text-black/52">Residential</p>
-                <p class="mt-2 text-[0.6rem] uppercase tracking-[0.28em] text-black/46">Concept</p>
-            </div>
+        <article class=" bg-black/[0.04] px-6 py-10 md:rounded-br-[120px] md:px-10 md:py-14">
+            <h2 class="m-0 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">
+                No Works Found
+            </h2>
+            <p class="mt-3 text-[11px] uppercase tracking-[0.16em] text-light-brown">
+                Try another filter or search keyword.
+            </p>
         </article>
         <?php
     endif;
@@ -240,15 +268,14 @@ function arti_filter_work_posts_ajax(): void
     check_ajax_referer('arti_filter_work_nonce', 'nonce');
 
     $taxonomy = arti_get_work_taxonomy();
-    if (!$taxonomy) {
-        wp_send_json_success([
-            'html' => arti_render_work_cards_html(new WP_Query(['post_type' => 'work', 'posts_per_page' => 0]), 'category'),
-            'selected_count' => 0,
-        ]);
-    }
+    $render_taxonomy = $taxonomy ?: 'category';
 
-    $raw_terms = isset($_POST['terms']) ? (array) $_POST['terms'] : [];
-    $term_ids = array_values(array_filter(array_map('absint', $raw_terms)));
+    $raw_types = isset($_POST['types']) ? (array) $_POST['types'] : [];
+    $types = array_values(array_filter(array_map(
+        static fn($value): string => trim(sanitize_text_field((string) $value)),
+        $raw_types
+    )));
+    $types = array_values(array_unique($types));
     $search = isset($_POST['search']) ? sanitize_text_field((string) $_POST['search']) : '';
 
     $args = [
@@ -256,26 +283,26 @@ function arti_filter_work_posts_ajax(): void
         'post_status' => 'publish',
         'posts_per_page' => 12,
         'orderby' => 'date',
-        'order' => 'DESC',
+        'order' => 'ASC',
         's' => $search,
     ];
 
-    if (!empty($term_ids)) {
-        $args['tax_query'] = [
+    if (!empty($types)) {
+        $args['meta_query'] = [
             [
-                'taxonomy' => $taxonomy,
-                'field' => 'term_id',
-                'terms' => $term_ids,
+                'key' => 'type',
+                'value' => $types,
+                'compare' => 'IN',
             ],
         ];
     }
 
     $query = new WP_Query($args);
-    $html = arti_render_work_cards_html($query, $taxonomy);
+    $html = arti_render_work_cards_html($query, $render_taxonomy);
 
     wp_send_json_success([
         'html' => $html,
-        'selected_count' => count($term_ids),
+        'selected_count' => count($types),
     ]);
 }
 
