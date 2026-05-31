@@ -33,7 +33,7 @@ $initial_news_query = new WP_Query([
     }
 </style>
 
-<section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[70vh]">
+<section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
     <div class="grid grid-cols-1 gap-8 px-6 md:grid-cols-[220px_1fr] md:gap-10 md:px-8">
         <aside class="md:sticky md:top-24 md:self-start">
             <p class="mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d]">News</p>

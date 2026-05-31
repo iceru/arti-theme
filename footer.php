@@ -27,7 +27,7 @@
             </div>
             <div class="col-span-1 md:col-span-2 md:col-start-5 text-[9px]">
                 <p class="mb-4 md:mb-6">Email</p>
-                <p class="text-light-brown">info@arti-design.com</p>
+                <a href="mailto:info@arti-design.com" target="_blank" class="text-light-brown">info@arti-design.com</a>
             </div>
             <div class="col-span-2 md:col-span-3 md:col-start-7 text-[9px]">
                 <p class="mb-4 md:mb-6">Address</p>

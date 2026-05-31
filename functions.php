@@ -67,16 +67,18 @@ function arti_render_news_cards_html(WP_Query $query): string
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden bg-black/8">
                         <?php if (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('large', ['class' => 'block h-[300px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] md:h-[360px]']); ?>
+                            <?php the_post_thumbnail('large', ['class' => 'block rounded-br-[150px] h-[300px] w-full object-cover transition-transform duration-500 md:h-[420px]']); ?>
                         <?php else: ?>
                             <div class="h-[300px] w-full bg-black/12 md:h-[360px]"></div>
                         <?php endif; ?>
                     </div>
-                    <h2 class="mt-5 text-[12px] font-medium uppercase tracking-[0.38em] text-[#2f2f2f]">
+                    <h2 class="mt-5 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">
                         <?php echo esc_html(get_the_title()); ?>
                     </h2>
-                    <span class="mt-8 inline-block text-[0.58rem] uppercase tracking-[0.38em] text-[#575757]">
-                        Read More ->
+                    <span class="mt-8 inline-flex space-x-1.5 text-[9px] font-medium uppercase tracking-[0.31em] text-light-brown">
+                        <span>Read More</span>
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow.png'); ?>" alt="Arrow Right Icon"
+                            class="h-3 w-3 object-contain mt-[2px]">
                     </span>
                 </a>
             </article>
