@@ -59,9 +59,9 @@
             class="pointer-events-none fixed top-[78px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
             <div
                 class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 md:-top-[80px] relative">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6  relative">
                     <nav
-                        class="md:col-span-6 md:col-start-4 flex flex-col md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
+                        class="md:col-span-6 md:col-start-4 flex flex-col md:-top-[80px] relative md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
                         <a href="<?php echo esc_url(home_url('/studio')); ?>"
                             class="!no-underline text-zinc-900 hover:opacity-70">Studio</a>
                         <a href="/news" class="!no-underline text-zinc-900 hover:opacity-70">News</a>
@@ -76,7 +76,7 @@
                     <p class="md:col-span-3">&copy; Copyright Arti Design Studio,
                         <?php echo esc_html(date_i18n('Y')); ?>
                     </p>
-                    <p class="md:col-span-3">Instagram</p>
+                    <a href="#" target="_blank" class="md:col-span-3">Instagram</a>
                     <p class="md:col-span-3">Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
                     <div class="md:col-span-3 flex md:justify-end">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 md:hidden text-light-brown text-[9px] mt-24">
-                    <p>Instagram</p>
+                    <a href="#" target="_blank">Instagram</a>
                     <p>Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
                 </div>

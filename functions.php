@@ -63,9 +63,9 @@ function arti_render_news_cards_html(WP_Query $query): string
         while ($query->have_posts()):
             $query->the_post();
             ?>
-            <article class="w-[440px] shrink-0 max-md:w-[320px]">
+            <article class="w-[40%] shrink-0">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
-                    <div class="overflow-hidden bg-black/8">
+                    <div class="overflow-hidden">
                         <?php if (has_post_thumbnail()): ?>
                             <?php the_post_thumbnail('large', ['class' => 'block rounded-br-[150px] h-[300px] w-full object-cover transition-transform duration-500 md:h-[420px]']); ?>
                         <?php else: ?>

@@ -65,6 +65,10 @@ $initial_works_query = new WP_Query([
         border-color: #2f2f2f;
     }
 
+    #works-filter-panel.is-collapsed {
+        display: none;
+    }
+
     @media (max-width: 768px) {
         .works-filter-btn {
             font-size: 9px;
@@ -76,14 +80,14 @@ $initial_works_query = new WP_Query([
     <div class="px-4 md:px-8">
         <div class="mb-8 flex items-start justify-between gap-6 md:py-10">
             <div class="w-full">
-                <div
+                <button type="button" id="works-filter-toggle"
                     class="inline-flex items-center gap-3 border-0 bg-transparent p-0 text-[0.72rem] uppercase tracking-[0.42em] text-[#5a5a5a]">
                     <span id="works-filter-count"
                         class="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-[#2e2e2e] px-2 text-[0.76rem] font-medium tracking-normal text-white">0</span>
-                    <span id="works-filter-toggle-label">Filter -</span>
-                </div>
+                    <span id="works-filter-toggle-label">Filter +</span>
+                </button>
 
-                <div id="works-filter-panel" class="md:mt-10">
+                <div id="works-filter-panel" class="md:mt-10 is-collapsed">
                     <ul class="m-0 grid list-none gap-y-6 gap-x-10 p-0 md:grid-cols-3 max-w-[500px]">
                         <?php if (!empty($work_types)): ?>
                             <?php foreach ($work_types as $type): ?>
@@ -125,6 +129,8 @@ $initial_works_query = new WP_Query([
 
 <script>
     jQuery(function ($) {
+        const $toggle = $('#works-filter-toggle');
+        const $toggleLabel = $('#works-filter-toggle-label');
         const $panel = $('#works-filter-panel');
         const $counter = $('#works-filter-count');
         const $search = $('#works-search');
@@ -132,6 +138,12 @@ $initial_works_query = new WP_Query([
         const selectedTypes = new Set();
         let searchTimer = null;
         let scrollTicking = false;
+
+        function setPanelState(isOpen) {
+            $panel.toggleClass('is-collapsed', !isOpen);
+            $toggleLabel.text(isOpen ? 'Filter -' : 'Filter +');
+            $toggle.attr('aria-expanded', isOpen ? 'true' : 'false');
+        }
 
         function getWorkItems() {
             return $cards.children('article');
@@ -247,8 +259,14 @@ $initial_works_query = new WP_Query([
             }, 280);
         });
 
+        $toggle.on('click', function () {
+            const isOpen = !$panel.hasClass('is-collapsed');
+            setPanelState(!isOpen);
+        });
+
         $(window).on('scroll resize', queueActiveUpdate);
 
+        setPanelState(false);
         updateCounter();
         initWorkScrollState();
     });
