@@ -41,12 +41,12 @@ get_header();
                     id="about-us">About
                     Us
                 </h4>
-                <h1 class="mb-7 text-sm leading-[1.2] font-medium uppercase tracking-[0.18em] text-dark-brown max-md:text-[1.32rem] max-md:tracking-[0.14em]"
+                <h1 class="mb-7 leading-[1.2] font-medium uppercase tracking-[0.18em] text-dark-brown"
                     id="studio-about-title">
                     Collaboration In Form
                 </h1>
                 <p
-                    class="m-0 max-w-[620px] text-[9px] leading-[1.85] text-light-brown max-md:text-[9px] max-md:leading-[1.7]">
+                    class="m-0 max-w-[620px] text-[12px] leading-[1.85] text-light-brown max-md:text-[12px] max-md:leading-[1.7]">
                     Established in 2020, Arti Design Studio is a Jakarta-based practice reconnecting people with nature
                     through experimental design. With a portfolio of 100+ projects and a growing skyline of completed
                     works, we use data and research to solve the environmental and societal challenges of the modern
@@ -62,11 +62,11 @@ get_header();
             <section class="pt-12 max-md:pt-10 px-8" id="the-arti-way" aria-labelledby="arti-way-title">
                 <div class="border-t border-black/15 pt-4">
                     <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[0.5em] text-light-brown">The Arti Way</h4>
-                    <h3 class="mb-5 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown max-md:text-[1.22rem]"
+                    <h3 class="mb-5 leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown"
                         id="arti-way-title">
                         PRACTICED WITHIN, REFLECTED BEYOND
                     </h3>
-                    <p class="m-0 max-w-[428px] text-[9px] leading-[1.8] text-light-brown">
+                    <p class="m-0 max-w-[428px] text-[12px] leading-[1.8] text-light-brown">
                         The four principles of A.R.T.I also guide the way we design beyond the studio. They shape how
                         our work meets the world and how each project enriches daily life, respects its environments,
                         and strengthens the places it becomes part of, and relevant for the future it will take part in.
@@ -255,13 +255,13 @@ get_header();
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
                             ?>
                             <article class="min-w-0 overflow-hidden">
-                                <h2 class="mb-8 text-sm leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
+                                <h2 class="mb-8 leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
                                     id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
                                     <?php the_title(); ?>
                                 </h2>
 
                                 <?php if (!empty($expertise_description)): ?>
-                                    <p class="m-0 mb-12 max-w-[721px] text-[9px] leading-[1.8] text-light-brown">
+                                    <p class="m-0 mb-12 max-w-[721px] text-[12px] leading-[1.8] text-light-brown">
                                         <?php echo esc_html($expertise_description); ?>
                                     </p>
                                 <?php endif; ?>
@@ -335,7 +335,7 @@ get_header();
                 <div class="border-t border-black/15 pt-6">
                     <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-light-brown">Awards</p>
 
-                    <p class="m-0 mb-16 max-w-[700px] text-[9px] leading-[1.8] text-light-brown max-md:mb-12">
+                    <p class="m-0 mb-16 max-w-[700px] text-[12px] leading-[1.8] text-light-brown max-md:mb-12">
                         Arti Design Studio is a multi-disciplinary and award-winning practice that places
                         sustainability, community, and craftsmanship at the heart of every project. Through
                         narrative-led design and deep engagement, we shape environments that inspire and endure.
@@ -354,7 +354,7 @@ get_header();
 
                 <div>
                     <div
-                        class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-4 text-[9px] tracking-[0.08em] text-light-brown">
+                        class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-4 text-[12px] tracking-[0.08em] text-light-brown">
                         <p class="m-0">List</p>
                         <p class="m-0 hidden md:block">Year</p>
                     </div>
@@ -379,7 +379,7 @@ get_header();
                             }
                             ?>
                             <div
-                                class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[9px] leading-[1.7] text-dark-brown">
+                                class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[12px] leading-[1.7] text-dark-brown">
                                 <p class="m-0"><?php the_title(); ?></p>
                                 <p class="m-0 "><?php echo esc_html((string) $award_year); ?></p>
                             </div>
@@ -387,12 +387,12 @@ get_header();
                         <?php wp_reset_postdata(); ?>
                     <?php else: ?>
                         <div
-                            class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[9px] leading-[1.7] text-dark-brown">
+                            class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[12px] leading-[1.7] text-dark-brown">
                             <p class="m-0">Example 1 (no data): National Architecture Merit Award - Best Installation</p>
                             <p class="m-0 ">2022</p>
                         </div>
                         <div
-                            class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[9px] leading-[1.7] text-dark-brown">
+                            class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[12px] leading-[1.7] text-dark-brown">
                             <p class="m-0">Example 2 (no data): Regional Design Prize - Community Space Category</p>
                             <p class="m-0 ">2019</p>
                         </div>

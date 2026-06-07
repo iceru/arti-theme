@@ -23,13 +23,41 @@ $initial_news_query = new WP_Query([
 
 <style>
     .news-category-btn {
-        opacity: 0.5;
-        transition: opacity 220ms ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        opacity: 1;
+        color: #3f3f3f;
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: 0;
+        transition: color 220ms ease;
     }
 
-    .news-category-btn:hover,
-    .news-category-btn.is-active {
-        opacity: 1;
+    .news-category-btn:hover {
+        color: #2f2f2f;
+    }
+
+    .news-category-btn .news-filter-marker {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 5px 0 5px 0;
+        border: 2px solid #9a9792;
+        background: transparent;
+        transition: background-color 220ms ease, border-color 220ms ease;
+        flex-shrink: 0;
+    }
+
+    .news-category-btn.is-active .news-filter-marker {
+        background: #2f2f2f;
+        border-color: #2f2f2f;
+    }
+
+    @media (max-width: 768px) {
+        .news-category-btn {
+            font-size: 9px;
+        }
     }
 </style>
 
@@ -46,20 +74,19 @@ $initial_news_query = new WP_Query([
             </button>
 
             <div id="news-filter-panel" class="mt-6 hidden">
-                <ul class="m-0 list-none space-y-4 p-0">
+                <ul class="m-0 list-none space-y-2 p-0">
                     <li>
-                        <button type="button"
-                            class="news-category-btn is-active text-left text-[2rem] leading-[1.12] text-[#171717] max-md:text-[1.8rem]"
-                            data-category-id="">
-                            All
+                        <button type="button" class="news-category-btn is-active text-left" data-category-id="">
+                            <span class="news-filter-marker" aria-hidden="true"></span>
+                            <span class="tracking-wider">All</span>
                         </button>
                     </li>
                     <?php foreach ($news_categories as $category): ?>
                         <li>
-                            <button type="button"
-                                class="news-category-btn text-left text-[2rem] leading-[1.12] text-[#171717] max-md:text-[1.8rem]"
+                            <button type="button" class="news-category-btn text-left"
                                 data-category-id="<?php echo esc_attr((string) $category->term_id); ?>">
-                                <?php echo esc_html($category->name); ?>
+                                <span class="news-filter-marker" aria-hidden="true"></span>
+                                <span class="tracking-wider"><?php echo esc_html($category->name); ?></span>
                             </button>
                         </li>
                     <?php endforeach; ?>
@@ -67,13 +94,39 @@ $initial_news_query = new WP_Query([
             </div>
         </aside>
 
-        <div>
-            <div id="news-track" class="overflow-x-auto pb-4 [scrollbar-width:thin]">
-                <div id="news-cards" class="flex min-w-max gap-6 md:gap-8">
+        <div class="w-full min-w-0 overflow-hidden">
+            <div id="news-track"
+                class="w-full max-w-full overflow-x-auto pb-5 [scrollbar-color:#686868_#D4CFC7] [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-beige-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-beige-1 [&::-webkit-scrollbar-thumb]:transition-colors hover:[&::-webkit-scrollbar-thumb]:bg-zinc-500">
+                <div id="news-cards" class="flex w-max gap-6 md:gap-8">
                     <?php echo arti_render_news_cards_html($initial_news_query); ?>
                 </div>
             </div>
         </div>
+
+        <script>
+            (function () {
+                var newsTrack = document.getElementById('news-track');
+
+                if (!newsTrack) {
+                    return;
+                }
+
+                newsTrack.addEventListener('wheel', function (event) {
+                    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
+                        return;
+                    }
+
+                    var maxScrollLeft = newsTrack.scrollWidth - newsTrack.clientWidth;
+
+                    if (maxScrollLeft <= 0) {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    newsTrack.scrollLeft += event.deltaY;
+                }, { passive: false });
+            })();
+        </script>
     </div>
 </section>
 

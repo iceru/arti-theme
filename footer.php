@@ -20,16 +20,16 @@
                 <p class="text-[12px] tracking-[0.31em] uppercase leading-tight font-medium">Get In
                     Touch<br>With Us</p>
             </div>
-            <div class="col-span-1 md:col-span-2 md:col-start-3 text-[9px]">
+            <div class="col-span-1 md:col-span-2 md:col-start-3 text-[12px]">
                 <p class="mb-4 md:mb-6">Instagram</p>
                 <a href="https://www.instagram.com/arti.designstudio/" target="_blank"
                     class="text-light-brown">@arti.designstudio</a>
             </div>
-            <div class="col-span-1 md:col-span-2 md:col-start-5 text-[9px]">
+            <div class="col-span-1 md:col-span-2 md:col-start-5 text-[12px]">
                 <p class="mb-4 md:mb-6">Email</p>
                 <a href="mailto:info@arti-design.com" target="_blank" class="text-light-brown">info@arti-design.com</a>
             </div>
-            <div class="col-span-2 md:col-span-3 md:col-start-7 text-[9px]">
+            <div class="col-span-2 md:col-span-3 md:col-start-7 text-[12px]">
                 <p class="mb-4 md:mb-6">Address</p>
                 <p class="text-light-brown">Jl. Horizon Broadway, Kec. Cisauk<br>Tangerang, Banten - 15345</p>
             </div>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="flex justify-between items-end">
-            <div class="mt-14 md:mt-24 text-[9px] text-light-brown">
+            <div class="mt-14 md:mt-24 text-[12px] text-light-brown">
                 &copy; Copyright Arti Design Studio,
                 <?php echo esc_html(date_i18n('Y')); ?>
             </div>

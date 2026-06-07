@@ -15,7 +15,7 @@ get_header();
             <div class="mx-auto max-w-[1600px]">
                 <?php if (has_post_thumbnail()): ?>
                     <figure class="m-0">
-                        <?php the_post_thumbnail('full', ['class' => 'block h-auto w-full object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
+                        <?php the_post_thumbnail('full', ['class' => 'block w-full h-[48vh] md:h-[74vh] xl:h-[84vh] object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
                     </figure>
                 <?php endif; ?>
 
@@ -24,8 +24,7 @@ get_header();
                     <p class="m-0 text-[0.62rem] tracking-[0.26em] uppercase text-light-brown">
                         <?php echo esc_html(get_the_date('d F Y')); ?>
                     </p>
-                    <h1
-                        class="m-0 max-w-[46rem] text-[1.15rem] md:text-[clamp(1.15rem,2vw,2rem)] text-dark-brown tracking-[0.31em] leading-[1.45] md:leading-[1.55] uppercase font-medium">
+                    <h1 class="m-0 max-w-[46rem] uppercase font-medium tracking-[0.31em]">
                         <?php the_title(); ?>
                     </h1>
                 </header>

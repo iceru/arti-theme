@@ -142,7 +142,7 @@ $resolve_attachment_id = static function ($item): int {
 
             <section class="mx-auto mt-32">
                 <div class="entry-content text-zinc-800/85
-                    [&_p]:text-light-brown [&_p]:text-[9px]
+                    [&_p]:text-light-brown [&_p]:text-[12px]
                     [&_h2]:text-dark-brown [&_h2]:text-[12px] [&_h2]:mt-0 [&_h2]:uppercase [&_h2]:mb-7 [&_h2]:tracking-[0.31em] [&_h2]:font-medium
                     [&_figure]:my-8 [&_figcaption]:mt-2 [&_figcaption]:text-[0.66rem] [&_figcaption]:text-light-brown
                     [&_img]:block [&_img]:h-auto [&_img]:w-full [&_img]:object-cover">

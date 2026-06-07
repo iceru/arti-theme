@@ -17,7 +17,7 @@ get_header();
                     Connect With Us
                 </h1>
 
-                <p class="mb-0 mt-9 max-w-[330px] text-[9px] leading-[1.8] text-dark-brown">
+                <p class="mb-0 mt-9 max-w-[330px] text-[12px] leading-[1.8] text-dark-brown">
                     Let&apos;s begin with a conversation. Tell us about your project, and we&apos;ll explore how to
                     translate your vision into a considered, well-executed outcome.
                 </p>
@@ -40,7 +40,7 @@ get_header();
                             $is_active = $tab_index === 1;
                             ?>
                             <button type="button"
-                                class="contact-tab-trigger border-0 text-[9px] border-b bg-transparent pb-[9px] text-left uppercase tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-zinc-500 text-zinc-700' : 'border-zinc-400/45 text-zinc-700/75'; ?>"
+                                class="contact-tab-trigger border-0 text-[12px] border-b bg-transparent pb-[9px] text-left uppercase tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-zinc-500 text-zinc-700' : 'border-zinc-400/45 text-zinc-700/75'; ?>"
                                 data-tab-trigger="<?php echo esc_attr($tab_key); ?>"
                                 aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
                                 <?php echo esc_html($tab_label); ?>
@@ -82,7 +82,7 @@ get_header();
                     <?php endforeach; ?>
                 </div>
 
-                <div class="mt-20 grid max-w-[520px] grid-cols-[120px_1fr] gap-y-7 text-[0.78rem] md:mt-24 text-[9px]">
+                <div class="mt-20 grid max-w-[520px] grid-cols-[120px_1fr] gap-y-7 text-[0.78rem] md:mt-24 text-[12px]">
                     <p class="m-0 uppercase tracking-[0.28em] text-light-brown">Email</p>
                     <p class="m-0 text-dark-brown tracking-wide">info@arti-design.com</p>
                     <p class="m-0 uppercase tracking-[0.28em] text-light-brown">Whatsapp</p>

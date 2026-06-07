@@ -19,30 +19,134 @@
 <body <?php body_class('bg-white text-zinc-900 antialiased font-sans'); ?>>
     <?php do_action('tailpress_site_before'); ?>
     <?php
-    $loader_video_path = get_theme_file_path('/images/loader.mp4');
-    $loader_video_uri = get_theme_file_uri('/images/loader.mp4');
+    $loader_animation_uri = get_theme_file_uri('/images/arti-logo-a.json');
+    $header_logo_animation_uri = get_theme_file_uri('/images/logo-arti-full.json');
     ?>
 
     <div id="site-loader"
         class="fixed inset-0 z-[100] flex items-center justify-center bg-beige-2 opacity-100 transition-opacity duration-700">
         <div class="relative flex h-28 w-28 items-center justify-center">
-            <?php if (file_exists($loader_video_path)): ?>
-                <video class="h-20 w-20 object-contain opacity-90" autoplay muted loop playsinline>
-                    <source src="<?php echo esc_url($loader_video_uri); ?>" type="video/mp4">
-                </video>
-            <?php endif; ?>
-            <span class="absolute text-5xl leading-none text-zinc-800 animate-pulse" aria-hidden="true">a</span>
+            <div id="loader-logo-animation" class="h-[33px] w-[33px] opacity-90"
+                data-animation-path="<?php echo esc_url($loader_animation_uri); ?>" aria-hidden="true"></div>
         </div>
     </div>
+
+    <script>
+        (function () {
+            function initLogoAnimations() {
+                var animationContainer = document.getElementById('loader-logo-animation');
+                var headerLogoAnimationContainer = document.getElementById('header-logo-animation');
+                var headerLogoLink = document.getElementById('header-logo-link');
+
+                if (!animationContainer && !headerLogoAnimationContainer) {
+                    return;
+                }
+
+                function loadLogoAnimations() {
+                    if (!window.lottie) {
+                        return;
+                    }
+
+                    if (animationContainer) {
+                        window.lottie.loadAnimation({
+                            container: animationContainer,
+                            renderer: 'svg',
+                            loop: true,
+                            autoplay: true,
+                            path: animationContainer.getAttribute('data-animation-path')
+                        });
+                    }
+
+                    if (headerLogoAnimationContainer && headerLogoLink) {
+                        var headerLogoAnimation = window.lottie.loadAnimation({
+                            container: headerLogoAnimationContainer,
+                            renderer: 'svg',
+                            rendererSettings: {
+                                preserveAspectRatio: 'xMidYMid meet'
+                            },
+                            loop: true,
+                            autoplay: false,
+                            path: headerLogoAnimationContainer.getAttribute('data-animation-path')
+                        });
+
+                        function fitHeaderLogoToArtwork() {
+                            var logoSvg = headerLogoAnimationContainer.querySelector('svg');
+                            var logoArtwork = logoSvg ? logoSvg.firstElementChild : null;
+
+                            if (!logoSvg || !logoArtwork || !logoArtwork.getBBox) {
+                                return;
+                            }
+
+                            var logoBounds = logoArtwork.getBBox();
+
+                            if (!logoBounds.width || !logoBounds.height) {
+                                return;
+                            }
+
+                            var logoPaddingX = 12;
+                            logoSvg.setAttribute(
+                                'viewBox',
+                                (logoBounds.x - logoPaddingX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
+                            );
+                            logoSvg.style.display = 'block';
+                            logoSvg.style.overflow = 'visible';
+                            logoSvg.style.height = '27px';
+                            logoSvg.style.width = '51px';
+                            headerLogoAnimationContainer.style.height = '27px';
+                            headerLogoAnimationContainer.style.width = '51px';
+                        }
+
+                        function playHeaderLogoAnimation() {
+                            headerLogoAnimation.goToAndPlay(0, true);
+                        }
+
+                        function stopHeaderLogoAnimation() {
+                            headerLogoAnimation.goToAndStop(0, true);
+                        }
+
+                        headerLogoAnimation.addEventListener('DOMLoaded', function () {
+                            fitHeaderLogoToArtwork();
+                            stopHeaderLogoAnimation();
+                        });
+                        headerLogoLink.addEventListener('mouseenter', playHeaderLogoAnimation);
+                        headerLogoLink.addEventListener('focus', playHeaderLogoAnimation);
+                        headerLogoLink.addEventListener('mouseleave', stopHeaderLogoAnimation);
+                        headerLogoLink.addEventListener('blur', stopHeaderLogoAnimation);
+                    }
+                }
+
+                if (window.lottie) {
+                    loadLogoAnimations();
+                    return;
+                }
+
+                var lottieScript = document.createElement('script');
+                lottieScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js';
+                lottieScript.onload = loadLogoAnimations;
+                document.head.appendChild(lottieScript);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initLogoAnimations);
+                return;
+            }
+
+            initLogoAnimations();
+        })();
+    </script>
 
     <div id="page" class="min-h-screen flex flex-col opacity-0 transition-opacity duration-700">
         <?php do_action('tailpress_header'); ?>
 
-        <header id="site-header" class="relative z-40 bg-beige-1 py-5 px-4 md:px-9 transition-colors duration-300">
+        <header id="site-header"
+            class="fixed top-0 inset-x-0 z-40 bg-beige-1 py-5 px-4 md:px-9 transition-colors duration-300">
             <div class="flex items-center justify-between">
-                <a href="<?php echo esc_url(home_url('/')); ?>"
-                    class="!no-underline text-zinc-900 text-4xl md:text-5xl font-light leading-none tracking-tight lowercase">
-                    <img src="<?php echo esc_url(get_theme_file_uri('/images/logo.png')); ?>" alt="">
+                <a id="header-logo-link" href="<?php echo esc_url(home_url('/')); ?>"
+                    class="inline-flex items-center !no-underline text-zinc-900"
+                    aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                    <div id="header-logo-animation" class="pointer-events-none h-[27px] !w-[54px] overflow-visible"
+                        data-animation-path="<?php echo esc_url($header_logo_animation_uri); ?>" aria-hidden="true">
+                    </div>
                 </a>
                 <button id="site-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"
                     aria-controls="site-menu-overlay"
@@ -72,7 +176,7 @@
                 </div>
 
                 <div
-                    class="hidden md:grid grid-cols-1 gap-4 text-light-brown text-sm md:grid-cols-12 md:gap-6 text-[9px]">
+                    class="hidden md:grid grid-cols-1 gap-4 text-light-brown text-sm md:grid-cols-12 md:gap-6 text-[12px]">
                     <p class="md:col-span-3">&copy; Copyright Arti Design Studio,
                         <?php echo esc_html(date_i18n('Y')); ?>
                     </p>
@@ -84,12 +188,12 @@
                             class="h-5 w-auto object-contain">
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:hidden text-light-brown text-[9px] mt-24">
+                <div class="grid grid-cols-2 md:hidden text-light-brown text-[12px] mt-24">
                     <a href="#" target="_blank">Instagram</a>
                     <p>Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
                 </div>
-                <div class="flex md:hidden justify-between items-end mt-8 text-light-brown text-[9px]">
+                <div class="flex md:hidden justify-between items-end mt-8 text-light-brown text-[12px]">
                     <p>&copy; Copyright Arti Design Studio,
                         <?php echo esc_html(date_i18n('Y')); ?>
                     </p>
@@ -101,6 +205,6 @@
             </div>
         </div>
 
-        <div id="content" class="site-content grow">
+        <div id="content" class="site-content grow pt-[78px]">
             <?php do_action('tailpress_content_start'); ?>
             <main>
