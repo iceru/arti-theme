@@ -9,13 +9,13 @@ get_header();
 ?>
 
 <section class="bg-beige-1 pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
-    <div class="grid grid-cols-[minmax(220px,300px)_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
+    <div class="grid grid-cols-[300px_1fr] gap-12 max-md:grid-cols-1 max-md:gap-0">
         <aside
             class="hidden md:block relative min-h-full bg-beige-1 max-md:border-r-0 max-md:border-b max-md:border-black/8"
             aria-label="Studio sections">
             <div class="absolute inset-0 bg-repeat bg-[length:1500px_auto] bg-top opacity-40 pointer-events-none"
                 style="background-image: url('<?php echo esc_url(get_theme_file_uri('/images/bg.png')); ?>');"></div>
-            <div class="sticky top-11 ml-6 pt-28 z-10">
+            <div class="sticky top-11 ml-6 pt-[120px] z-10">
                 <nav class="relative bg-beige-1 inline-flex flex-col gap-3 py-2 px-4 ">
                     <a href="#about-us"
                         class="studio-nav-link !no-underline font-medium text-[12px] uppercase tracking-[31%] text-dark-brown opacity-100">
@@ -46,7 +46,7 @@ get_header();
                     Collaboration In Form
                 </h1>
                 <p
-                    class="m-0 max-w-[620px] text-[12px] leading-[1.85] text-light-brown max-md:text-[12px] max-md:leading-[1.7]">
+                    class="m-0 max-w-[590px] text-[12px] leading-[1.85] text-light-brown max-md:text-[12px] max-md:leading-[1.7]">
                     Established in 2020, Arti Design Studio is a Jakarta-based practice reconnecting people with nature
                     through experimental design. With a portfolio of 100+ projects and a growing skyline of completed
                     works, we use data and research to solve the environmental and societal challenges of the modern

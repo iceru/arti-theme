@@ -432,10 +432,13 @@ function initContactTabs() {
         triggers.forEach(function (trigger) {
             const isActive = trigger.getAttribute('data-tab-trigger') === tabKey
             trigger.setAttribute('aria-selected', isActive ? 'true' : 'false')
+            trigger.classList.toggle('border-b-2', isActive)
             trigger.classList.toggle('border-zinc-500', isActive)
             trigger.classList.toggle('text-zinc-700', isActive)
+            trigger.classList.toggle('border-b', !isActive)
             trigger.classList.toggle('border-zinc-400/45', !isActive)
-            trigger.classList.toggle('text-zinc-700/75', !isActive)
+            trigger.classList.toggle('text-zinc-700/50', !isActive)
+            trigger.classList.toggle('text-zinc-700/75', false)
         })
 
         panels.forEach(function (panel) {

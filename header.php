@@ -84,16 +84,18 @@
                             }
 
                             var logoPaddingX = 12;
+                            var logoOffsetX = 10;
+                            var logoWidth = headerLogoAnimationContainer.getBoundingClientRect().width || 54;
                             logoSvg.setAttribute(
                                 'viewBox',
-                                (logoBounds.x - logoPaddingX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
+                                (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
                             );
                             logoSvg.style.display = 'block';
                             logoSvg.style.overflow = 'visible';
                             logoSvg.style.height = '27px';
-                            logoSvg.style.width = '51px';
+                            logoSvg.style.width = logoWidth + 'px';
                             headerLogoAnimationContainer.style.height = '27px';
-                            headerLogoAnimationContainer.style.width = '51px';
+                            headerLogoAnimationContainer.style.width = logoWidth + 'px';
                         }
 
                         function playHeaderLogoAnimation() {
@@ -144,7 +146,7 @@
                 <a id="header-logo-link" href="<?php echo esc_url(home_url('/')); ?>"
                     class="inline-flex items-center !no-underline text-zinc-900"
                     aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
-                    <div id="header-logo-animation" class="pointer-events-none h-[27px] !w-[54px] overflow-visible"
+                    <div id="header-logo-animation" class="pointer-events-none ml-2 h-[27px] !w-[54px] overflow-visible"
                         data-animation-path="<?php echo esc_url($header_logo_animation_uri); ?>" aria-hidden="true">
                     </div>
                 </a>

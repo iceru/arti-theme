@@ -75,7 +75,7 @@ function arti_render_news_cards_html(WP_Query $query): string
                     <h2 class="mt-5 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">
                         <?php echo esc_html(get_the_title()); ?>
                     </h2>
-                    <span class="mt-8 inline-flex space-x-1.5 text-[12px] font-medium uppercase tracking-[0.31em] text-light-brown">
+                    <span class="mt-8 inline-flex space-x-1.5 text-[9px] font-medium uppercase tracking-[0.31em] text-light-brown">
                         <span>Read More</span>
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow.png'); ?>" alt="Arrow Right Icon"
                             class="h-3 w-3 object-contain mt-[2px]">
@@ -206,7 +206,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             $category_label = (!is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : '';
             ?>
-            <article class="grid grid-cols-[65%_35%] gap-6 max-md:grid-cols-1 max-md:gap-4">
+            <article class="grid grid-cols-[minmax(0,60%)_minmax(0,1fr)] gap-6 max-md:grid-cols-1 max-md:gap-4">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden ">
                         <?php if (has_post_thumbnail()): ?>
@@ -239,7 +239,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                         <p class="mt-1 text-[0.62rem] text-black/52"><?php echo esc_html($category_label); ?></p>
                     <?php endif; ?> -->
                     <?php if (!empty($type)): ?>
-                        <p class="mt-2 text-[12px] uppercase tracking-[0.1em] text-light-brown"><?php echo esc_html($type); ?></p>
+                        <p class="mt-2 text-[9px] uppercase tracking-[0.1em] text-light-brown"><?php echo esc_html($type); ?></p>
                     <?php endif; ?>
                 </div>
             </article>

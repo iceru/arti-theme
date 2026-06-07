@@ -77,7 +77,7 @@ $initial_works_query = new WP_Query([
 </style>
 
 <section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
-    <div class="px-4 md:px-8">
+    <div class="px-4 md:px-9">
         <div class="mb-8 flex items-start justify-between gap-6 md:py-10">
             <div class="w-full">
                 <button type="button" id="works-filter-toggle"
@@ -115,14 +115,15 @@ $initial_works_query = new WP_Query([
             </div>
         </div>
 
-        <div class="flex">
-            <p class="hidden md:block mb-8 text-[12px] uppercase tracking-[0.31em]
-            text-dark-brown w-[22%] font-medium">
-                Works</p>
+    </div>
 
-            <div id="works-cards" class="space-y-14 w-full">
-                <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>
-            </div>
+    <div class="grid grid-cols-[300px_1fr] gap-12 max-md:grid-cols-1 max-md:gap-0">
+        <p class="hidden md:block sticky top-36 self-start pl-9 mb-8 text-[12px] uppercase tracking-[0.31em]
+            text-dark-brown font-medium">
+            Works</p>
+
+        <div id="works-cards" class="space-y-14 w-full pl-8">
+            <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>
         </div>
     </div>
 </section>

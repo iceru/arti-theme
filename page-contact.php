@@ -8,16 +8,26 @@
 get_header();
 ?>
 
+<style>
+    .contact-tab-trigger[aria-selected="true"] {
+        border-bottom-width: 2px;
+    }
+
+    .contact-tab-trigger[aria-selected="false"] {
+        border-bottom-width: 1px;
+    }
+</style>
+
 <?php while (have_posts()):
     the_post(); ?>
     <section class="bg-beige-1 px-4 pb-20 pt-6 md:px-9 md:pb-28 md:pt-10">
-        <div class="flex w-full gap-24">
-            <div class="w-[40%]">
-                <h1 class="m-0 text-sm uppercase tracking-[0.31em] text-dark-brown">
+        <div class="flex w-full gap-10 2xl:gap-24">
+            <div class="w-1/2 2xl:w-[40%]">
+                <h1 class="m-0 uppercase font-medium tracking-[0.31em] text-dark-brown">
                     Connect With Us
                 </h1>
 
-                <p class="mb-0 mt-9 max-w-[330px] text-[12px] leading-[1.8] text-dark-brown">
+                <p class="mb-0 mt-9 max-w-[430px] text-[12px] leading-[1.8] text-dark-brown">
                     Let&apos;s begin with a conversation. Tell us about your project, and we&apos;ll explore how to
                     translate your vision into a considered, well-executed outcome.
                 </p>
@@ -40,7 +50,7 @@ get_header();
                             $is_active = $tab_index === 1;
                             ?>
                             <button type="button"
-                                class="contact-tab-trigger border-0 text-[12px] border-b bg-transparent pb-[9px] text-left uppercase tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-zinc-500 text-zinc-700' : 'border-zinc-400/45 text-zinc-700/75'; ?>"
+                                class="contact-tab-trigger border-0 text-[10px] bg-transparent pb-[9px] text-left uppercase font-medium tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-b-2 border-zinc-500 text-zinc-700' : 'border-b border-zinc-400/45 text-zinc-700/50'; ?>"
                                 data-tab-trigger="<?php echo esc_attr($tab_key); ?>"
                                 aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
                                 <?php echo esc_html($tab_label); ?>
@@ -92,7 +102,7 @@ get_header();
                 </div>
             </div>
 
-            <div class="w-[60%]">
+            <div class="w-1/2 2xl:w-[60%]">
                 <div>
                     <?php if (has_post_thumbnail()): ?>
                         <?php the_post_thumbnail('full', ['class' => 'block w-full object-cover rounded-br-[250px] h-[80vh]']); ?>
