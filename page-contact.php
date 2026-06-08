@@ -39,6 +39,13 @@ get_header();
                     'enquiries' => 'Enquiries',
                     'career' => 'Career',
                 ];
+
+                $contact_form_shortcodes = [
+                    'press' => '[contact-form-7 id="064323f" title="Press"]',
+                    'collaboration' => '',
+                    'enquiries' => '',
+                    'career' => '',
+                ];
                 ?>
 
                 <div class="contact-tabs mt-14" data-contact-tabs>
@@ -72,10 +79,7 @@ get_header();
                     [&_input[type=submit]]:ml-auto [&_input[type=submit]]:mt-10 [&_input[type=submit]]:inline-flex [&_input[type=submit]]:cursor-pointer [&_input[type=submit]]:border-0 [&_input[type=submit]]:bg-transparent [&_input[type=submit]]:px-0 [&_input[type=submit]]:text-[0.86rem] [&_input[type=submit]]:uppercase [&_input[type=submit]]:tracking-[0.34em] [&_input[type=submit]]:text-zinc-700">
                     <?php foreach ($contact_tabs as $tab_key => $tab_label): ?>
                         <?php
-                        $tab_shortcode = trim((string) get_post_meta(get_the_ID(), 'contact_form_shortcode_' . $tab_key, true));
-                        if ($tab_shortcode === '' && $tab_key === 'press') {
-                            $tab_shortcode = trim((string) get_post_meta(get_the_ID(), 'contact_form_shortcode', true));
-                        }
+                        $tab_shortcode = $contact_form_shortcodes[$tab_key] ?? '';
                         ?>
                         <div class="contact-tab-panel <?php echo $tab_key === 'press' ? '' : 'hidden'; ?>"
                             data-tab-panel="<?php echo esc_attr($tab_key); ?>">

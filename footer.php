@@ -15,25 +15,25 @@
 <footer id="colophon" class=" text-dark-brown bg-beige-1" role="contentinfo">
     <div class="px-4 md:px-0 md:pr-12 py-6 rounded-tr-[32px] bg-beige-2">
         <?php do_action('tailpress_footer'); ?>
-        <div class="grid grid-cols-4 md:grid-cols-[300px_1fr] gap-6 md:gap-12">
-            <div class="pl-9">
+        <div class="grid md:grid-cols-[300px_1fr] gap-6 md:gap-12">
+            <div class="md:pl-9">
                 <p class="text-[12px] tracking-[0.31em] uppercase leading-tight font-medium">Get In
                     Touch<br>With Us</p>
             </div>
             <div class="flex justify-between items-start md:pl-8 ">
-                <div class="grid grid-cols-3 text-[12px] lg:space-x-36">
+                <div class="grid grid-cols-2 md:grid-cols-3 text-[12px] gap-y-10 md:gap-y-0 lg:space-x-36">
                     <div class="">
-                        <p class="mb-4 md:mb-6">Instagram</p>
+                        <p class="mb-3 md:mb-6">Instagram</p>
                         <a href="https://www.instagram.com/arti.designstudio/" target="_blank"
                             class="text-light-brown">@arti.designstudio</a>
                     </div>
                     <div class=" ">
-                        <p class="mb-4 md:mb-6">Email</p>
+                        <p class="mb-3 md:mb-6">Email</p>
                         <a href="mailto:info@arti-design.com" target="_blank"
                             class="text-light-brown">info@arti-design.com</a>
                     </div>
                     <div class="">
-                        <p class="mb-4 md:mb-6">Address</p>
+                        <p class="mb-3 md:mb-6">Address</p>
                         <p class="text-light-brown">Jl. Horizon Broadway, Kec. Cisauk<br>Tangerang, Banten - 15345</p>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
             </div>
         </div>
 
-        <div class="flex justify-between items-end px-9">
-            <div class="mt-14 md:mt-24 text-[12px] text-light-brown">
+        <div class="flex justify-between items-end md:px-9">
+            <div class="mt-20 md:mt-24 text-[12px] text-light-brown">
                 &copy; Copyright Arti Design Studio,
                 <?php echo esc_html(date_i18n('Y')); ?>
             </div>

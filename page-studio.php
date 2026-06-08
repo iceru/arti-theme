@@ -35,18 +35,17 @@ get_header();
             </div>
         </aside>
 
-        <div class="min-w-0 pt-32 max-md:px-5 max-md:pt-14">
-            <section class="md:pb-32 pb-14 px-8" aria-labelledby="studio-about-title">
+        <div class="min-w-0 pt-32 max-md:pt-14">
+            <section class="md:pb-32 pb-14 px-4 md:px-8" aria-labelledby="studio-about-title">
                 <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown"
                     id="about-us">About
                     Us
                 </h4>
-                <h1 class="mb-7 leading-[1.2] font-medium uppercase tracking-[0.18em] text-dark-brown"
+                <h1 class="mb-6 md:mb-7 leading-[1.2] font-medium uppercase tracking-[0.18em] text-dark-brown"
                     id="studio-about-title">
                     Collaboration In Form
                 </h1>
-                <p
-                    class="m-0 max-w-[590px] text-[12px] leading-[1.85] text-light-brown max-md:text-[12px] max-md:leading-[1.7]">
+                <p class="m-0 max-w-[590px] text-[12px] leading-[1.85] text-light-brown">
                     Established in 2020, Arti Design Studio is a Jakarta-based practice reconnecting people with nature
                     through experimental design. With a portfolio of 100+ projects and a growing skyline of completed
                     works, we use data and research to solve the environmental and societal challenges of the modern
@@ -59,10 +58,11 @@ get_header();
                 </div>
             </section>
 
-            <section class="pt-12 max-md:pt-10 px-8" id="the-arti-way" aria-labelledby="arti-way-title">
+            <section class="pt-12 max-md:pt-10 px-4 md:px-8" id="the-arti-way" aria-labelledby="arti-way-title">
                 <div class="border-t border-black/15 pt-4">
-                    <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[0.5em] text-light-brown">The Arti Way</h4>
-                    <h3 class="mb-5 leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown"
+                    <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown">The
+                        Arti Way</h4>
+                    <h3 class="mb-6 leading-[1.2] font-medium uppercase tracking-[0.2em] text-light-brown"
                         id="arti-way-title">
                         PRACTICED WITHIN, REFLECTED BEYOND
                     </h3>
@@ -85,7 +85,7 @@ get_header();
                             class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300 "
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">01</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">01</span>
                             <span
                                 class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Artisan</span>
                             <span class="arti-way-title text-[12px] text-black/72">Design with Depth &amp;
@@ -122,7 +122,7 @@ get_header();
                             class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">02</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">02</span>
                             <span
                                 class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Responsible</span>
                             <span class="arti-way-title text-[12px] text-black/72">Architecture that Supports
@@ -159,7 +159,7 @@ get_header();
                             class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">03</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">03</span>
                             <span
                                 class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Tradition</span>
                             <span class="arti-way-title text-[12px] text-black/72">Rooted in Culture, Responsive to
@@ -196,7 +196,7 @@ get_header();
                             class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[0.4em] text-black/70">04</span>
+                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">04</span>
                             <span
                                 class="arti-way-label w-44 shrink-0 text-[12px] font-semibold uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Innovation</span>
                             <span class="arti-way-title text-[12px] text-black/72">Fresh Perspective for a Better
@@ -229,9 +229,9 @@ get_header();
                 </div>
             </section>
 
-            <section class="min-w-0 pt-20 max-md:pt-14 pl-8" id="expertise" aria-labelledby="expertise-title">
+            <section class="min-w-0 pt-20 max-md:pt-14 pl-4 md:pl-8" id="expertise" aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-20 text-[12px] uppercase tracking-[0.31em] text-light-brown">Expertise</p>
+                    <p class="mb-20 text-[12px] uppercase tracking-[0.31em] font-medium text-light-brown">Expertise</p>
                 </div>
 
                 <?php
@@ -255,16 +255,18 @@ get_header();
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
                             ?>
                             <article class="min-w-0 overflow-hidden">
-                                <h2 class="mb-8 leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
-                                    id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
-                                    <?php the_title(); ?>
-                                </h2>
+                                <div class="pr-4">
+                                    <h2 class="mb-8 leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
+                                        id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
+                                        <?php the_title(); ?>
+                                    </h2>
 
-                                <?php if (!empty($expertise_description)): ?>
-                                    <p class="m-0 mb-12 max-w-[721px] text-[12px] leading-[1.8] text-light-brown">
-                                        <?php echo esc_html($expertise_description); ?>
-                                    </p>
-                                <?php endif; ?>
+                                    <?php if (!empty($expertise_description)): ?>
+                                        <p class="m-0 mb-12 max-w-[721px] text-[12px] leading-[1.8] text-light-brown">
+                                            <?php echo esc_html($expertise_description); ?>
+                                        </p>
+                                    <?php endif; ?>
+                                </div>
 
                                 <?php if (!empty($expertise_items) && is_array($expertise_items)): ?>
                                     <?php $use_horizontal_track = count($expertise_items) > 3; ?>
@@ -331,9 +333,10 @@ get_header();
                 <?php endif; ?>
             </section>
 
-            <section class="pt-20 max-md:pt-14 px-8" id="awards" aria-labelledby="awards-title">
+            <section class="pt-20 max-md:pt-14 px-4 md:px-8" id="awards" aria-labelledby="awards-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-10 text-[12px] uppercase tracking-[0.5em] text-light-brown">Awards</p>
+                    <p class="mb-6 md:mb-10 text-[12px] uppercase font-medium tracking-[31%] text-light-brown">Awards
+                    </p>
 
                     <p class="m-0 mb-16 max-w-[700px] text-[12px] leading-[1.8] text-light-brown max-md:mb-12">
                         Arti Design Studio is a multi-disciplinary and award-winning practice that places
