@@ -39,7 +39,7 @@ $initial_works_query = new WP_Query([
         gap: 14px;
         opacity: 1;
         color: #3f3f3f;
-        font-size: 9px;
+        font-size: 12px;
         line-height: 1.2;
         letter-spacing: 0;
         transition: color 220ms ease;
@@ -68,12 +68,6 @@ $initial_works_query = new WP_Query([
     #works-filter-panel.is-collapsed {
         display: none;
     }
-
-    @media (max-width: 768px) {
-        .works-filter-btn {
-            font-size: 9px;
-        }
-    }
 </style>
 
 <section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
@@ -81,14 +75,14 @@ $initial_works_query = new WP_Query([
         <div class="mb-8 flex items-start justify-between gap-6 md:py-10">
             <div class="w-full">
                 <button type="button" id="works-filter-toggle"
-                    class="inline-flex items-center gap-3 border-0 bg-transparent p-0 text-[0.72rem] uppercase tracking-[0.42em] text-[#5a5a5a]">
+                    class="inline-flex items-center gap-3 border-0 bg-transparent p-0 text-[12px] uppercase tracking-[0.31em] text-light-brown font-medium">
                     <span id="works-filter-count"
-                        class="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-[#2e2e2e] px-2 text-[0.76rem] font-medium tracking-normal text-white">0</span>
+                        class="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-dark-brown px-2 text-[12px] font-medium tracking-normal text-white">0</span>
                     <span id="works-filter-toggle-label">Filter +</span>
                 </button>
 
                 <div id="works-filter-panel" class="md:mt-10 is-collapsed">
-                    <ul class="m-0 grid list-none gap-y-6 gap-x-10 p-0 md:grid-cols-3 max-w-[500px]">
+                    <ul class="m-0 mt-4 grid list-none gap-y-3 md:gap-y-6 gap-x-10 p-0 md:grid-cols-3 max-w-[500px]">
                         <?php if (!empty($work_types)): ?>
                             <?php foreach ($work_types as $type): ?>
                                 <li>
@@ -106,11 +100,13 @@ $initial_works_query = new WP_Query([
 
             <div class="w-full max-w-[320px]">
                 <label for="works-search" class="sr-only">Search works</label>
-                <div class="flex items-center gap-3 pb-2">
+                <div class="flex items-center justify-end gap-3 pb-2">
                     <input type="search" id="works-search" placeholder="Search"
-                        class="w-full border-0 bg-transparent p-0 text-right text-[12px] uppercase tracking-[0.42em] text-dark-brown border-b border-beige-2 pb-4 placeholder:text-[#7a7a7a] focus:outline-none">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/images/search.png'); ?>"
-                        alt="Search Icon" class="h-4 w-4 object-contain mb-4">
+                        class="w-0 border-0 border-b border-beige-2 bg-transparent p-0 pb-4 text-right text-[12px] uppercase tracking-[0.42em] text-dark-brown opacity-0 transition-all duration-200 placeholder:text-[#7a7a7a] focus:w-full focus:opacity-100 focus:outline-none md:w-full md:opacity-100">
+                    <label for="works-search" class="mb-4 cursor-pointer">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/search.png'); ?>"
+                            alt="Search Icon" class="h-4 w-4 object-contain">
+                    </label>
                 </div>
             </div>
         </div>
@@ -122,7 +118,7 @@ $initial_works_query = new WP_Query([
             text-dark-brown font-medium">
             Works</p>
 
-        <div id="works-cards" class="space-y-14 w-full pl-8">
+        <div id="works-cards" class="space-y-14 w-full px-4 md:px-0 md:pl-8">
             <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>
         </div>
     </div>

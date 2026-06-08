@@ -8,6 +8,15 @@
 get_header();
 ?>
 
+<style>
+    body.single-work-hero-visible header,
+    body.single-work-hero-visible header>div {
+        background: transparent !important;
+        box-shadow: none !important;
+        transition: background-color 220ms ease, box-shadow 220ms ease;
+    }
+</style>
+
 <?php
 $work_taxonomy = arti_get_work_taxonomy();
 
@@ -100,23 +109,23 @@ $resolve_attachment_id = static function ($item): int {
     }
     ?>
 
-    <article <?php post_class('bg-beige-1 text-zinc-800 px-4 md:px-7 pb-16 md:pb-20'); ?>>
+    <article <?php post_class('bg-beige-1 text-zinc-800 md:px-7 pb-16 md:pb-20'); ?>>
         <div class="mx-auto max-w-[1800px]">
-            <section class="relative overflow-hidden">
+            <section id="work-hero" class="relative overflow-hidden -mt-[78px]">
                 <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail('full', ['class' => 'block w-full h-[48vh] md:h-[74vh] xl:h-[84vh] object-cover rounded-br-[5rem] md:rounded-br-[11rem]']); ?>
+                    <?php the_post_thumbnail('full', ['class' => 'block w-full h-[95vh] md:h-[74vh] xl:h-[84vh] object-cover rounded-br-[180px] md:rounded-br-[11rem]']); ?>
                 <?php else: ?>
-                    <div class="h-[48vh] w-full rounded-br-[5rem] bg-black/10 md:h-[74vh] md:rounded-br-[11rem] xl:h-[84vh]">
+                    <div class="h-[95vh] w-full rounded-br-[180px] bg-black/10 md:h-[74vh] md:rounded-br-[11rem] xl:h-[84vh]">
                     </div>
                 <?php endif; ?>
 
                 <div
-                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black to-transparent md:rounded-br-[11rem] pb-11 pt-16 pl-9">
-                    <h1 class="m-0 text-lg uppercase tracking-[0.28em] text-white md:text-[1.75rem] md:tracking-[0.34em]">
+                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black to-transparent rounded-br-[160px] md:rounded-br-[11rem] pb-24 md:pb-11 pt-16 pl-4 md:pl-9">
+                    <h1 class="m-0 text-[28px] uppercase tracking-[0.31em] mb-7 text-white ">
                         <?php the_title(); ?>
                     </h1>
                     <div
-                        class="mt-2 flex flex-wrap items-center gap-x-8 gap-y-1 text-[0.62rem] uppercase tracking-[0.3em] text-white/85">
+                        class="mt-2 flex flex-wrap items-center gap-x-8 gap-y-1 text-[12px] uppercase tracking-[0.3em] text-white/85">
                         <?php if ($location !== ''): ?>
                             <span><?php echo esc_html($location); ?></span>
                         <?php endif; ?>
@@ -140,7 +149,7 @@ $resolve_attachment_id = static function ($item): int {
                 </p>
             </section> -->
 
-            <section class="mx-auto mt-32">
+            <section class="mx-auto mt-16 px-4 md:px-0 md:mt-32">
                 <div class="entry-content text-zinc-800/85
                     [&_p]:text-light-brown [&_p]:text-[12px]
                     [&_h2]:text-dark-brown [&_h2]:text-[12px] [&_h2]:mt-0 [&_h2]:uppercase [&_h2]:mb-7 [&_h2]:tracking-[0.31em] [&_h2]:font-medium
@@ -214,7 +223,7 @@ $resolve_attachment_id = static function ($item): int {
                 </section>
             <?php endif; ?>
 
-            <section class="mx-auto mt-14 grid grid-cols-1 gap-[2em] md:grid-cols-[33%_66%]">
+            <section class="mx-auto mt-14 grid grid-cols-1 gap-[2em] md:grid-cols-[33%_66%] px-4 md:px-0">
                 <aside class="border-t border-zinc-500/35 pt-3 w-1/2">
                     <h2 class="m-0 text-[1.7rem] leading-none text-zinc-800"><?php echo esc_html($work_type); ?></h2>
                     <dl class="mt-8 space-y-5">
@@ -268,7 +277,7 @@ $resolve_attachment_id = static function ($item): int {
                 </div>
             </section>
 
-            <section class="mt-16 grid grid-cols-[33%_66%] gap-[2em]">
+            <section class="mt-16 grid-cols-[33%_66%] gap-[2em] hidden md:grid">
                 <div aria-hidden="true"></div>
                 <div>
                     <p class="m-0 text-[0.6rem] uppercase tracking-[0.3em] text-light-brown">Explore Other Works</p>
@@ -294,6 +303,25 @@ $resolve_attachment_id = static function ($item): int {
         </div>
     </article>
 <?php endwhile; ?>
+
+<script>
+    (function () {
+        var hero = document.getElementById('work-hero');
+
+        if (!hero) {
+            return;
+        }
+
+        function updateHeaderState() {
+            var rect = hero.getBoundingClientRect();
+            document.body.classList.toggle('single-work-hero-visible', rect.bottom > 0);
+        }
+
+        updateHeaderState();
+        window.addEventListener('scroll', updateHeaderState, { passive: true });
+        window.addEventListener('resize', updateHeaderState);
+    })();
+</script>
 
 <?php
 get_footer();

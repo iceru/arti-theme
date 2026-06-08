@@ -21,13 +21,13 @@ get_header();
 <?php while (have_posts()):
     the_post(); ?>
     <section class="bg-beige-1 px-4 pb-20 pt-6 md:px-9 md:pb-28 md:pt-10">
-        <div class="flex w-full gap-10 2xl:gap-24">
-            <div class="w-1/2 2xl:w-[40%]">
+        <div class="flex w-full flex-wrap md:flex-nowrap gap-12 2xl:gap-24">
+            <div class="w-full lg:w-1/2 2xl:w-[40%] order-2 md:order-1">
                 <h1 class="m-0 uppercase font-medium tracking-[0.31em] text-dark-brown">
                     Connect With Us
                 </h1>
 
-                <p class="mb-0 mt-9 max-w-[430px] text-[12px] leading-[1.8] text-dark-brown">
+                <p class="mb-0 mt-8 md:mt-9 max-w-[430px] text-[12px] leading-[1.8] text-dark-brown">
                     Let&apos;s begin with a conversation. Tell us about your project, and we&apos;ll explore how to
                     translate your vision into a considered, well-executed outcome.
                 </p>
@@ -49,7 +49,7 @@ get_header();
                 ?>
 
                 <div class="contact-tabs mt-14" data-contact-tabs>
-                    <div class="grid grid-cols-2 gap-x-2 gap-y-4 md:grid-cols-4">
+                    <div class="grid gap-x-2 gap-y-4 grid-cols-4">
                         <?php
                         $tab_index = 0;
                         foreach ($contact_tabs as $tab_key => $tab_label):
@@ -57,7 +57,7 @@ get_header();
                             $is_active = $tab_index === 1;
                             ?>
                             <button type="button"
-                                class="contact-tab-trigger border-0 text-[10px] bg-transparent pb-[9px] text-left uppercase font-medium tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-b-2 border-zinc-500 text-zinc-700' : 'border-b border-zinc-400/45 text-zinc-700/50'; ?>"
+                                class="contact-tab-trigger border-0 text-[7px] md:text-[10px] bg-transparent pb-[9px] text-left uppercase font-medium tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-b-2 border-zinc-500 text-zinc-700' : 'border-b border-zinc-400/45 text-zinc-700/50'; ?>"
                                 data-tab-trigger="<?php echo esc_attr($tab_key); ?>"
                                 aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
                                 <?php echo esc_html($tab_label); ?>
@@ -71,9 +71,10 @@ get_header();
                     [&_.wpcf7-form]:space-y-4
                     [&_.wpcf7-form-control-wrap]:block
                     [&_p]:m-0
+                    placeholder:text-[10px] placeholder:tracking-[0.28em]
                     [&_label]:block [&_label]:text-[0.74rem] [&_label]:uppercase [&_label]:tracking-[0.34em] [&_label]:text-zinc-500
-                    [&_input:not([type=submit])]:mt-2 [&_input:not([type=submit])]:block [&_input:not([type=submit])]:w-full [&_input:not([type=submit])]:border-0 [&_input:not([type=submit])]:border-b [&_input:not([type=submit])]:border-zinc-400/65 [&_input:not([type=submit])]:bg-transparent [&_input:not([type=submit])]:px-0 [&_input:not([type=submit])]:pb-4 [&_input:not([type=submit])]:pt-2 [&_input:not([type=submit])]:text-[0.95rem] [&_input:not([type=submit])]:text-zinc-700 [&_input:not([type=submit])]:outline-none
-                    [&_textarea]:mt-2 [&_textarea]:block [&_textarea]:h-40 [&_textarea]:w-full [&_textarea]:resize-none [&_textarea]:border-0 [&_textarea]:border-b [&_textarea]:border-zinc-400/65 [&_textarea]:bg-transparent [&_textarea]:px-0 [&_textarea]:pb-4 [&_textarea]:pt-2 [&_textarea]:text-[0.95rem] [&_textarea]:text-zinc-700 [&_textarea]:outline-none
+                    [&_input:not([type=submit])]:mt-2 [&_input:not([type=submit])]:block [&_input:not([type=submit])]:w-full [&_input:not([type=submit])]:border-0 [&_input:not([type=submit])]:border-b [&_input:not([type=submit])]:border-zinc-400/65 [&_input:not([type=submit])]:bg-transparent [&_input:not([type=submit])]:px-0 [&_input:not([type=submit])]:pb-4 [&_input:not([type=submit])]:pt-2 [&_input:not([type=submit])]:text-[0.95rem] [&_input:not([type=submit])]:text-zinc-700 [&_input:not([type=submit])]:outline-none [&_input:not([type=submit])]:placeholder:text-[10px] [&_input:not([type=submit])]:placeholder:tracking-[0.28em]
+                    [&_textarea]:mt-2 [&_textarea]:block [&_textarea]:h-40 [&_textarea]:w-full [&_textarea]:resize-none [&_textarea]:border-0 [&_textarea]:border-b [&_textarea]:border-zinc-400/65 [&_textarea]:bg-transparent [&_textarea]:px-0 [&_textarea]:pb-4 [&_textarea]:pt-2 [&_textarea]:text-[0.95rem] [&_textarea]:text-zinc-700 [&_textarea]:outline-none [&_textarea]:placeholder:text-[10px] [&_textarea]:placeholder:tracking-[0.28em]
                     [&_.wpcf7-not-valid-tip]:mt-2 [&_.wpcf7-not-valid-tip]:text-[0.72rem]
                     [&_.wpcf7-response-output]:!mx-0 [&_.wpcf7-response-output]:!mt-6 [&_.wpcf7-response-output]:rounded-none [&_.wpcf7-response-output]:border-zinc-400/70 [&_.wpcf7-response-output]:px-3 [&_.wpcf7-response-output]:py-2 [&_.wpcf7-response-output]:text-[0.75rem]
                     [&_input[type=submit]]:ml-auto [&_input[type=submit]]:mt-10 [&_input[type=submit]]:inline-flex [&_input[type=submit]]:cursor-pointer [&_input[type=submit]]:border-0 [&_input[type=submit]]:bg-transparent [&_input[type=submit]]:px-0 [&_input[type=submit]]:text-[0.86rem] [&_input[type=submit]]:uppercase [&_input[type=submit]]:tracking-[0.34em] [&_input[type=submit]]:text-zinc-700">
@@ -106,13 +107,13 @@ get_header();
                 </div>
             </div>
 
-            <div class="w-1/2 2xl:w-[60%]">
+            <div class="w-full lg:w-1/2 2xl:w-[60%] order-1 md:order-2">
                 <div>
                     <?php if (has_post_thumbnail()): ?>
                         <?php the_post_thumbnail('full', ['class' => 'block w-full object-cover rounded-br-[250px] h-[80vh]']); ?>
                     <?php else: ?>
                         <img src="<?php echo esc_url(get_theme_file_uri('/images/contact.png')); ?>" alt="Contact"
-                            class="block h-[80vh] w-full object-cover rounded-br-[250px]">
+                            class="block h-full md:h-[80vh] w-full object-cover rounded-br-[120px] md:rounded-br-[250px]">
                     <?php endif; ?>
                 </div>
 

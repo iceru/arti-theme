@@ -170,9 +170,8 @@
                         class="md:col-span-6 md:col-start-4 flex flex-col md:-top-[80px] relative md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
                         <a href="<?php echo esc_url(home_url('/studio')); ?>"
                             class="!no-underline text-zinc-900 hover:opacity-70">Studio</a>
-                        <a href="/news" class="!no-underline text-zinc-900 hover:opacity-70">News</a>
-
                         <a href="/works" class="!no-underline text-zinc-900 hover:opacity-70">Works</a>
+                        <a href="/news" class="!no-underline text-zinc-900 hover:opacity-70">News</a>
                         <a href="/contact" class="!no-underline text-zinc-900 hover:opacity-70">Contact</a>
                     </nav>
                 </div>

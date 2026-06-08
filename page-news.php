@@ -58,6 +58,11 @@ $initial_news_query = new WP_Query([
         .news-category-btn {
             font-size: 9px;
         }
+
+        #news-cards > * {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
     }
 </style>
 
@@ -96,8 +101,8 @@ $initial_news_query = new WP_Query([
 
         <div class="w-full min-w-0 overflow-hidden">
             <div id="news-track"
-                class="w-full max-w-full overflow-x-auto pb-5 [scrollbar-color:#686868_#D4CFC7] [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-beige-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-beige-1 [&::-webkit-scrollbar-thumb]:transition-colors hover:[&::-webkit-scrollbar-thumb]:bg-zinc-500">
-                <div id="news-cards" class="flex w-max gap-6 md:gap-8">
+                class="w-full max-w-full overflow-visible pb-5 md:overflow-x-auto md:[scrollbar-color:#686868_#D4CFC7] md:[scrollbar-width:thin] md:[&::-webkit-scrollbar]:h-1.5 md:[&::-webkit-scrollbar-track]:rounded-full md:[&::-webkit-scrollbar-track]:bg-beige-1 md:[&::-webkit-scrollbar-thumb]:rounded-full md:[&::-webkit-scrollbar-thumb]:bg-beige-1 md:[&::-webkit-scrollbar-thumb]:transition-colors md:hover:[&::-webkit-scrollbar-thumb]:bg-zinc-500">
+                <div id="news-cards" class="flex w-full flex-col gap-6 md:w-max md:flex-row md:gap-8">
                     <?php echo arti_render_news_cards_html($initial_news_query); ?>
                 </div>
             </div>
@@ -112,6 +117,10 @@ $initial_news_query = new WP_Query([
                 }
 
                 newsTrack.addEventListener('wheel', function (event) {
+                    if (!window.matchMedia('(min-width: 768px)').matches) {
+                        return;
+                    }
+
                     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
                         return;
                     }
@@ -186,6 +195,10 @@ $initial_news_query = new WP_Query([
 
         // Use vertical wheel movement to scroll news items horizontally.
         $track.on('wheel', function (event) {
+            if (!window.matchMedia('(min-width: 768px)').matches) {
+                return;
+            }
+
             const nativeEvent = event.originalEvent;
             const deltaY = nativeEvent.deltaY || 0;
             const deltaX = nativeEvent.deltaX || 0;

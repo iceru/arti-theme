@@ -216,9 +216,9 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                         <?php endif; ?>
                     </div>
                 </a>
-                <div class="pt-3">
+                <div class="pt-3 flex md:block space-x-4">
                     <div class="mb-6 flex items-center gap-2">
-                        <span class="inline-flex h-10 w-10 items-center">
+                        <span class="inline-flex w-8 h-8 md:h-10 md:w-10 items-center">
                             <?php
                             if (is_numeric($icon_outside)) {
                                 echo wp_get_attachment_image((int) $icon_outside, 'thumbnail', false, ['class' => 'h-10 w-10 object-contain']);
@@ -232,15 +232,19 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                             ?>
                         </span>
                     </div>
-                    <h2 class="m-0 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">
-                        <?php echo esc_html(get_the_title()); ?>
-                    </h2>
-                    <!-- <?php if (!empty($category_label)): ?>
+                    <div>
+                        <h2 class="m-0 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">
+                            <?php echo esc_html(get_the_title()); ?>
+                        </h2>
+                        <!-- <?php if (!empty($category_label)): ?>
                         <p class="mt-1 text-[0.62rem] text-black/52"><?php echo esc_html($category_label); ?></p>
                     <?php endif; ?> -->
-                    <?php if (!empty($type)): ?>
-                        <p class="mt-2 text-[9px] uppercase tracking-[0.1em] text-light-brown"><?php echo esc_html($type); ?></p>
-                    <?php endif; ?>
+                        <?php if (!empty($type)): ?>
+                            <p class="mt-1 md:mt-2 text-[12px] tracking-[0.1em] text-light-brown">
+                                <?php echo esc_html($type); ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </article>
             <?php
