@@ -17,6 +17,25 @@
 </head>
 
 <body <?php body_class('bg-white text-zinc-900 antialiased font-sans'); ?>>
+    <style>
+        body.admin-bar #site-header {
+            top: 32px;
+        }
+
+        body.admin-bar #site-menu-overlay {
+            top: 110px;
+        }
+
+        @media (max-width: 782px) {
+            body.admin-bar #site-header {
+                top: 46px;
+            }
+
+            body.admin-bar #site-menu-overlay {
+                top: 124px;
+            }
+        }
+    </style>
     <?php do_action('tailpress_site_before'); ?>
     <?php
     $loader_animation_uri = get_theme_file_uri('/images/arti-logo-a.json');
@@ -64,7 +83,7 @@
                             rendererSettings: {
                                 preserveAspectRatio: 'xMidYMid meet'
                             },
-                            loop: true,
+                            loop: false,
                             autoplay: false,
                             path: headerLogoAnimationContainer.getAttribute('data-animation-path')
                         });
@@ -102,18 +121,23 @@
                             headerLogoAnimation.goToAndPlay(0, true);
                         }
 
-                        function stopHeaderLogoAnimation() {
+                        function holdHeaderLogoAnimationEnd() {
+                            headerLogoAnimation.goToAndStop(headerLogoAnimation.totalFrames - 1, true);
+                        }
+
+                        function resetHeaderLogoAnimation() {
                             headerLogoAnimation.goToAndStop(0, true);
                         }
 
                         headerLogoAnimation.addEventListener('DOMLoaded', function () {
                             fitHeaderLogoToArtwork();
-                            stopHeaderLogoAnimation();
+                            resetHeaderLogoAnimation();
                         });
+                        headerLogoAnimation.addEventListener('complete', holdHeaderLogoAnimationEnd);
                         headerLogoLink.addEventListener('mouseenter', playHeaderLogoAnimation);
                         headerLogoLink.addEventListener('focus', playHeaderLogoAnimation);
-                        headerLogoLink.addEventListener('mouseleave', stopHeaderLogoAnimation);
-                        headerLogoLink.addEventListener('blur', stopHeaderLogoAnimation);
+                        headerLogoLink.addEventListener('mouseleave', resetHeaderLogoAnimation);
+                        headerLogoLink.addEventListener('blur', resetHeaderLogoAnimation);
                     }
                 }
 

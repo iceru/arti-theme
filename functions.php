@@ -206,7 +206,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             $category_label = (!is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : '';
             ?>
-            <article class="grid grid-cols-[minmax(0,60%)_minmax(0,1fr)] gap-6 max-md:grid-cols-1 max-md:gap-4">
+            <article class="grid grid-cols-[minmax(0,60%)_minmax(0,1fr)] gap-0 max-md:grid-cols-1">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden ">
                         <?php if (has_post_thumbnail()): ?>
@@ -216,7 +216,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                         <?php endif; ?>
                     </div>
                 </a>
-                <div class="pt-3 flex md:block space-x-4">
+                <div class="flex space-x-4 px-4 pt-3 md:block md:px-9">
                     <div class="mb-6 flex items-center gap-2">
                         <span class="inline-flex w-8 h-8 md:h-10 md:w-10 items-center">
                             <?php

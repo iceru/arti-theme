@@ -11,11 +11,11 @@ get_header();
 <?php if (have_posts()): ?>
     <?php while (have_posts()):
         the_post(); ?>
-        <article <?php post_class('bg-beige-1 text-zinc-800 px-4 md:px-7 pb-20 md:pb-32 min-h-[80vh]'); ?>>
+        <article <?php post_class('bg-beige-1 text-zinc-800 px-4 md:px-9 pb-20 md:pb-32 min-h-[80vh]'); ?>>
             <div class="mx-auto max-w-[1600px]">
                 <?php if (has_post_thumbnail()): ?>
                     <figure class="m-0">
-                        <?php the_post_thumbnail('full', ['class' => 'block w-full h-[48vh] md:h-[74vh] xl:h-[84vh] object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
+                        <?php the_post_thumbnail('full', ['class' => 'block w-full h-[48vh] md:h-[75vh] object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
                     </figure>
                 <?php endif; ?>
 

@@ -9,7 +9,7 @@ get_header();
 ?>
 
 <section
-    class="homepage-hero relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-beige-1 px-6 py-16 md:min-h-[78vh]"
+    class="homepage-hero relative flex min-h-[calc(100vh-78px)] items-center justify-center overflow-hidden bg-beige-1 px-6 py-16"
     style="--hero-bg:url('<?php echo esc_url(get_theme_file_uri('/images/bg.png')); ?>');">
     <canvas class="homepage-hero__canvas absolute inset-0 h-full w-full"></canvas>
 

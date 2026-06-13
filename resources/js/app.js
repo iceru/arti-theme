@@ -41,6 +41,7 @@ window.addEventListener('load', function () {
         menuToggle.querySelector('.site-menu-line-bottom')?.classList.add('translate-y-0', '-rotate-45')
         menuToggle.querySelector('.site-menu-line-bottom')?.classList.remove('translate-y-1')
         document.body.classList.add('overflow-hidden')
+        document.body.classList.add('site-menu-open')
     }
 
     function closeMenu() {
@@ -55,6 +56,7 @@ window.addEventListener('load', function () {
         menuToggle.querySelector('.site-menu-line-bottom')?.classList.remove('translate-y-0', '-rotate-45')
         menuToggle.querySelector('.site-menu-line-bottom')?.classList.add('translate-y-1')
         document.body.classList.remove('overflow-hidden')
+        document.body.classList.remove('site-menu-open')
     }
 
     menuToggle.addEventListener('click', function (e) {
@@ -326,6 +328,20 @@ function initStudioScrollSpy() {
 
     window.addEventListener('scroll', updateActiveFromScroll, { passive: true })
     window.addEventListener('resize', updateActiveFromScroll)
+    items.forEach(function (item) {
+        item.link.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            const header = document.getElementById('site-header')
+            const headerHeight = header ? header.getBoundingClientRect().height : 0
+            const targetY = item.section.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24
+
+            window.scrollTo({
+                top: Math.max(0, targetY),
+                behavior: 'smooth',
+            })
+        })
+    })
     updateActiveFromScroll()
 }
 
@@ -355,7 +371,7 @@ function initArtiWayAccordion($) {
             return
         }
 
-        $panel.slideUp(220, function () {
+        $panel.slideUp(520, function () {
             $(this).addClass('hidden')
         })
     }
@@ -379,7 +395,7 @@ function initArtiWayAccordion($) {
             return
         }
 
-        $panel.hide().slideDown(220)
+        $panel.hide().slideDown(520)
     }
 
     $accordion.find('.arti-way-item').each(function () {

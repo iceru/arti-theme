@@ -9,7 +9,7 @@ get_header();
 ?>
 
 <section class="bg-beige-1 pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
-    <div class="grid grid-cols-[300px_1fr] gap-12 max-md:grid-cols-1 max-md:gap-0">
+    <div class="grid grid-cols-[380px_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
         <aside
             class="hidden md:block relative min-h-full bg-beige-1 max-md:border-r-0 max-md:border-b max-md:border-black/8"
             aria-label="Studio sections">
@@ -82,7 +82,7 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/artisan.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300 "
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-500 "
                             aria-expanded="false">
                             <span
                                 class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">01</span>
@@ -119,7 +119,7 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/responsible.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-500"
                             aria-expanded="false">
                             <span
                                 class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">02</span>
@@ -156,7 +156,7 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/tradition.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-500"
                             aria-expanded="false">
                             <span
                                 class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">03</span>
@@ -193,7 +193,7 @@ get_header();
                     <article class="arti-way-item"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/innovation.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-300"
+                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-10 md:py-6 text-left transition-colors duration-500"
                             aria-expanded="false">
                             <span
                                 class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">04</span>
@@ -229,7 +229,8 @@ get_header();
                 </div>
             </section>
 
-            <section class="min-w-0 pt-20 max-md:pt-14 pl-4 md:pl-8" id="expertise" aria-labelledby="expertise-title">
+            <section class="min-w-0 pt-20 max-md:pt-14 pl-4 pr-4 md:pl-8 md:pr-8" id="expertise"
+                aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
                     <p class="mb-20 text-[12px] uppercase tracking-[0.31em] font-medium text-light-brown">Expertise</p>
                 </div>
@@ -270,10 +271,10 @@ get_header();
 
                                 <?php if (!empty($expertise_items) && is_array($expertise_items)): ?>
                                     <?php $use_horizontal_track = count($expertise_items) > 3; ?>
-                                    <div class="<?php echo $use_horizontal_track ? 'expertise-items-track w-full max-w-full overflow-x-auto overflow-y-hidden pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : ''; ?>"
-                                        <?php echo $use_horizontal_track ? 'data-horizontal-scroll-lock="true"' : ''; ?>>
+                                    <div class="<?php echo $use_horizontal_track ? 'expertise-items-track w-full max-w-full cursor-grab overflow-x-auto overflow-y-hidden pb-3 pr-8 select-none active:cursor-grabbing md:pr-16 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : ''; ?>"
+                                        <?php echo $use_horizontal_track ? 'data-drag-scroll="true"' : ''; ?>>
                                         <div
-                                            class="<?php echo $use_horizontal_track ? 'flex w-max max-w-none gap-5' : 'grid grid-cols-1 gap-5 md:grid-cols-3'; ?>">
+                                            class="<?php echo $use_horizontal_track ? 'flex w-max max-w-none gap-5 pr-8 md:pr-16' : 'grid grid-cols-1 gap-5 md:grid-cols-3'; ?>">
                                             <?php foreach ($expertise_items as $item): ?>
                                                 <?php
                                                 $item_title = '';
@@ -408,126 +409,56 @@ get_header();
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const tracks = Array.from(document.querySelectorAll('.expertise-items-track[data-horizontal-scroll-lock="true"]'));
+        const tracks = Array.from(document.querySelectorAll('.expertise-items-track[data-drag-scroll="true"]'));
         if (!tracks.length) {
             return;
         }
 
-        const trackStates = new WeakMap();
-        const SCROLL_EASE = 0.18;
-        const STOP_THRESHOLD = 0.5;
-        let lenisResumeTimer = 0;
-
-        function pauseLenisBriefly() {
-            if (!window.lenis || typeof window.lenis.stop !== 'function' || typeof window.lenis.start !== 'function') {
-                return;
-            }
-
-            window.lenis.stop();
-            window.clearTimeout(lenisResumeTimer);
-            lenisResumeTimer = window.setTimeout(function () {
-                window.lenis.start();
-            }, 120);
-        }
-
-        function getTrackState(track) {
-            if (!trackStates.has(track)) {
-                trackStates.set(track, {
-                    target: track.scrollLeft,
-                    rafId: 0,
-                });
-            }
-            return trackStates.get(track);
-        }
-
-        function animateTrack(track) {
-            const state = getTrackState(track);
-            const diff = state.target - track.scrollLeft;
-
-            if (Math.abs(diff) <= STOP_THRESHOLD) {
-                track.scrollLeft = state.target;
-                state.rafId = 0;
-                return;
-            }
-
-            track.scrollLeft += diff * SCROLL_EASE;
-            state.rafId = window.requestAnimationFrame(function () {
-                animateTrack(track);
-            });
-        }
-
-        function queueTrackScroll(track, deltaY) {
-            const state = getTrackState(track);
-            const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
-            state.target = Math.max(0, Math.min(maxScrollLeft, state.target + deltaY));
-
-            if (!state.rafId) {
-                state.rafId = window.requestAnimationFrame(function () {
-                    animateTrack(track);
-                });
-            }
-        }
-
-        function getActiveTrack() {
-            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-            return tracks.find(function (track) {
-                const rect = track.getBoundingClientRect();
-                const topTrigger = viewportHeight * 0.22;
-                const bottomTrigger = viewportHeight * 0.92;
-                return rect.top >= topTrigger && rect.bottom <= bottomTrigger;
-            }) || null;
-        }
-
-        function moveTrackWithWheel(track, deltaY) {
-            if (!track || deltaY === 0) {
-                return false;
-            }
-
-            if (track.scrollWidth <= track.clientWidth) {
-                return false;
-            }
-
-            const state = getTrackState(track);
-            const maxScrollLeft = track.scrollWidth - track.clientWidth;
-            const currentOrTarget = Math.max(track.scrollLeft, state.target);
-            const currentOrTargetMin = Math.min(track.scrollLeft, state.target);
-            const canScrollRight = currentOrTarget < (maxScrollLeft - 1);
-            const canScrollLeft = currentOrTargetMin > 1;
-
-            if ((deltaY > 0 && canScrollRight) || (deltaY < 0 && canScrollLeft)) {
-                queueTrackScroll(track, deltaY);
-                return true;
-            }
-
-            return false;
-        }
-
         tracks.forEach(function (track) {
-            // Strong lock when cursor is on/inside the horizontal track.
-            track.addEventListener('wheel', function (event) {
-                const deltaY = event.deltaY || 0;
-                if (moveTrackWithWheel(track, deltaY)) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    pauseLenisBriefly();
+            let isDragging = false;
+            let startX = 0;
+            let startScrollLeft = 0;
+
+            track.addEventListener('pointerdown', function (event) {
+                if (event.button !== 0 && event.pointerType === 'mouse') {
+                    return;
                 }
-            }, { passive: false });
-        });
 
-        // Fallback lock when cursor is outside track but Expertise area is in view.
-        window.addEventListener('wheel', function (event) {
-            const track = getActiveTrack();
-            if (!track) {
-                return;
-            }
+                isDragging = true;
+                startX = event.clientX;
+                startScrollLeft = track.scrollLeft;
+                track.setPointerCapture(event.pointerId);
+                track.classList.add('is-dragging');
+            });
 
-            const deltaY = event.deltaY || 0;
-            if (moveTrackWithWheel(track, deltaY)) {
+            track.addEventListener('pointermove', function (event) {
+                if (!isDragging) {
+                    return;
+                }
+
                 event.preventDefault();
-                event.stopPropagation();
-                pauseLenisBriefly();
+                track.scrollLeft = startScrollLeft - (event.clientX - startX);
+            });
+
+            function stopDrag(event) {
+                if (!isDragging) {
+                    return;
+                }
+
+                isDragging = false;
+                track.classList.remove('is-dragging');
+                if (track.hasPointerCapture(event.pointerId)) {
+                    track.releasePointerCapture(event.pointerId);
+                }
             }
-        }, { passive: false });
+
+            track.addEventListener('pointerup', stopDrag);
+            track.addEventListener('pointercancel', stopDrag);
+            track.addEventListener('lostpointercapture', function () {
+                isDragging = false;
+                track.classList.remove('is-dragging');
+            });
+        });
     });
 </script>
 

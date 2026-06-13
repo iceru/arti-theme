@@ -17,9 +17,89 @@ $initial_works_query = new WP_Query([
     'orderby' => 'date',
     'order' => 'ASC',
 ]);
+
+$featured_works_query = new WP_Query([
+    'post_type' => 'work',
+    'post_status' => 'publish',
+    'posts_per_page' => -1,
+    'orderby' => 'menu_order date',
+    'order' => 'ASC',
+    'meta_query' => [
+        'relation' => 'OR',
+        [
+            'key' => 'featured_hero',
+            'value' => ['1', 'Yes', 'yes', 'true', 'True'],
+            'compare' => 'IN',
+        ],
+        [
+            'key' => 'featured',
+            'value' => ['1', 'Yes', 'yes'],
+            'compare' => 'IN',
+        ],
+        [
+            'key' => 'show_in_works_hero',
+            'value' => ['1', 'Yes', 'yes', 'true', 'True'],
+            'compare' => 'IN',
+        ],
+    ],
+]);
 ?>
 
 <style>
+    .works-featured-hero__slide {
+        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 720ms ease;
+    }
+
+    .works-featured-hero__slide.is-active {
+        z-index: 1;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .works-featured-hero__image {
+        transform: scale(1);
+    }
+
+    .works-featured-hero__slide.is-active .works-featured-hero__image {
+        animation: worksHeroZoom var(--works-hero-duration, 3000ms) linear forwards;
+    }
+
+    .works-featured-hero__progress {
+        transform: scaleX(0);
+        transform-origin: left center;
+    }
+
+    .works-featured-hero__progress-track {
+        z-index: 2;
+    }
+
+    .works-featured-hero__progress.is-active {
+        animation: worksHeroProgress var(--works-hero-duration, 3000ms) linear forwards;
+    }
+
+    @keyframes worksHeroZoom {
+        from {
+            transform: scale(1);
+        }
+
+        to {
+            transform: scale(1.08);
+        }
+    }
+
+    @keyframes worksHeroProgress {
+        from {
+            transform: scaleX(0);
+        }
+
+        to {
+            transform: scaleX(1);
+        }
+    }
+
     #works-cards>article {
         opacity: 0.42;
         transform: scale(0.9);
@@ -69,6 +149,61 @@ $initial_works_query = new WP_Query([
         display: none;
     }
 </style>
+
+<?php if ($featured_works_query->have_posts()): ?>
+    <section class="works-featured-hero relative min-h-[calc(100vh-110px)] overflow-hidden bg-black text-white"
+        style="--works-hero-duration: 3000ms;" data-featured-works-hero data-slide-duration="3000"
+        aria-label="Featured works">
+        <?php
+        $featured_index = 0;
+        while ($featured_works_query->have_posts()):
+            $featured_works_query->the_post();
+            $featured_type = function_exists('get_field') ? (string) get_field('type') : '';
+            if ($featured_type === '') {
+                $featured_terms = $work_taxonomy ? get_the_terms(get_the_ID(), $work_taxonomy) : [];
+                $featured_type = (!is_wp_error($featured_terms) && !empty($featured_terms)) ? $featured_terms[0]->name : '';
+            }
+            ?>
+            <article
+                class="works-featured-hero__slide <?php echo $featured_index === 0 ? 'is-active' : ''; ?> absolute inset-0">
+                <a href="<?php the_permalink(); ?>" class="group block h-full !no-underline text-white">
+                    <?php if (has_post_thumbnail()): ?>
+                        <?php the_post_thumbnail('full', ['class' => 'works-featured-hero__image block h-full w-full object-cover', 'loading' => 'eager', 'decoding' => 'async']); ?>
+                    <?php else: ?>
+                        <div class="works-featured-hero__image h-full w-full bg-black/30"></div>
+                    <?php endif; ?>
+
+                    <div
+                        class="absolute inset-x-0 bottom-0 flex min-h-[42%] items-end bg-gradient-to-t from-black/75 to-transparent px-6 pb-10 md:px-9 md:pb-11">
+                        <div class="flex w-full items-end justify-between gap-8">
+                            <div>
+                                <h2 class="m-0 text-[16px] font-medium uppercase tracking-[0.42em] text-white md:text-[18px]">
+                                    <?php the_title(); ?>
+                                </h2>
+                                <?php if ($featured_type !== ''): ?>
+                                    <p class="m-0 mt-3 text-[10px] font-medium uppercase tracking-[0.42em] text-white/78">
+                                        <?php echo esc_html($featured_type); ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+                            <span class="hidden text-[10px] font-medium uppercase tracking-[0.42em] text-white/85 md:block">
+                                Explore
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            <?php
+            $featured_index++;
+        endwhile;
+        wp_reset_postdata();
+        ?>
+
+        <div class="works-featured-hero__progress-track absolute inset-x-0 bottom-0 h-1 bg-white/15">
+            <div class="works-featured-hero__progress is-active h-full w-full bg-beige-1"></div>
+        </div>
+    </section>
+<?php endif; ?>
 
 <section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
     <div class="px-4 md:px-9">
@@ -125,6 +260,59 @@ $initial_works_query = new WP_Query([
 </section>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const hero = document.querySelector('[data-featured-works-hero]');
+        if (!hero) {
+            return;
+        }
+
+        const slides = Array.from(hero.querySelectorAll('.works-featured-hero__slide'));
+        const progress = hero.querySelector('.works-featured-hero__progress');
+        const duration = Number(hero.getAttribute('data-slide-duration')) || 3000;
+        let activeIndex = 0;
+
+        hero.style.setProperty('--works-hero-duration', duration + 'ms');
+
+        if (!slides.length || !progress) {
+            return;
+        }
+
+        function restartProgress() {
+            progress.classList.remove('is-active');
+            void progress.offsetWidth;
+            progress.classList.add('is-active');
+        }
+
+        function restartSlideAnimation(slide) {
+            const image = slide.querySelector('.works-featured-hero__image');
+            if (!image) {
+                return;
+            }
+
+            image.style.animation = 'none';
+            void image.offsetWidth;
+            image.style.animation = '';
+        }
+
+        function showSlide(index) {
+            slides[activeIndex].classList.remove('is-active');
+            activeIndex = index;
+            slides[activeIndex].classList.add('is-active');
+            restartSlideAnimation(slides[activeIndex]);
+            restartProgress();
+        }
+
+        restartProgress();
+
+        if (slides.length < 2) {
+            return;
+        }
+
+        window.setInterval(function () {
+            showSlide((activeIndex + 1) % slides.length);
+        }, duration);
+    });
+
     jQuery(function ($) {
         const $toggle = $('#works-filter-toggle');
         const $toggleLabel = $('#works-filter-toggle-label');
