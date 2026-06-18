@@ -330,7 +330,7 @@ $resolve_attachment_id = static function ($item): int {
                     <?php endif; ?>
 
                     <?php if (!empty($credits)): ?>
-                        <details class="work-credits mt-24">
+                        <details class="work-credits mt-14">
                             <summary
                                 class="flex cursor-pointer list-none items-center justify-between gap-6 border-b border-beige-2 pb-[18px] text-[9px] font-medium uppercase tracking-[0.28em] text-light-brown">
                                 <span>Credits</span>
