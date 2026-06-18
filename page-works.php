@@ -212,7 +212,7 @@ $featured_works_query = new WP_Query([
                 <button type="button" id="works-filter-toggle"
                     class="inline-flex items-center gap-3 border-0 bg-transparent p-0 text-[12px] uppercase tracking-[0.31em] text-light-brown font-medium">
                     <span id="works-filter-count"
-                        class="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-dark-brown px-2 text-[12px] font-medium tracking-normal text-white">0</span>
+                        class="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-dark-brown px-2 text-[12px] font-medium tracking-normal text-beige-1 italic">0</span>
                     <span id="works-filter-toggle-label">Filter +</span>
                 </button>
 
@@ -248,12 +248,12 @@ $featured_works_query = new WP_Query([
 
     </div>
 
-    <div class="grid grid-cols-[300px_1fr] gap-12 max-md:grid-cols-1 max-md:gap-0">
+    <div class="grid grid-cols-[250px_1fr] gap-12 max-md:grid-cols-1 max-md:gap-0">
         <p class="hidden md:block sticky top-36 self-start pl-9 mb-8 text-[12px] uppercase tracking-[0.31em]
             text-dark-brown font-medium">
             Works</p>
 
-        <div id="works-cards" class="space-y-14 w-full px-4 md:px-0 md:pl-8">
+        <div id="works-cards" class="space-y-14 w-full px-4 md:px-0">
             <?php echo arti_render_work_cards_html($initial_works_query, $work_taxonomy ?: 'category'); ?>
         </div>
     </div>
