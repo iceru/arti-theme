@@ -29,7 +29,7 @@ get_header();
     }
 
     .work-credits[open] .work-credits__icon {
-        transform: rotate(225deg);
+        transform: rotate(180deg);
     }
 </style>
 
@@ -37,25 +37,33 @@ get_header();
 $work_taxonomy = arti_get_work_taxonomy();
 
 $get_first_field = static function (array $keys, $default = '') {
-    if (!function_exists('get_field')) {
-        return $default;
-    }
-
     foreach ($keys as $key) {
-        $value = get_field($key);
-        if (is_array($value)) {
+        $values = [];
+
+        if (function_exists('get_field')) {
+            $values[] = get_field($key);
+        }
+
+        $post_id = get_the_ID();
+        if ($post_id) {
+            $values[] = get_post_meta($post_id, $key, true);
+        }
+
+        foreach ($values as $value) {
+            if (is_array($value)) {
+                if (!empty($value)) {
+                    return $value;
+                }
+                continue;
+            }
+
+            if (is_string($value) && trim($value) !== '') {
+                return $value;
+            }
+
             if (!empty($value)) {
                 return $value;
             }
-            continue;
-        }
-
-        if (is_string($value) && trim($value) !== '') {
-            return $value;
-        }
-
-        if (!empty($value)) {
-            return $value;
         }
     }
 
@@ -107,26 +115,14 @@ $resolve_attachment_id = static function ($item): int {
     $gallery_process = $get_first_field(['process_gallery', 'process_images', 'sketch_gallery'], []);
     $model_image = $get_first_field(['model_image', 'project_model_image'], '');
     $icon_inside = $get_first_field(['icon_inside', 'project_icon_inside'], '');
-    $credit_group = function_exists('get_field') ? get_field('credit') : [];
     $credits = [];
 
-    if (is_array($credit_group)) {
-        uksort($credit_group, 'strnatcasecmp');
+    for ($credit_index = 1; $credit_index <= 4; $credit_index++) {
+        $credit_value = (string) $get_first_field(["credit_{$credit_index}"], '');
+        $credit_value = trim($credit_value);
 
-        foreach ($credit_group as $credit_key => $credit_value) {
-            if (!preg_match('/^credit_?\d+$/i', (string) $credit_key)) {
-                continue;
-            }
-
-            if (is_array($credit_value)) {
-                $credit_value = $credit_value['name'] ?? $credit_value['title'] ?? $credit_value['value'] ?? '';
-            }
-
-            $credit_value = trim((string) $credit_value);
-
-            if ($credit_value !== '') {
-                $credits[] = $credit_value;
-            }
+        if ($credit_value !== '') {
+            $credits[] = $credit_value;
         }
     }
 
@@ -161,13 +157,13 @@ $resolve_attachment_id = static function ($item): int {
 
                 <div
                     class="absolute inset-x-0 bottom-0 w-full h-full flex flex-col justify-end overflow-hidden
-                    rounded-br-[180px] md:rounded-br-[327px] pb-24 md:pb-11 pt-16 pl-4 md:pl-9
+                    rounded-br-[180px] md:rounded-br-[327px] pb-16 md:pb-11 pt-16 pl-4 md:pl-9
                     after:absolute after:inset-x-0 after:bottom-0 after:top-1/2 after:bg-gradient-to-t after:from-black after:to-transparent after:content-['']">
                     <h1 class="relative z-10 m-0 text-[28px] uppercase tracking-[0.31em] mb-7 text-white ">
                         <?php the_title(); ?>
                     </h1>
                     <div
-                        class="relative z-10 mt-2 flex flex-wrap items-center gap-x-8 gap-y-1 text-[12px] uppercase tracking-[0.3em] text-light-brown">
+                        class="relative z-10 mt-2 flex flex-wrap items-center gap-x-16 md:gap-x-32 gap-y-1 text-[12px] uppercase tracking-[0.3em] text-light-brown">
 
                         <span><?php echo esc_html($work_type); ?></span>
                         <?php if ($status !== ''): ?>
@@ -192,7 +188,7 @@ $resolve_attachment_id = static function ($item): int {
                     $icon_inside_url = get_theme_file_uri('/images/logo-short.png');
                 }
                 ?>
-                <div class="absolute bottom-10 right-12 flex">
+                <div class="absolute right-4 bottom-3 md:bottom-10 md:right-12 flex">
                     <img src="<?php echo esc_url($icon_inside_url); ?>" alt="" class="h-8 w-8 object-contain md:h-6">
                 </div>
             </section>
@@ -211,9 +207,9 @@ $resolve_attachment_id = static function ($item): int {
 
             <section class="mx-auto mt-16 px-4 md:px-0 md:mt-32">
                 <div class="entry-content text-zinc-800/85
-                    [&_p]:px-4 [&_p]:text-light-brown [&_p]:text-[12px] md:[&_p]:px-9
-                    [&_h2]:px-4 [&_h2]:text-dark-brown [&_h2]:text-[12px] [&_h2]:mt-0 [&_h2]:uppercase [&_h2]:mb-7 [&_h2]:tracking-[0.31em] [&_h2]:font-medium md:[&_h2]:px-9
-                    [&_figure]:my-8 [&_figure]:px-0 [&_figcaption]:px-4 [&_figcaption]:mt-2 [&_figcaption]:text-[0.66rem] [&_figcaption]:text-light-brown md:[&_figcaption]:px-9
+                    [&_p]:px-0 [&_p]:text-light-brown [&_p]:text-[12px] md:[&_p]:px-9
+                    [&_h2]:px-0 [&_h2]:text-dark-brown [&_h2]:text-[12px] [&_h2]:mt-0 [&_h2]:uppercase [&_h2]:mb-4 [&_h2]:md:mb-7 [&_h2]:tracking-[0.31em] [&_h2]:font-medium md:[&_h2]:px-9
+                    [&_figure]:my-8 [&_figure]:!-mx-4 md:[&_figure]:mx-0 [&_figure]:px-0 [&_figcaption]:px-4 [&_figcaption]:mt-2 [&_figcaption]:text-[0.66rem] [&_figcaption]:text-light-brown md:[&_figcaption]:px-9
                     [&_img]:block [&_img]:h-auto [&_img]:w-full [&_img]:object-cover">
                     <?php the_content(); ?>
                 </div>
@@ -285,7 +281,7 @@ $resolve_attachment_id = static function ($item): int {
 
             <section
                 class="mx-auto mt-14 grid min-w-0 grid-cols-1 gap-8 px-4 md:grid-cols-[minmax(0,33%)_minmax(0,1fr)] md:px-0">
-                <aside class="min-w-0 border-t border-zinc-500/35 pt-3 md:w-[258px] ml-9">
+                <aside class="min-w-0 order-2 md:order-1 border-t border-zinc-500/35 pt-3 md:w-[258px] md:ml-9">
                     <h2 class="m-0 text-[1.7rem] leading-none text-zinc-800"><?php echo esc_html($work_type); ?></h2>
                     <div class="mt-8 gap-y-12 gap-x-6 grid grid-cols-2 mb-12">
                         <?php if ($site_area !== ''): ?>
@@ -341,7 +337,7 @@ $resolve_attachment_id = static function ($item): int {
                                 <span class="work-credits__icon h-2 w-2 rotate-45 border-b border-r border-light-brown"
                                     aria-hidden="true"></span>
                             </summary>
-                            <div class="grid grid-cols-1 gap-x-10 gap-y-7 pt-8 text-[24px] leading-tight text-dark-brown md:grid-cols-2">
+                            <div class="grid gap-x-16 gap-y-6 pt-5 text-[12px] leading-tight text-dark-brown grid-cols-2">
                                 <?php foreach ($credits as $credit): ?>
                                     <p class="m-0"><?php echo esc_html($credit); ?></p>
                                 <?php endforeach; ?>
@@ -350,7 +346,7 @@ $resolve_attachment_id = static function ($item): int {
                     <?php endif; ?>
                 </aside>
 
-                <div class="min-w-0">
+                <div class="min-w-0 order-1 md:order-2 -mx-4 md:mx-0">
                     <?php if (is_numeric($model_image)): ?>
                         <?php echo wp_get_attachment_image((int) $model_image, 'full', false, ['class' => 'block h-auto w-full max-w-full object-cover']); ?>
                     <?php elseif (is_array($model_image) && !empty($model_image['url'])): ?>
