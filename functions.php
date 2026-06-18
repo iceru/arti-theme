@@ -184,9 +184,9 @@ function arti_render_news_cards_html(WP_Query $query): string
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden">
                         <?php if (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('large', ['class' => 'block rounded-br-[150px] h-[300px] w-full object-cover transition-transform duration-500 md:h-[420px]']); ?>
+                            <?php the_post_thumbnail('large', ['class' => 'block rounded-br-[88px] md:rounded-br-[150px] h-[245px] w-full object-cover transition-transform duration-500 md:h-[420px]']); ?>
                         <?php else: ?>
-                            <div class="h-[300px] w-full bg-black/12 md:h-[360px]"></div>
+                            <div class="h-[245px] w-full bg-black/12 md:h-[360px]"></div>
                         <?php endif; ?>
                     </div>
                     <h2 class="mt-5 text-[12px] font-medium uppercase tracking-[0.31em] text-dark-brown">

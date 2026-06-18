@@ -59,7 +59,7 @@ $initial_news_query = new WP_Query([
             font-size: 9px;
         }
 
-        #news-cards > * {
+        #news-cards>* {
             width: 100% !important;
             max-width: 100% !important;
         }
@@ -67,7 +67,7 @@ $initial_news_query = new WP_Query([
 </style>
 
 <section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
-    <div class="grid grid-cols-1 gap-8 px-6 md:grid-cols-[220px_1fr] md:gap-10 md:px-8">
+    <div class="grid grid-cols-1 gap-8 px-4 md:grid-cols-[220px_1fr] md:gap-10 md:px-8">
         <aside class="md:sticky md:top-24 md:self-start">
             <p class="mb-8 text-[0.74rem] uppercase tracking-[0.48em] text-[#2d2d2d]">News</p>
 
@@ -102,7 +102,7 @@ $initial_news_query = new WP_Query([
         <div class="w-full min-w-0 overflow-hidden">
             <div id="news-track"
                 class="w-full max-w-full overflow-visible pb-5 md:overflow-x-auto md:[scrollbar-color:#686868_#D4CFC7] md:[scrollbar-width:thin] md:[&::-webkit-scrollbar]:h-1.5 md:[&::-webkit-scrollbar-track]:rounded-full md:[&::-webkit-scrollbar-track]:bg-beige-1 md:[&::-webkit-scrollbar-thumb]:rounded-full md:[&::-webkit-scrollbar-thumb]:bg-beige-1 md:[&::-webkit-scrollbar-thumb]:transition-colors md:hover:[&::-webkit-scrollbar-thumb]:bg-zinc-500">
-                <div id="news-cards" class="flex w-full flex-col gap-6 md:w-max md:flex-row md:gap-8">
+                <div id="news-cards" class="flex w-full flex-col gap-16 md:w-max md:flex-row md:gap-8">
                     <?php echo arti_render_news_cards_html($initial_news_query); ?>
                 </div>
             </div>

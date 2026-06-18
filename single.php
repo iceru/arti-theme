@@ -11,16 +11,16 @@ get_header();
 <?php if (have_posts()): ?>
     <?php while (have_posts()):
         the_post(); ?>
-        <article <?php post_class('bg-beige-1 text-zinc-800 px-4 md:px-9 pb-20 md:pb-32 min-h-[80vh]'); ?>>
+        <article <?php post_class('bg-beige-1 text-zinc-800 px-0 md:px-9 pb-20 md:pb-32 min-h-[80vh]'); ?>>
             <div class="mx-auto max-w-[1600px]">
                 <?php if (has_post_thumbnail()): ?>
-                    <figure class="m-0">
+                    <figure class="m-0 px-0">
                         <?php the_post_thumbnail('full', ['class' => 'block w-full h-[48vh] md:h-[75vh] object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
                     </figure>
                 <?php endif; ?>
 
                 <header
-                    class="pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-[minmax(120px,160px)_minmax(0,780px)] gap-y-3 md:gap-x-10 items-start">
+                    class="pt-8 md:pt-16 px-4 md:px-0 grid grid-cols-1 md:grid-cols-[minmax(120px,160px)_minmax(0,780px)] gap-y-3 md:gap-x-10 items-start">
                     <p class="m-0 text-[0.62rem] tracking-[0.26em] uppercase text-light-brown">
                         <?php echo esc_html(get_the_date('d F Y')); ?>
                     </p>
@@ -29,7 +29,8 @@ get_header();
                     </h1>
                 </header>
 
-                <div class="mt-8 md:mt-14 grid grid-cols-1 md:grid-cols-[minmax(120px,160px)_minmax(0,780px)] md:gap-x-10">
+                <div
+                    class="mt-8 md:mt-14 px-4 md:px-0 grid grid-cols-1 md:grid-cols-[minmax(120px,160px)_minmax(0,780px)] md:gap-x-10">
                     <div aria-hidden="true"></div>
                     <div class="entry-content max-w-[900px] !text-light-brown
                         [&_p]:m-0 [&_p]:mb-6 [&_p]:text-[0.87rem] [&_p]:leading-[2] [&_p]:tracking-[0.02em]
