@@ -50,6 +50,123 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 /**
+ * Register editable preferred roles for contact form dropdowns.
+ */
+function arti_register_preferred_role_post_type(): void
+{
+    register_post_type('preferred_role', [
+        'labels' => [
+            'name' => __('Preferred Roles', 'tailpress'),
+            'singular_name' => __('Preferred Role', 'tailpress'),
+            'add_new_item' => __('Add New Preferred Role', 'tailpress'),
+            'edit_item' => __('Edit Preferred Role', 'tailpress'),
+            'new_item' => __('New Preferred Role', 'tailpress'),
+            'view_item' => __('View Preferred Role', 'tailpress'),
+            'search_items' => __('Search Preferred Roles', 'tailpress'),
+            'not_found' => __('No preferred roles found', 'tailpress'),
+            'not_found_in_trash' => __('No preferred roles found in Trash', 'tailpress'),
+        ],
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_icon' => 'dashicons-groups',
+        'supports' => ['title', 'page-attributes'],
+        'has_archive' => false,
+        'rewrite' => false,
+        'show_in_rest' => true,
+    ]);
+}
+
+add_action('init', 'arti_register_preferred_role_post_type');
+
+/**
+ * Get preferred role titles for contact form select options.
+ *
+ * @return string[]
+ */
+function arti_get_preferred_role_options(): array
+{
+    $roles = get_posts([
+        'post_type' => 'preferred_role',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'orderby' => [
+            'menu_order' => 'ASC',
+            'title' => 'ASC',
+        ],
+        'no_found_rows' => true,
+    ]);
+
+    $options = [];
+
+    foreach ($roles as $role) {
+        if (!$role instanceof WP_Post) {
+            continue;
+        }
+
+        $role_title = trim(get_the_title($role));
+        if ($role_title !== '') {
+            $options[] = $role_title;
+        }
+    }
+
+    return $options;
+}
+
+/**
+ * Replace the preferred role CF7 select options with Preferred Role posts.
+ *
+ * @param object $tag Contact Form 7 form tag.
+ * @return object
+ */
+function arti_populate_preferred_role_cf7_select($tag)
+{
+    $tag_name = '';
+    if (is_array($tag) && isset($tag['name'])) {
+        $tag_name = (string) $tag['name'];
+    } elseif (is_object($tag) && isset($tag->name)) {
+        $tag_name = (string) $tag->name;
+    }
+
+    if (!preg_match('/^preferred[-_]?roles?$/i', $tag_name)) {
+        return $tag;
+    }
+
+    $role_options = arti_get_preferred_role_options();
+
+    if (empty($role_options)) {
+        return $tag;
+    }
+
+    $placeholder = 'Preferred Role';
+    if (is_array($tag) && !empty($tag['values'][0])) {
+        $placeholder = (string) $tag['values'][0];
+    } elseif (is_array($tag) && !empty($tag['labels'][0])) {
+        $placeholder = (string) $tag['labels'][0];
+    } elseif (is_object($tag) && !empty($tag->values[0])) {
+        $placeholder = (string) $tag->values[0];
+    } elseif (is_object($tag) && !empty($tag->labels[0])) {
+        $placeholder = (string) $tag->labels[0];
+    }
+
+    $options = array_merge([$placeholder], $role_options);
+
+    if (is_array($tag)) {
+        $tag['values'] = $options;
+        $tag['labels'] = $options;
+        $tag['raw_values'] = $options;
+    } else {
+        $tag->values = $options;
+        $tag->labels = $options;
+        $tag->raw_values = $options;
+    }
+
+    return $tag;
+}
+
+add_filter('wpcf7_form_tag', 'arti_populate_preferred_role_cf7_select', 10, 1);
+
+/**
  * Render news cards HTML for AJAX and template usage.
  *
  * @param WP_Query $query News query instance.

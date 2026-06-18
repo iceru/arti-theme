@@ -312,7 +312,8 @@ get_header();
                                                         <?php if (!empty($item_image_url)): ?>
                                                             <img src="<?php echo esc_url($item_image_url); ?>"
                                                                 alt="<?php echo esc_attr($item_title); ?>"
-                                                                class="block aspect-[16/10] rounded-bl-2xl w-full object-cover">
+                                                                class="block aspect-[16/10] rounded-bl-2xl w-full object-cover pointer-events-none select-none"
+                                                                draggable="false">
                                                         <?php else: ?>
                                                             <div class="aspect-[16/10] w-full rounded-bl-2xl bg-black/10"></div>
                                                         <?php endif; ?>
@@ -418,6 +419,10 @@ get_header();
             let isDragging = false;
             let startX = 0;
             let startScrollLeft = 0;
+
+            track.addEventListener('dragstart', function (event) {
+                event.preventDefault();
+            });
 
             track.addEventListener('pointerdown', function (event) {
                 if (event.button !== 0 && event.pointerType === 'mouse') {
