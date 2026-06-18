@@ -15,7 +15,7 @@ get_header();
             <div class="mx-auto max-w-[1600px]">
                 <?php if (has_post_thumbnail()): ?>
                     <figure class="m-0 px-0">
-                        <?php the_post_thumbnail('full', ['class' => 'block w-full h-[48vh] md:h-[75vh] object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
+                        <?php the_post_thumbnail('full', ['class' => 'block w-full h-[67vh] md:h-[75vh] object-cover rounded-bl-[2.5rem] md:rounded-bl-[7.5rem]', 'loading' => 'eager']); ?>
                     </figure>
                 <?php endif; ?>
 
