@@ -19,23 +19,48 @@
 <body <?php body_class('bg-white text-zinc-900 antialiased font-sans'); ?>>
     <style>
         body.admin-bar #site-header {
-            top: 32px;
+            top: var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px));
         }
 
         body.admin-bar #site-menu-overlay {
-            top: 110px;
+            top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px)) + 78px);
         }
 
         @media (max-width: 782px) {
             body.admin-bar #site-header {
-                top: 46px;
+                top: var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px));
             }
 
             body.admin-bar #site-menu-overlay {
-                top: 124px;
+                top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px)) + 78px);
             }
         }
     </style>
+    <script>
+        (function () {
+            function updateAdminBarOffset() {
+                var adminBar = document.getElementById('wpadminbar');
+
+                if (!document.body.classList.contains('admin-bar') || !adminBar) {
+                    document.documentElement.style.removeProperty('--arti-admin-bar-offset');
+                    return;
+                }
+
+                var visibleBottom = Math.max(0, Math.round(adminBar.getBoundingClientRect().bottom));
+                document.documentElement.style.setProperty('--arti-admin-bar-offset', visibleBottom + 'px');
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', updateAdminBarOffset);
+            } else {
+                updateAdminBarOffset();
+            }
+
+            window.addEventListener('load', updateAdminBarOffset);
+            window.addEventListener('resize', updateAdminBarOffset);
+            window.addEventListener('scroll', updateAdminBarOffset, { passive: true });
+        })();
+    </script>
     <?php do_action('tailpress_site_before'); ?>
     <?php
     $loader_animation_uri = get_theme_file_uri('/images/arti-logo-a.json');

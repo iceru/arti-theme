@@ -51,6 +51,16 @@ get_header();
     .contact-form-shell select option[value=""] {
         color: var(--color-light-brown);
     }
+
+    .contact-form-shell input[type="submit"] {
+        background-image: url("<?php echo esc_url(get_theme_file_uri('/images/arrow.png')); ?>") !important;
+        background-position: right center !important;
+        background-repeat: no-repeat !important;
+        background-size: 31px auto !important;
+        min-width: 91px;
+        padding-right: 42px !important;
+        text-align: left;
+    }
 </style>
 
 <?php while (have_posts()):
@@ -234,7 +244,7 @@ get_header();
                     [&_textarea]:mt-2 [&_textarea]:block [&_textarea]:h-40 [&_textarea]:w-full [&_textarea]:resize-none [&_textarea]:border-0 [&_textarea]:border-b [&_textarea]:border-zinc-400/65 [&_textarea]:bg-transparent [&_textarea]:px-0 [&_textarea]:pb-4 [&_textarea]:pt-2 [&_textarea]:text-[0.95rem] [&_textarea]:text-zinc-700 [&_textarea]:outline-none [&_textarea]:placeholder:text-[10px] [&_textarea]:placeholder:tracking-[0.28em]
                     [&_.wpcf7-not-valid-tip]:mt-2 [&_.wpcf7-not-valid-tip]:text-[0.72rem]
                     [&_.wpcf7-response-output]:!mx-0 [&_.wpcf7-response-output]:!mt-6 [&_.wpcf7-response-output]:rounded-none [&_.wpcf7-response-output]:border-zinc-400/70 [&_.wpcf7-response-output]:px-3 [&_.wpcf7-response-output]:py-2 [&_.wpcf7-response-output]:text-[0.75rem]
-                    [&_input[type=submit]]:ml-auto [&_input[type=submit]]:mt-10 [&_input[type=submit]]:inline-flex [&_input[type=submit]]:cursor-pointer [&_input[type=submit]]:border-0 [&_input[type=submit]]:bg-transparent [&_input[type=submit]]:px-0 [&_input[type=submit]]:text-[0.86rem] [&_input[type=submit]]:uppercase [&_input[type=submit]]:tracking-[0.34em] [&_input[type=submit]]:text-zinc-700">
+                    [&_input[type=submit]]:ml-auto [&_input[type=submit]]:mt-10 [&_input[type=submit]]:block [&_input[type=submit]]:cursor-pointer [&_input[type=submit]]:border-0 [&_input[type=submit]]:bg-transparent [&_input[type=submit]]:py-0 [&_input[type=submit]]:pl-0 [&_input[type=submit]]:text-[12px] [&_input[type=submit]]:font-medium [&_input[type=submit]]:uppercase [&_input[type=submit]]:tracking-[0.34em] [&_input[type=submit]]:text-light-brown">
                     <?php foreach ($contact_tabs as $tab_key => $tab_label): ?>
                         <?php
                         $tab_shortcode = $contact_form_shortcodes[$tab_key] ?? '';
