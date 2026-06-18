@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<section class="bg-beige-1 pt-4 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
+<section class="bg-beige-1 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
     <div class="grid grid-cols-[380px_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
         <aside
             class="hidden md:block relative min-h-full bg-beige-1 max-md:border-r-0 max-md:border-b max-md:border-black/8"
@@ -255,7 +255,7 @@ get_header();
                             $expertise_description = wp_strip_all_tags(get_the_content());
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
                             ?>
-                            <article class="min-w-0 overflow-hidden">
+                            <article class="min-w-0 overflow-visible">
                                 <div class="pr-4">
                                     <h2 class="mb-8 leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
                                         id="<?php echo esc_attr($expertise_index === 1 ? 'expertise-title' : 'expertise-title-' . $expertise_index); ?>">
@@ -271,10 +271,10 @@ get_header();
 
                                 <?php if (!empty($expertise_items) && is_array($expertise_items)): ?>
                                     <?php $use_horizontal_track = count($expertise_items) > 3; ?>
-                                    <div class="<?php echo $use_horizontal_track ? 'expertise-items-track w-full max-w-full cursor-grab overflow-x-auto overflow-y-hidden pb-3 pr-8 select-none active:cursor-grabbing md:pr-16 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : ''; ?>"
+                                    <div class="<?php echo $use_horizontal_track ? 'expertise-items-track pr-6 -mr-4 w-[calc(100%+1rem)] max-w-none cursor-grab overflow-x-auto overflow-y-hidden pb-3 select-none active:cursor-grabbing md:-mr-8 md:w-[calc(100%+2rem)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : ''; ?>"
                                         <?php echo $use_horizontal_track ? 'data-drag-scroll="true"' : ''; ?>>
                                         <div
-                                            class="<?php echo $use_horizontal_track ? 'flex w-max max-w-none gap-5 pr-8 md:pr-16' : 'grid grid-cols-1 gap-5 md:grid-cols-3'; ?>">
+                                            class="<?php echo $use_horizontal_track ? 'flex w-max max-w-none gap-5' : 'grid grid-cols-1 gap-5 md:grid-cols-3'; ?>">
                                             <?php foreach ($expertise_items as $item): ?>
                                                 <?php
                                                 $item_title = '';
