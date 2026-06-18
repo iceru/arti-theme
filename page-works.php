@@ -100,17 +100,19 @@ $featured_works_query = new WP_Query([
         }
     }
 
-    #works-cards>article {
-        opacity: 0.42;
-        transform: scale(0.9);
-        transform-origin: center center;
-        transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1), opacity 420ms ease;
-        will-change: transform, opacity;
-    }
+    @media (min-width: 768px) {
+        #works-cards>article {
+            opacity: 0.42;
+            transform: scale(0.9);
+            transform-origin: center center;
+            transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1), opacity 420ms ease;
+            will-change: transform, opacity;
+        }
 
-    #works-cards>article.is-active {
-        opacity: 1;
-        transform: scale(1);
+        #works-cards>article.is-active {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     .works-filter-btn {
@@ -151,7 +153,8 @@ $featured_works_query = new WP_Query([
 </style>
 
 <?php if ($featured_works_query->have_posts()): ?>
-    <section class="works-featured-hero relative min-h-[calc(100vh-110px)] overflow-hidden bg-black text-white"
+    <section
+        class="hidden md:block works-featured-hero relative min-h-[calc(100vh-110px)] overflow-hidden bg-black text-white"
         style="--works-hero-duration: 3000ms;" data-featured-works-hero data-slide-duration="3000"
         aria-label="Featured works">
         <?php
