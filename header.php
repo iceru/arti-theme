@@ -239,7 +239,7 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 md:hidden text-light-brown text-[12px] mt-24">
-                    <a href="#" target="_blank">Instagram</a>
+                    <a href="https://www.instagram.com/arti.designstudio/" target="_blank">Instagram</a>
                     <p>Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
                 </div>

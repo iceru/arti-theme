@@ -85,13 +85,15 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/artisan.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-4 md:py-6 text-left transition-colors duration-500 "
+                            class="arti-way-trigger grid cursor-pointer w-full grid-cols-[2rem_1fr_1fr] gap-x-4 gap-y-2 px-0 py-6 px-2 text-left transition-colors duration-500 md:grid-cols-[5rem_11rem_1fr] md:items-center md:px-4 md:gap-4"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">01</span>
+                                class="arti-way-number text-[12px] tracking-[0.31em] text-dark-brown font-medium">01</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[12px] font-medium uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Artisan</span>
-                            <span class="arti-way-title text-[12px] text-black/72">Design with Depth &amp;
+                                class="arti-way-label min-w-0 text-[12px] font-medium uppercase tracking-[0.36em] text-[#2d2d2d] md:tracking-[0.42em]">Artisan</span>
+                            <span
+                                class="arti-way-title min-w-0 max-w-[17rem] text-[12px] leading-[1.45] text-dark-brown md:col-start-auto md:max-w-none">Design
+                                with Depth &amp;
                                 Character</span>
                         </button>
                         <div class="arti-way-panel hidden px-0 ">
@@ -121,13 +123,15 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/responsible.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-4 md:py-6 text-left transition-colors duration-500"
+                            class="arti-way-trigger grid cursor-pointer w-full grid-cols-[2rem_1fr_1fr] gap-x-4 gap-y-2 px-0 py-6 px-2 text-left transition-colors duration-500 md:grid-cols-[5rem_11rem_1fr] md:items-center md:px-4 md:gap-4"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">02</span>
+                                class="arti-way-number text-[12px] tracking-[0.31em] text-dark-brown font-medium">02</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[12px] font-medium uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Responsible</span>
-                            <span class="arti-way-title text-[12px] text-black/72">Architecture that Supports
+                                class="arti-way-label min-w-0 text-[12px] font-medium uppercase tracking-[0.36em] text-[#2d2d2d] md:tracking-[0.42em]">Responsible</span>
+                            <span
+                                class="arti-way-title min-w-0 max-w-[17rem] text-[12px] leading-[1.45] text-dark-brown md:col-start-auto md:max-w-none">Architecture
+                                that Supports
                                 Life</span>
                         </button>
                         <div class="arti-way-panel hidden px-0">
@@ -157,13 +161,15 @@ get_header();
                     <article class="arti-way-item border-b border-black/14"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/tradition.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-4 md:py-6 text-left transition-colors duration-500"
+                            class="arti-way-trigger grid cursor-pointer w-full grid-cols-[2rem_1fr_1fr] gap-x-4 gap-y-2 px-0 py-6 px-2 text-left transition-colors duration-500 md:grid-cols-[5rem_11rem_1fr] md:items-center md:px-4 md:gap-4"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">03</span>
+                                class="arti-way-number text-[12px] tracking-[0.31em] text-dark-brown font-medium">03</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[12px] font-medium uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Tradition</span>
-                            <span class="arti-way-title text-[12px] text-black/72">Rooted in Culture, Responsive to
+                                class="arti-way-label min-w-0 text-[12px] font-medium uppercase tracking-[0.36em] text-[#2d2d2d] md:tracking-[0.42em]">Tradition</span>
+                            <span
+                                class="arti-way-title min-w-0 max-w-[17rem] text-[12px] leading-[1.45] text-dark-brown md:col-start-auto md:max-w-none">Rooted
+                                in Culture, Responsive to
                                 Place</span>
                         </button>
                         <div class="arti-way-panel hidden px-0">
@@ -193,13 +199,15 @@ get_header();
                     <article class="arti-way-item"
                         data-bg="<?php echo esc_url(get_theme_file_uri('/images/innovation.png')); ?>">
                         <button type="button"
-                            class="arti-way-trigger flex cursor-pointer w-full items-center gap-4 px-4 py-6 md:px-4 md:py-6 text-left transition-colors duration-500"
+                            class="arti-way-trigger grid cursor-pointer w-full grid-cols-[2rem_1fr_1fr] gap-x-4 gap-y-2 px-0 py-6 px-2 text-left transition-colors duration-500 md:grid-cols-[5rem_11rem_1fr] md:items-center md:px-4 md:gap-4"
                             aria-expanded="false">
                             <span
-                                class="arti-way-number md:w-20 shrink-0 text-[12px] tracking-[31%] text-black/70">04</span>
+                                class="arti-way-number text-[12px] tracking-[0.31em] text-dark-brown font-medium">04</span>
                             <span
-                                class="arti-way-label w-44 shrink-0 text-[12px] font-medium uppercase tracking-[0.42em] text-[#2d2d2d] max-md:w-auto">Innovation</span>
-                            <span class="arti-way-title text-[12px] text-black/72">Fresh Perspective for a Better
+                                class="arti-way-label min-w-0 text-[12px] font-medium uppercase tracking-[0.36em] text-[#2d2d2d] md:tracking-[0.42em]">Innovation</span>
+                            <span
+                                class="arti-way-title min-w-0 max-w-[17rem] text-[12px] leading-[1.45] text-dark-brown md:col-start-auto md:max-w-none">Fresh
+                                Perspective for a Better
                                 Future</span>
                         </button>
                         <div class="arti-way-panel hidden px-0">
@@ -231,7 +239,8 @@ get_header();
             <section class="min-w-0 pt-20 max-md:pt-14 pl-4 pr-4 md:pl-8 md:pr-8" id="expertise"
                 aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-20 text-[12px] uppercase tracking-[0.31em] font-medium text-light-brown">Expertise</p>
+                    <p class="mb-10 md:mb-20 text-[12px] uppercase tracking-[0.31em] font-medium text-light-brown">
+                        Expertise</p>
                 </div>
 
                 <?php
@@ -306,7 +315,7 @@ get_header();
                                                 }
                                                 ?>
                                                 <article
-                                                    class="<?php echo $use_horizontal_track ? 'w-[260px] shrink-0 md:w-[420px]' : ''; ?>">
+                                                    class="<?php echo $use_horizontal_track ? 'w-[270px] shrink-0 md:w-[420px]' : ''; ?>">
                                                     <div class="overflow-hidden">
                                                         <?php if (!empty($item_image_url)): ?>
                                                             <img src="<?php echo esc_url($item_image_url); ?>"
@@ -336,7 +345,7 @@ get_header();
 
             <section class="pt-20 max-md:pt-14 px-4 md:px-8" id="awards" aria-labelledby="awards-title">
                 <div class="border-t border-black/15 pt-6">
-                    <p class="mb-6 md:mb-10 text-[12px] uppercase font-medium tracking-[31%] text-light-brown">Awards
+                    <p class="mb-10 md:mb-20 text-[12px] uppercase font-medium tracking-[31%] text-light-brown">Awards
                     </p>
 
                     <p class="m-0 mb-16 max-w-[700px] text-[12px] leading-[1.8] text-light-brown max-md:mb-12">

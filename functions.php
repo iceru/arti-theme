@@ -323,7 +323,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             $category_label = (!is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : '';
             ?>
-            <article class="grid grid-cols-[minmax(0,72%)_minmax(0,1fr)] gap-0 max-md:grid-cols-1">
+            <article class="grid grid-cols-[minmax(0,68%)_minmax(0,1fr)] gap-0 max-md:grid-cols-1">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden ">
                         <?php if (has_post_thumbnail()): ?>
