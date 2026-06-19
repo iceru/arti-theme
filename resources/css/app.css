@@ -34,3 +34,7 @@
 :where(.wp-block-columns) {
   margin-bottom: 0
 }
+
+:where(.wp-block-columns.is-layout-flex) {
+  gap: 4em;
+}
