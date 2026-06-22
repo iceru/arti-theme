@@ -30,12 +30,14 @@
             flex: 0 0 auto;
         }
 
-        #header-logo-animation {
+        #header-logo-image {
             display: block;
-            flex: 0 0 72px;
-            width: 72px !important;
-            min-width: 72px;
-            height: 36px;
+            width: 56px;
+            height: auto;
+        }
+
+        #header-logo-animation {
+            display: none;
         }
 
         #header-logo-animation svg {
@@ -46,7 +48,12 @@
         }
 
         @media (min-width: 782px) {
+            #header-logo-image {
+                display: none;
+            }
+
             #header-logo-animation {
+                display: block;
                 flex-basis: 54px;
                 width: 54px !important;
                 min-width: 54px;
@@ -93,6 +100,7 @@
     <?php
     $loader_animation_uri = get_theme_file_uri('/images/arti-logo-a.json');
     $header_logo_animation_uri = get_theme_file_uri('/images/logo-arti-full.json');
+    $header_logo_image_uri = get_theme_file_uri('/images/logo.png');
     ?>
 
     <div id="site-loader"
@@ -225,6 +233,8 @@
                 <a id="header-logo-link" href="<?php echo esc_url(home_url('/')); ?>"
                     class="inline-flex items-center !no-underline text-zinc-900"
                     aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                    <img id="header-logo-image" src="<?php echo esc_url($header_logo_image_uri); ?>"
+                        alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
                     <div id="header-logo-animation" class="pointer-events-none ml-2 overflow-visible"
                         data-animation-path="<?php echo esc_url($header_logo_animation_uri); ?>" aria-hidden="true">
                     </div>
