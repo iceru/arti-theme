@@ -161,7 +161,7 @@ $featured_works_query = new WP_Query([
 
 <?php if ($featured_works_query->have_posts()): ?>
     <section
-        class="hidden md:block works-featured-hero relative min-h-[calc(100vh-110px)] overflow-hidden bg-black text-white"
+        class="hidden md:block works-featured-hero relative -mt-[78px] min-h-[calc(100vh-110px)] overflow-hidden bg-black text-white"
         style="--works-hero-duration: 3000ms;" data-featured-works-hero data-slide-duration="3000"
         aria-label="Featured works">
         <?php
