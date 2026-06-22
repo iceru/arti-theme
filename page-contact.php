@@ -53,7 +53,7 @@ get_header();
     }
 
     .contact-form-shell input[type="submit"] {
-        background-image: url("<?php echo esc_url(get_theme_file_uri('/images/arrow.png')); ?>") !important;
+        background-image: url("<?php echo esc_url(get_theme_file_uri('/images/arrow-right.png')); ?>") !important;
         background-position: right center !important;
         background-repeat: no-repeat !important;
         background-size: 31px auto !important;

@@ -31,6 +31,18 @@ get_header();
     .work-credits[open] .work-credits__icon {
         transform: rotate(180deg);
     }
+
+    @media (min-width: 782px) {
+        .entry-content>.wp-block-columns {
+            display: grid !important;
+            grid-template-columns: minmax(0, 33%) minmax(0, 1fr);
+            gap: 4em;
+        }
+
+        .entry-content>.wp-block-columns>.wp-block-column {
+            min-width: 0;
+        }
+    }
 </style>
 
 <?php
@@ -211,22 +223,25 @@ $resolve_attachment_id = static function ($item): int {
 
     $content_has_work_info_shortcode = has_shortcode((string) get_post_field('post_content', get_the_ID()), 'work_info');
 
-    $prev_work = get_adjacent_post(false, '', true, '');
-    $next_work = get_adjacent_post(false, '', false, '');
+    $prev_work = null;
+    $next_work = null;
+    $ordered_work_ids = get_posts([
+        'post_type' => 'work',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'orderby' => 'date',
+        'order' => 'ASC',
+        'fields' => 'ids',
+    ]);
 
-    if (!($next_work instanceof WP_Post)) {
-        $fallback_next = get_posts([
-            'post_type' => 'work',
-            'posts_per_page' => 1,
-            'post_status' => 'publish',
-            'orderby' => 'date',
-            'order' => 'ASC',
-            'post__not_in' => [get_the_ID()],
-        ]);
+    $current_work_index = array_search(get_the_ID(), $ordered_work_ids, true);
 
-        if (!empty($fallback_next) && $fallback_next[0] instanceof WP_Post) {
-            $next_work = $fallback_next[0];
-        }
+    if ($current_work_index !== false) {
+        $prev_work_id = $ordered_work_ids[$current_work_index - 1] ?? 0;
+        $next_work_id = $ordered_work_ids[$current_work_index + 1] ?? 0;
+
+        $prev_work = $prev_work_id ? get_post((int) $prev_work_id) : null;
+        $next_work = $next_work_id ? get_post((int) $next_work_id) : null;
     }
     ?>
 

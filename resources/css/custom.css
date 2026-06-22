@@ -90,3 +90,32 @@
   pointer-events: none;
 }
 
+.arti-way-trigger {
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.arti-way-trigger::before {
+  background-image: var(--arti-way-bg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 520ms ease;
+  z-index: -1;
+}
+
+.arti-way-trigger.is-bg-visible::before {
+  opacity: 1;
+}
+
+.arti-way-trigger > * {
+  position: relative;
+  z-index: 1;
+}
+

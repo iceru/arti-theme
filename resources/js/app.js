@@ -351,26 +351,28 @@ function initArtiWayAccordion($) {
         return
     }
 
-    const activeRowClasses = [
-        'bg-cover',
-        'bg-center',
-        'bg-no-repeat',
-    ].join(' ')
-
     function closeItem($item, instant = false) {
         const $trigger = $item.find('.arti-way-trigger')
         const $panel = $item.find('.arti-way-panel')
-        $trigger.removeClass(activeRowClasses)
-        $trigger.css('background-image', '')
+        const clearBackground = function () {
+            $trigger.css('--arti-way-bg', '')
+        }
+
+        $trigger.removeClass('is-bg-visible')
+        window.clearTimeout($trigger.data('bgClearTimer'))
+        window.clearTimeout($trigger.data('bgShowTimer'))
+        $trigger.data('bgToken', ($trigger.data('bgToken') || 0) + 1)
         $trigger.attr('aria-expanded', 'false')
         $trigger.find('.arti-way-number, .arti-way-label, .arti-way-title').removeClass('!text-beige-1')
 
         $panel.stop(true, true).removeClass('hidden')
         if (instant) {
+            clearBackground()
             $panel.hide().addClass('hidden')
             return
         }
 
+        $trigger.data('bgClearTimer', window.setTimeout(clearBackground, 540))
         $panel.slideUp(520, function () {
             $(this).addClass('hidden')
         })
@@ -380,10 +382,31 @@ function initArtiWayAccordion($) {
         const image = $item.data('bg')
         const $trigger = $item.find('.arti-way-trigger')
         const $panel = $item.find('.arti-way-panel')
-        $trigger.addClass(activeRowClasses)
 
         if (image) {
-            $trigger.css('background-image', `url(${image})`)
+            const token = ($trigger.data('bgToken') || 0) + 1
+            const showBackground = function () {
+                if ($trigger.data('bgToken') !== token) {
+                    return
+                }
+
+                $trigger.css('--arti-way-bg', `url("${image}")`)
+                $trigger.data('bgShowTimer', window.setTimeout(function () {
+                    if ($trigger.data('bgToken') === token) {
+                        $trigger.addClass('is-bg-visible')
+                    }
+                }, instant ? 0 : 30))
+            }
+
+            window.clearTimeout($trigger.data('bgClearTimer'))
+            window.clearTimeout($trigger.data('bgShowTimer'))
+            $trigger.data('bgToken', token)
+            $trigger.removeClass('is-bg-visible')
+
+            const preload = new Image()
+            preload.onload = showBackground
+            preload.onerror = showBackground
+            preload.src = image
         }
 
         $trigger.attr('aria-expanded', 'true')

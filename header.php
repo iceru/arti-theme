@@ -26,6 +26,34 @@
             top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px)) + 78px);
         }
 
+        #header-logo-link {
+            flex: 0 0 auto;
+        }
+
+        #header-logo-animation {
+            display: block;
+            flex: 0 0 72px;
+            width: 72px !important;
+            min-width: 72px;
+            height: 36px;
+        }
+
+        #header-logo-animation svg {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible;
+        }
+
+        @media (min-width: 782px) {
+            #header-logo-animation {
+                flex-basis: 54px;
+                width: 54px !important;
+                min-width: 54px;
+                height: 27px;
+            }
+        }
+
         @media (max-width: 782px) {
             body.admin-bar #site-header {
                 top: var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px));
@@ -129,16 +157,18 @@
 
                             var logoPaddingX = 12;
                             var logoOffsetX = 10;
-                            var logoWidth = headerLogoAnimationContainer.getBoundingClientRect().width || 54;
+                            var logoRect = headerLogoAnimationContainer.getBoundingClientRect();
+                            var logoWidth = logoRect.width || 54;
+                            var logoHeight = logoRect.height || 27;
                             logoSvg.setAttribute(
                                 'viewBox',
                                 (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
                             );
                             logoSvg.style.display = 'block';
                             logoSvg.style.overflow = 'visible';
-                            logoSvg.style.height = '27px';
+                            logoSvg.style.height = logoHeight + 'px';
                             logoSvg.style.width = logoWidth + 'px';
-                            headerLogoAnimationContainer.style.height = '27px';
+                            headerLogoAnimationContainer.style.height = logoHeight + 'px';
                             headerLogoAnimationContainer.style.width = logoWidth + 'px';
                         }
 
@@ -195,7 +225,7 @@
                 <a id="header-logo-link" href="<?php echo esc_url(home_url('/')); ?>"
                     class="inline-flex items-center !no-underline text-zinc-900"
                     aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
-                    <div id="header-logo-animation" class="pointer-events-none ml-2 h-[27px] !w-[54px] overflow-visible"
+                    <div id="header-logo-animation" class="pointer-events-none ml-2 overflow-visible"
                         data-animation-path="<?php echo esc_url($header_logo_animation_uri); ?>" aria-hidden="true">
                     </div>
                 </a>

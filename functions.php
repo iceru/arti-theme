@@ -194,8 +194,8 @@ function arti_render_news_cards_html(WP_Query $query): string
                     </h2>
                     <span class="mt-8 inline-flex space-x-1.5 text-[9px] font-medium uppercase tracking-[0.31em] text-light-brown">
                         <span>Read More</span>
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow.png'); ?>" alt="Arrow Right Icon"
-                            class="h-3 w-3 object-contain mt-[2px]">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
+                            alt="Arrow Right Icon" class="h-3 w-3 object-contain mt-[2px]">
                     </span>
                 </a>
             </article>

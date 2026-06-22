@@ -46,6 +46,13 @@ $featured_works_query = new WP_Query([
 ?>
 
 <style>
+    body.works-featured-hero-visible:not(.site-menu-open) header,
+    body.works-featured-hero-visible:not(.site-menu-open) header>div {
+        background: transparent !important;
+        box-shadow: none !important;
+        transition: background-color 220ms ease, box-shadow 220ms ease;
+    }
+
     .works-featured-hero__slide {
         z-index: 0;
         opacity: 0;
@@ -268,6 +275,15 @@ $featured_works_query = new WP_Query([
         if (!hero) {
             return;
         }
+
+        function updateHeaderState() {
+            const rect = hero.getBoundingClientRect();
+            document.body.classList.toggle('works-featured-hero-visible', rect.bottom > 0 && rect.height > 0);
+        }
+
+        updateHeaderState();
+        window.addEventListener('scroll', updateHeaderState, { passive: true });
+        window.addEventListener('resize', updateHeaderState);
 
         const slides = Array.from(hero.querySelectorAll('.works-featured-hero__slide'));
         const progress = hero.querySelector('.works-featured-hero__progress');
