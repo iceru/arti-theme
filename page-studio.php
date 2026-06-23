@@ -8,6 +8,32 @@
 get_header();
 ?>
 
+<style>
+    .studio-reveal-item {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: opacity, transform;
+    }
+
+    .studio-reveal-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .studio-reveal-item-fade-only {
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .studio-reveal-item {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+    }
+</style>
+
 <section class="bg-beige-1 pb-20 max-md:pb-16" aria-labelledby="studio-about-title">
     <div class="grid grid-cols-[380px_1fr] gap-8 max-md:grid-cols-1 max-md:gap-0">
         <aside
@@ -39,7 +65,7 @@ get_header();
         </aside>
 
         <div class="min-w-0 pt-32 max-md:pt-14">
-            <section class="md:pb-32 pb-14 px-4 md:px-8" aria-labelledby="studio-about-title">
+            <section class="studio-scroll-reveal md:pb-32 pb-14 px-4 md:px-8" aria-labelledby="studio-about-title">
                 <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown"
                     id="about-us">About
                     Us
@@ -61,7 +87,7 @@ get_header();
                 </div>
             </section>
 
-            <section class="pt-12 max-md:pt-10 px-4 md:px-8" id="the-arti-way" aria-labelledby="arti-way-title">
+            <section class="studio-scroll-reveal pt-12 max-md:pt-10 px-4 md:px-8" id="the-arti-way" aria-labelledby="arti-way-title">
                 <div class="border-t border-black/15 pt-4">
                     <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown">The
                         Arti Way</h4>
@@ -236,7 +262,7 @@ get_header();
                 </div>
             </section>
 
-            <section class="min-w-0 pt-20 max-md:pt-14 pl-4 pr-4 md:pl-8 md:pr-8" id="expertise"
+            <section class="studio-scroll-reveal min-w-0 pt-20 max-md:pt-14 pl-4 pr-4 md:pl-8 md:pr-8" id="expertise"
                 aria-labelledby="expertise-title">
                 <div class="border-t border-black/15 pt-6">
                     <p class="mb-10 md:mb-20 text-[12px] uppercase tracking-[0.31em] font-medium text-light-brown">
@@ -343,7 +369,7 @@ get_header();
                 <?php endif; ?>
             </section>
 
-            <section class="pt-20 max-md:pt-14 px-4 md:px-8" id="awards" aria-labelledby="awards-title">
+            <section class="studio-scroll-reveal pt-20 max-md:pt-14 px-4 md:px-8" id="awards" aria-labelledby="awards-title">
                 <div class="border-t border-black/15 pt-6">
                     <p class="mb-10 md:mb-20 text-[12px] uppercase font-medium tracking-[31%] text-light-brown">Awards
                     </p>
@@ -418,6 +444,134 @@ get_header();
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const revealSections = Array.from(document.querySelectorAll('.studio-scroll-reveal'));
+        const revealItems = [];
+
+        revealSections.forEach(function (section, sectionIndex) {
+            const isFirstSection = sectionIndex === 0;
+            let sectionItems = [];
+
+            if (isFirstSection) {
+                sectionItems = Array.from(section.children);
+            } else if (section.id === 'the-arti-way') {
+                sectionItems = Array.from(section.querySelectorAll(':scope > div, .arti-way-item'));
+            } else if (section.id === 'expertise') {
+                sectionItems = Array.from(section.querySelectorAll(':scope > div:first-child, .min-w-0 > article'));
+            } else if (section.id === 'awards') {
+                sectionItems = Array.from(section.querySelectorAll(':scope > div:first-child, :scope > div:last-child > div'));
+            } else {
+                sectionItems = Array.from(section.children);
+            }
+
+            sectionItems.forEach(function (item, itemIndex) {
+                item.classList.add('studio-reveal-item');
+                item.style.transitionDelay = Math.min(itemIndex * 80, 320) + 'ms';
+
+                if (isFirstSection) {
+                    item.classList.add('studio-reveal-item-fade-only');
+                }
+
+                revealItems.push(item);
+            });
+        });
+
+        function startRevealAnimations() {
+            if (!revealItems.length) {
+                return;
+            }
+
+            if ('IntersectionObserver' in window) {
+                const revealObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    });
+                }, {
+                    rootMargin: '0px 0px -12% 0px',
+                    threshold: 0.12
+                });
+
+                revealItems.forEach(function (item) {
+                    revealObserver.observe(item);
+                });
+            } else {
+                revealItems.forEach(function (item) {
+                    item.classList.add('is-visible');
+                });
+            }
+        }
+
+        function startRevealAfterPageIntro() {
+            const page = document.getElementById('page');
+
+            function waitForPageOpacity() {
+                if (!page) {
+                    window.setTimeout(startRevealAnimations, 120);
+                    return;
+                }
+
+                if (window.getComputedStyle(page).opacity === '1') {
+                    window.setTimeout(startRevealAnimations, 180);
+                    return;
+                }
+
+                let didStart = false;
+
+                function startOnce() {
+                    if (didStart) {
+                        return;
+                    }
+
+                    didStart = true;
+                    page.removeEventListener('transitionend', handlePageTransitionEnd);
+                    window.setTimeout(startRevealAnimations, 180);
+                }
+
+                function handlePageTransitionEnd(event) {
+                    if (event.target === page && event.propertyName === 'opacity') {
+                        startOnce();
+                    }
+                }
+
+                page.addEventListener('transitionend', handlePageTransitionEnd);
+                window.setTimeout(startOnce, 1100);
+            }
+
+            if (!page || page.classList.contains('opacity-100')) {
+                waitForPageOpacity();
+                return;
+            }
+
+            const introObserver = new MutationObserver(function () {
+                if (!page.classList.contains('opacity-100')) {
+                    return;
+                }
+
+                introObserver.disconnect();
+                waitForPageOpacity();
+            });
+
+            introObserver.observe(page, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+
+            window.setTimeout(function () {
+                introObserver.disconnect();
+                startRevealAnimations();
+            }, 1800);
+        }
+
+        if (document.readyState === 'complete') {
+            startRevealAfterPageIntro();
+        } else {
+            window.addEventListener('load', startRevealAfterPageIntro, { once: true });
+        }
+
         const tracks = Array.from(document.querySelectorAll('.expertise-items-track[data-drag-scroll="true"]'));
         if (!tracks.length) {
             return;

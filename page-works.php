@@ -70,8 +70,8 @@ $featured_works_query = new WP_Query([
         transform: scale(1);
     }
 
-    .works-featured-hero__slide.is-active .works-featured-hero__image {
-        animation: worksHeroZoom var(--works-hero-duration, 3000ms) linear forwards;
+    .works-featured-hero.is-slider-ready .works-featured-hero__slide.is-active .works-featured-hero__image {
+        animation: worksHeroZoom var(--works-hero-duration, 5000ms) linear forwards;
     }
 
     .works-featured-hero__progress {
@@ -83,8 +83,8 @@ $featured_works_query = new WP_Query([
         z-index: 2;
     }
 
-    .works-featured-hero__progress.is-active {
-        animation: worksHeroProgress var(--works-hero-duration, 3000ms) linear forwards;
+    .works-featured-hero.is-slider-ready .works-featured-hero__progress.is-active {
+        animation: worksHeroProgress var(--works-hero-duration, 5000ms) linear forwards;
     }
 
     @keyframes worksHeroZoom {
@@ -93,7 +93,7 @@ $featured_works_query = new WP_Query([
         }
 
         to {
-            transform: scale(1.08);
+            transform: scale(1.02);
         }
     }
 
@@ -157,12 +157,36 @@ $featured_works_query = new WP_Query([
     #works-filter-panel.is-collapsed {
         display: none;
     }
+
+    .works-reveal-item {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: opacity, transform;
+    }
+
+    .works-reveal-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .works-reveal-fade-only {
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .works-reveal-item {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+    }
 </style>
 
 <?php if ($featured_works_query->have_posts()): ?>
     <section
-        class="hidden md:block works-featured-hero relative -mt-[78px] min-h-[calc(100vh-110px)] overflow-hidden bg-black text-white"
-        style="--works-hero-duration: 3000ms;" data-featured-works-hero data-slide-duration="3000"
+        class="hidden md:block works-featured-hero relative -mt-[78px] min-h-[98vh] overflow-hidden bg-black text-white"
+        style="--works-hero-duration: 5000ms;" data-featured-works-hero data-slide-duration="5000"
         aria-label="Featured works">
         <?php
         $featured_index = 0;
@@ -287,8 +311,9 @@ $featured_works_query = new WP_Query([
 
         const slides = Array.from(hero.querySelectorAll('.works-featured-hero__slide'));
         const progress = hero.querySelector('.works-featured-hero__progress');
-        const duration = Number(hero.getAttribute('data-slide-duration')) || 3000;
+        const duration = Number(hero.getAttribute('data-slide-duration')) || 5000;
         let activeIndex = 0;
+        let heroInterval = null;
 
         hero.style.setProperty('--works-hero-duration', duration + 'ms');
 
@@ -321,15 +346,20 @@ $featured_works_query = new WP_Query([
             restartProgress();
         }
 
-        restartProgress();
+        function startHeroSlider() {
+            hero.classList.add('is-slider-ready');
+            restartProgress();
 
-        if (slides.length < 2) {
-            return;
+            if (slides.length < 2 || heroInterval) {
+                return;
+            }
+
+            heroInterval = window.setInterval(function () {
+                showSlide((activeIndex + 1) % slides.length);
+            }, duration);
         }
 
-        window.setInterval(function () {
-            showSlide((activeIndex + 1) % slides.length);
-        }, duration);
+        window.addEventListener('worksRevealStarted', startHeroSlider, { once: true });
     });
 
     jQuery(function ($) {
@@ -342,6 +372,140 @@ $featured_works_query = new WP_Query([
         const selectedTypes = new Set();
         let searchTimer = null;
         let scrollTicking = false;
+        let revealObserver = null;
+        let revealStarted = false;
+
+        function revealItem(element, index) {
+            if (!element) {
+                return;
+            }
+
+            element.classList.add('works-reveal-item');
+            element.style.transitionDelay = Math.min(index * 80, 320) + 'ms';
+
+            if (!revealStarted) {
+                return;
+            }
+
+            if (revealObserver) {
+                revealObserver.observe(element);
+                return;
+            }
+
+            element.classList.add('is-visible');
+        }
+
+        function collectRevealItems() {
+            return [
+                document.querySelector('[data-featured-works-hero]'),
+                document.querySelector('#works-filter-toggle')?.closest('.mb-8'),
+                document.querySelector('.grid.grid-cols-\\[250px_1fr\\] > p'),
+                ...Array.from(document.querySelectorAll('#works-cards > article'))
+            ].filter(Boolean);
+        }
+
+        function prepareRevealItems() {
+            collectRevealItems().forEach(function (item, index) {
+                revealItem(item, index);
+            });
+
+            document.querySelector('[data-featured-works-hero]')?.classList.add('works-reveal-fade-only');
+        }
+
+        function startRevealAnimations() {
+            if (revealStarted) {
+                return;
+            }
+
+            revealStarted = true;
+            window.dispatchEvent(new CustomEvent('worksRevealStarted'));
+
+            if ('IntersectionObserver' in window) {
+                revealObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    });
+                }, {
+                    rootMargin: '0px 0px -12% 0px',
+                    threshold: 0.12
+                });
+
+                collectRevealItems().forEach(function (item) {
+                    revealObserver.observe(item);
+                });
+                return;
+            }
+
+            collectRevealItems().forEach(function (item) {
+                item.classList.add('is-visible');
+            });
+        }
+
+        function startRevealAfterPageIntro() {
+            const page = document.getElementById('page');
+
+            function waitForPageOpacity() {
+                if (!page) {
+                    window.setTimeout(startRevealAnimations, 120);
+                    return;
+                }
+
+                if (window.getComputedStyle(page).opacity === '1') {
+                    window.setTimeout(startRevealAnimations, 180);
+                    return;
+                }
+
+                let didStart = false;
+
+                function startOnce() {
+                    if (didStart) {
+                        return;
+                    }
+
+                    didStart = true;
+                    page.removeEventListener('transitionend', handlePageTransitionEnd);
+                    window.setTimeout(startRevealAnimations, 180);
+                }
+
+                function handlePageTransitionEnd(event) {
+                    if (event.target === page && event.propertyName === 'opacity') {
+                        startOnce();
+                    }
+                }
+
+                page.addEventListener('transitionend', handlePageTransitionEnd);
+                window.setTimeout(startOnce, 1100);
+            }
+
+            if (!page || page.classList.contains('opacity-100')) {
+                waitForPageOpacity();
+                return;
+            }
+
+            const introObserver = new MutationObserver(function () {
+                if (!page.classList.contains('opacity-100')) {
+                    return;
+                }
+
+                introObserver.disconnect();
+                waitForPageOpacity();
+            });
+
+            introObserver.observe(page, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+
+            window.setTimeout(function () {
+                introObserver.disconnect();
+                startRevealAnimations();
+            }, 1800);
+        }
 
         function setPanelState(isOpen) {
             $panel.toggleClass('is-collapsed', !isOpen);
@@ -428,6 +592,7 @@ $featured_works_query = new WP_Query([
                     }
                     $cards.html(response.data.html);
                     $counter.text(response.data.selected_count || 0);
+                    prepareRevealItems();
                     initWorkScrollState();
                     queueActiveUpdate();
                 },
@@ -473,6 +638,8 @@ $featured_works_query = new WP_Query([
         setPanelState(false);
         updateCounter();
         initWorkScrollState();
+        prepareRevealItems();
+        startRevealAfterPageIntro();
     });
 </script>
 

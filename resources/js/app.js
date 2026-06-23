@@ -28,8 +28,11 @@ window.addEventListener('load', function () {
 
     const openClasses = ['translate-y-0', 'opacity-100', 'pointer-events-auto']
     const closedClasses = ['-translate-y-8', 'opacity-0', 'pointer-events-none']
+    let closeMenuTimer = null
 
     function openMenu() {
+        window.clearTimeout(closeMenuTimer)
+        document.body.classList.remove('site-menu-closing')
         menuOverlay.classList.remove(...closedClasses)
         menuOverlay.classList.add(...openClasses)
         siteHeader?.classList.remove('bg-beige-1')
@@ -45,6 +48,8 @@ window.addEventListener('load', function () {
     }
 
     function closeMenu() {
+        window.clearTimeout(closeMenuTimer)
+        document.body.classList.add('site-menu-closing')
         menuOverlay.classList.remove(...openClasses)
         menuOverlay.classList.add(...closedClasses)
         siteHeader?.classList.remove('bg-beige-2')
@@ -57,6 +62,9 @@ window.addEventListener('load', function () {
         menuToggle.querySelector('.site-menu-line-bottom')?.classList.add('translate-y-1')
         document.body.classList.remove('overflow-hidden')
         document.body.classList.remove('site-menu-open')
+        closeMenuTimer = window.setTimeout(function () {
+            document.body.classList.remove('site-menu-closing')
+        }, 1120)
     }
 
     menuToggle.addEventListener('click', function (e) {
@@ -483,6 +491,16 @@ function initContactTabs() {
         panels.forEach(function (panel) {
             const isActive = panel.getAttribute('data-tab-panel') === tabKey
             panel.classList.toggle('hidden', !isActive)
+
+            if (!isActive) {
+                panel.classList.remove('is-fading-in')
+                return
+            }
+
+            panel.classList.remove('is-fading-in')
+            window.requestAnimationFrame(function () {
+                panel.classList.add('is-fading-in')
+            })
         })
     }
 
@@ -493,6 +511,14 @@ function initContactTabs() {
                 return
             }
             setActive(tabKey)
+        })
+    })
+
+    panels.forEach(function (panel) {
+        panel.addEventListener('animationend', function (event) {
+            if (event.animationName === 'contact-form-fade-in') {
+                panel.classList.remove('is-fading-in')
+            }
         })
     })
 }

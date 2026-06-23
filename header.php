@@ -26,6 +26,49 @@
             top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px)) + 78px);
         }
 
+        #site-menu-overlay {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: visibility 0s linear 1100ms;
+            visibility: hidden;
+        }
+
+        body.site-menu-open #site-menu-overlay {
+            transition-delay: 0s;
+            visibility: visible;
+        }
+
+        body.site-menu-open #site-header,
+        body.site-menu-closing #site-header {
+            z-index: 60;
+            background: transparent !important;
+        }
+
+        body.site-menu-open #site-header>div,
+        body.site-menu-closing #site-header>div {
+            background: transparent !important;
+        }
+
+        #site-menu-panel {
+            position: relative;
+            transform: translateY(calc(-100% - 78px));
+            transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+
+        #site-menu-panel::before {
+            content: '';
+            position: absolute;
+            inset: -78px 0 auto;
+            height: 78px;
+            background: inherit;
+            pointer-events: none;
+        }
+
+        body.site-menu-open #site-menu-panel {
+            transform: translateY(0);
+        }
+
         #header-logo-link {
             flex: 0 0 auto;
         }
@@ -228,7 +271,7 @@
         <?php do_action('tailpress_header'); ?>
 
         <header id="site-header"
-            class="fixed top-0 inset-x-0 z-40 bg-beige-1 py-5 px-4 md:px-9 transition-colors duration-300">
+            class="fixed top-0 inset-x-0 z-40 bg-beige-1 py-5 px-4 md:px-9 transition-colors duration-500 ease-out">
             <div class="flex items-center justify-between">
                 <a id="header-logo-link" href="<?php echo esc_url(home_url('/')); ?>"
                     class="inline-flex items-center !no-underline text-zinc-900"
@@ -252,7 +295,7 @@
 
         <div id="site-menu-overlay"
             class="pointer-events-none fixed top-[78px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
-            <div
+            <div id="site-menu-panel"
                 class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6  relative">
                     <nav
@@ -270,7 +313,8 @@
                     <p class="md:col-span-3">&copy; Copyright Arti Design Studio,
                         <?php echo esc_html(date_i18n('Y')); ?>
                     </p>
-                    <a href="#" target="_blank" class="md:col-span-3">Instagram</a>
+                    <a href="https://www.instagram.com/arti.designstudio/" target="_blank"
+                        class="md:col-span-3">Instagram</a>
                     <p class="md:col-span-3">Jl. Horizon Broadway, Kec. Cisauk, Tangerang, Banten
                         &mdash; 15345</p>
                     <div class="md:col-span-3 flex md:justify-end">

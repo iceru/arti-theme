@@ -326,11 +326,11 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
             <article
                 class="grid 2xl:grid-cols-[minmax(0,60%)_minmax(0,1fr)] grid-cols-[minmax(0,68%)_minmax(0,1fr)] gap-0 max-md:grid-cols-1">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
-                    <div class="overflow-hidden ">
+                    <div class="aspect-[720/445] overflow-hidden">
                         <?php if (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('large', ['class' => 'block h-[445px] rounded-br-[110px] md:rounded-br-[250px] w-full object-cover transition-transform duration-500 max-md:h-[260px]']); ?>
+                            <?php the_post_thumbnail('large', ['class' => 'block h-full w-full rounded-br-[110px] object-cover transition-transform duration-500 md:rounded-br-[250px]']); ?>
                         <?php else: ?>
-                            <div class="h-[420px] w-full bg-black/12 max-md:h-[260px] rounded-br-[110px] md:rounded-br-[250px]"></div>
+                            <div class="h-full w-full rounded-br-[110px] bg-black/12 md:rounded-br-[250px]"></div>
                         <?php endif; ?>
                     </div>
                 </a>

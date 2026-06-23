@@ -17,6 +17,28 @@ get_header();
         border-bottom-width: 1px;
     }
 
+    @keyframes contact-form-fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .contact-tab-panel.is-fading-in {
+        animation: contact-form-fade-in 360ms ease-out both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .contact-tab-panel.is-fading-in {
+            animation: none;
+        }
+    }
+
     .contact-form-shell input::placeholder,
     .contact-form-shell textarea::placeholder {
         color: var(--color-light-brown);

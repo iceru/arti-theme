@@ -32,6 +32,67 @@ get_header();
         transform: rotate(180deg);
     }
 
+    @keyframes work-hero-zoom-out {
+        from {
+            transform: scale(1.2);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    .work-hero-media {
+        animation: work-hero-zoom-out 7000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        transform-origin: center;
+        will-change: transform;
+        position: relative;
+        z-index: 0;
+    }
+
+    #work-hero {
+        isolation: isolate;
+        border-bottom-right-radius: 180px;
+    }
+
+    #work-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.62) 24%, rgba(0, 0, 0, 0) 62%);
+        pointer-events: none;
+    }
+
+    .work-hero-content {
+        z-index: 2;
+    }
+
+    .work-hero-icon {
+        z-index: 3;
+    }
+
+    @media (min-width: 768px) {
+        #work-hero {
+            border-bottom-right-radius: 327px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .work-hero-media {
+            animation: none;
+        }
+    }
+
+    .entry-content :where(p, h1, h2, h3, h4, h5, h6, figure, .wp-block-image, .wp-block-gallery, .wp-block-columns, .wp-block-group) {
+        margin-top: 0 !important;
+        margin-bottom: 1em !important;
+    }
+
+    .entry-content :where(.wp-block-column > :last-child, .wp-block-group > :last-child, :last-child) {
+        margin-bottom: 0 !important;
+    }
+
     @media (min-width: 782px) {
         .entry-content>.wp-block-columns {
             display: grid !important;
@@ -141,15 +202,15 @@ $resolve_attachment_id = static function ($item): int {
     $render_work_info = static function (string $extra_classes = '') use ($work_type, $site_area, $floor_area, $bedrooms, $floors, $client, $credits): string {
         ob_start();
         ?>
-        <aside
-            class="<?php echo esc_attr(trim("work-info min-w-0 border-t border-zinc-500/35 pt-3 {$extra_classes}")); ?>">
+        <aside class="<?php echo esc_attr(trim("work-info min-w-0 border-t border-zinc-500/35 pt-3 {$extra_classes}")); ?>">
             <div class="m-0 text-[1.7rem] leading-none text-zinc-800">
                 <?php echo esc_html($work_type); ?>
             </div>
             <div class="mt-8 gap-y-12 gap-x-6 grid grid-cols-2 mb-12">
                 <?php if ($site_area !== ''): ?>
                     <div>
-                        <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
+                        <div
+                            class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
                             Site Area / M2</div>
                         <div class="text-[28px] text-dark-brown">
                             <?php echo esc_html($site_area); ?>
@@ -158,7 +219,8 @@ $resolve_attachment_id = static function ($item): int {
                 <?php endif; ?>
                 <?php if ($floor_area !== ''): ?>
                     <div>
-                        <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
+                        <div
+                            class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
                             Flor Area / M2</div>
                         <div class="text-[28px] text-dark-brown">
                             <?php echo esc_html($floor_area); ?>
@@ -167,7 +229,8 @@ $resolve_attachment_id = static function ($item): int {
                 <?php endif; ?>
                 <?php if ($bedrooms !== ''): ?>
                     <div>
-                        <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
+                        <div
+                            class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
                             Bedrooms</div>
                         <div class="text-[28px] text-dark-brown">
                             <?php echo esc_html($bedrooms); ?>
@@ -176,7 +239,8 @@ $resolve_attachment_id = static function ($item): int {
                 <?php endif; ?>
                 <?php if ($floors !== ''): ?>
                     <div>
-                        <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
+                        <div
+                            class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
                             Floors</div>
                         <div class="text-[28px] text-dark-brown">
                             <?php echo esc_html($floors); ?>
@@ -187,7 +251,8 @@ $resolve_attachment_id = static function ($item): int {
 
             <?php if ($client !== ''): ?>
                 <div>
-                    <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
+                    <div
+                        class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium pb-[18px] border-b border-beige-2 mb-2">
                         Client</div>
                     <div class="text-[28px] text-dark-brown">
                         <?php echo esc_html($client); ?>
@@ -249,16 +314,14 @@ $resolve_attachment_id = static function ($item): int {
         <div class="mx-auto max-w-[1800px]">
             <section id="work-hero" class="relative overflow-hidden -mt-[78px]">
                 <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail('full', ['class' => 'block w-full h-[95vh] md:h-[74vh] xl:h-[84vh] object-cover rounded-br-[180px] md:rounded-br-[327px]']); ?>
+                    <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[95vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
                 <?php else: ?>
-                    <div class="h-[95vh] w-full rounded-br-[180px] bg-black/10 md:h-[74vh] md:rounded-br-[327px] xl:h-[84vh]">
+                    <div class="work-hero-media h-[95vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
                     </div>
                 <?php endif; ?>
 
-                <div
-                    class="absolute inset-x-0 bottom-0 w-full h-full flex flex-col justify-end overflow-hidden
-                    rounded-br-[180px] md:rounded-br-[327px] pb-16 md:pb-11 pt-16 pl-4 md:pl-9
-                    after:absolute after:inset-x-0 after:bottom-0 after:top-1/2 after:bg-gradient-to-t after:from-black after:to-transparent after:content-['']">
+                <div class="work-hero-content absolute inset-x-0 bottom-0 w-full h-full flex flex-col justify-end overflow-hidden
+                    pb-16 md:pb-11 pt-16 pl-4 md:pl-9">
                     <h1 class="relative z-10 m-0 text-[28px] uppercase tracking-[0.31em] mb-7 text-white ">
                         <?php the_title(); ?>
                     </h1>
@@ -288,13 +351,13 @@ $resolve_attachment_id = static function ($item): int {
                     $icon_inside_url = get_theme_file_uri('/images/logo-short.png');
                 }
                 ?>
-                <div class="absolute right-4 bottom-3 md:bottom-10 md:right-12 flex">
+                <div class="work-hero-icon absolute right-4 bottom-3 flex md:bottom-10 md:right-12">
                     <img src="<?php echo esc_url($icon_inside_url); ?>" alt="" class="h-8 w-8 object-contain md:h-6">
                 </div>
             </section>
 
             <!-- <section class="grid grid-cols-1 gap-8 py-12 md:grid-cols-[220px_1fr_1fr] md:gap-8 md:py-16">
-                <p class="m-0 pt-1 text-[0.62rem] uppercase tracking-[0.32em] text-zinc-700/80">
+                <p class="m-0 pt-1 text-[12px] uppercase tracking-[0.32em] text-zinc-700/80">
                     <?php echo esc_html($intro_title !== '' ? $intro_title : 'Project Overview'); ?>
                 </p>
                 <p class="m-0 text-[0.74rem] leading-[1.95] text-zinc-700">
@@ -383,119 +446,124 @@ $resolve_attachment_id = static function ($item): int {
             <?php if (!$content_has_work_info_shortcode): ?>
                 <section
                     class="mx-auto mt-14 grid min-w-0 grid-cols-1 gap-[4em] px-4 md:grid-cols-[minmax(0,33%)_minmax(0,1fr)] md:px-9">
-                <aside class="min-w-0 order-2 md:order-1 border-t border-zinc-500/35 pt-3 md:w-[258px]">
-                    <h2 class="m-0 text-[1.7rem] leading-none text-zinc-800">
-                        <?php echo esc_html($work_type); ?>
-                    </h2>
-                    <div class="mt-8 gap-y-12 gap-x-6 grid grid-cols-2 mb-12">
-                        <?php if ($site_area !== ''): ?>
-                            <div class="">
-                                <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
+                    <aside class="min-w-0 order-2 md:order-1 border-t border-zinc-500/35 pt-3 md:w-[258px]">
+                        <h2 class="m-0 text-[1.7rem] leading-none text-zinc-800">
+                            <?php echo esc_html($work_type); ?>
+                        </h2>
+                        <div class="mt-8 gap-y-12 gap-x-6 grid grid-cols-2 mb-12">
+                            <?php if ($site_area !== ''): ?>
+                                <div class="">
+                                    <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
                                     pb-[18px] border-b border-beige-2 mb-2">
-                                    Site Area / M2</div>
-                                <div class="text-[28px] text-dark-brown">
-                                    <?php echo esc_html($site_area); ?>
+                                        Site Area / M2</div>
+                                    <div class="text-[28px] text-dark-brown">
+                                        <?php echo esc_html($site_area); ?>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($floor_area !== ''): ?>
-                            <div class="">
-                                <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
+                            <?php endif; ?>
+                            <?php if ($floor_area !== ''): ?>
+                                <div class="">
+                                    <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
                                     pb-[18px] border-b border-beige-2 mb-2">
-                                    Floor Area / M2</div>
-                                <div class="text-[28px] text-dark-brown">
-                                    <?php echo esc_html($floor_area); ?>
+                                        Floor Area / M2</div>
+                                    <div class="text-[28px] text-dark-brown">
+                                        <?php echo esc_html($floor_area); ?>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($bedrooms !== ''): ?>
-                            <div class="">
-                                <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
+                            <?php endif; ?>
+                            <?php if ($bedrooms !== ''): ?>
+                                <div class="">
+                                    <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
                                     pb-[18px] border-b border-beige-2 mb-2">
-                                    Bedrooms</div>
-                                <div class="text-[28px] text-dark-brown">
-                                    <?php echo esc_html($bedrooms); ?>
+                                        Bedrooms</div>
+                                    <div class="text-[28px] text-dark-brown">
+                                        <?php echo esc_html($bedrooms); ?>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($floors !== ''): ?>
-                            <div class="">
-                                <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
+                            <?php endif; ?>
+                            <?php if ($floors !== ''): ?>
+                                <div class="">
+                                    <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
                                     pb-[18px] border-b border-beige-2 mb-2">
-                                    Floors</div>
-                                <div class="text-[28px] text-dark-brown">
-                                    <?php echo esc_html($floors); ?>
+                                        Floors</div>
+                                    <div class="text-[28px] text-dark-brown">
+                                        <?php echo esc_html($floors); ?>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-
-                    <?php if ($client !== ''): ?>
-                        <div class="">
-                            <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
-                                pb-[18px] border-b border-beige-2 mb-2">
-                                Client</div>
-                            <div class="text-[28px] text-dark-brown">
-                                <?php echo esc_html($client); ?>
-                            </div>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
 
-                    <?php if (!empty($credits)): ?>
-                        <details class="work-credits mt-14">
-                            <summary
-                                class="flex cursor-pointer list-none items-center justify-between gap-6 border-b border-beige-2 pb-[18px] text-[9px] font-medium uppercase tracking-[0.28em] text-light-brown">
-                                <span>Credits</span>
-                                <span class="work-credits__icon h-2 w-2 rotate-45 border-b border-r border-light-brown"
-                                    aria-hidden="true"></span>
-                            </summary>
-                            <div class="grid gap-x-16 gap-y-6 pt-5 text-[12px] leading-tight text-dark-brown grid-cols-2">
-                                <?php foreach ($credits as $credit): ?>
-                                    <p class="m-0">
-                                        <?php echo esc_html($credit); ?>
-                                    </p>
-                                <?php endforeach; ?>
+                        <?php if ($client !== ''): ?>
+                            <div class="">
+                                <div class="text-[9px] uppercase tracking-[0.28em] text-light-brown font-medium 
+                                pb-[18px] border-b border-beige-2 mb-2">
+                                    Client</div>
+                                <div class="text-[28px] text-dark-brown">
+                                    <?php echo esc_html($client); ?>
+                                </div>
                             </div>
-                        </details>
-                    <?php endif; ?>
-                </aside>
-
-                <div class="min-w-0 order-1 md:order-2">
-                    <div class="w-full">
-                        <?php if (is_numeric($model_image)): ?>
-                            <?php echo wp_get_attachment_image((int) $model_image, 'full', false, ['class' => 'block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]']); ?>
-                        <?php elseif (is_array($model_image) && !empty($model_image['url'])): ?>
-                            <img src="<?php echo esc_url($model_image['url']); ?>"
-                                alt="<?php echo esc_attr(get_the_title()); ?>"
-                                class="block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]">
-                        <?php elseif (is_string($model_image) && trim($model_image) !== ''): ?>
-                            <img src="<?php echo esc_url($model_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>"
-                                class="block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]">
-                        <?php elseif (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('large', ['class' => 'block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]']); ?>
                         <?php endif; ?>
+
+                        <?php if (!empty($credits)): ?>
+                            <details class="work-credits mt-14">
+                                <summary
+                                    class="flex cursor-pointer list-none items-center justify-between gap-6 border-b border-beige-2 pb-[18px] text-[9px] font-medium uppercase tracking-[0.28em] text-light-brown">
+                                    <span>Credits</span>
+                                    <span class="work-credits__icon h-2 w-2 rotate-45 border-b border-r border-light-brown"
+                                        aria-hidden="true"></span>
+                                </summary>
+                                <div class="grid gap-x-16 gap-y-6 pt-5 text-[12px] leading-tight text-dark-brown grid-cols-2">
+                                    <?php foreach ($credits as $credit): ?>
+                                        <p class="m-0">
+                                            <?php echo esc_html($credit); ?>
+                                        </p>
+                                    <?php endforeach; ?>
+                                </div>
+                            </details>
+                        <?php endif; ?>
+                    </aside>
+
+                    <div class="min-w-0 order-1 md:order-2">
+                        <div class="w-full">
+                            <?php if (is_numeric($model_image)): ?>
+                                <?php echo wp_get_attachment_image((int) $model_image, 'full', false, ['class' => 'block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]']); ?>
+                            <?php elseif (is_array($model_image) && !empty($model_image['url'])): ?>
+                                <img src="<?php echo esc_url($model_image['url']); ?>"
+                                    alt="<?php echo esc_attr(get_the_title()); ?>"
+                                    class="block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]">
+                            <?php elseif (is_string($model_image) && trim($model_image) !== ''): ?>
+                                <img src="<?php echo esc_url($model_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>"
+                                    class="block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]">
+                            <?php elseif (has_post_thumbnail()): ?>
+                                <?php the_post_thumbnail('large', ['class' => 'block h-auto w-[calc(100%+1rem)] max-w-none object-cover md:w-[calc(100%+2.25rem)]']); ?>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
                 </section>
             <?php endif; ?>
 
             <section class="mt-16 hidden min-w-0 gap-[4em] px-4 md:grid md:grid-cols-[minmax(0,33%)_minmax(0,1fr)] md:px-9">
                 <div aria-hidden="true"></div>
                 <div class="min-w-0">
-                    <p class="m-0 text-[0.6rem] uppercase tracking-[0.3em] text-light-brown">Explore Other Works</p>
+                    <p class="m-0 text-[10px] uppercase tracking-[0.3em] text-light-brown">Explore Other Works</p>
                     <div class="mt-4 grid grid-cols-2 items-center gap-4 border-t border-beige-2 pt-4">
                         <div>
                             <?php if ($prev_work instanceof WP_Post): ?>
                                 <a href="<?php echo esc_url(get_permalink($prev_work->ID)); ?>"
-                                    class="!no-underline text-[0.62rem] uppercase tracking-[0.3em] text-zinc-700 hover:opacity-70">
-                                    <- Prev: <?php echo esc_html(get_the_title($prev_work->ID)); ?> </a>
-                                    <?php endif; ?>
+                                    class="inline-flex items-center gap-2 !no-underline text-[10px] uppercase tracking-[0.3em] text-zinc-700 hover:opacity-70">
+                                    <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
+                                        alt="" class="h-3 w-3 rotate-180 object-contain">
+                                    <span>Prev: <?php echo esc_html(get_the_title($prev_work->ID)); ?></span>
+                                </a>
+                            <?php endif; ?>
                         </div>
                         <div class="text-right">
                             <?php if ($next_work instanceof WP_Post): ?>
                                 <a href="<?php echo esc_url(get_permalink($next_work->ID)); ?>"
-                                    class="!no-underline text-[0.62rem] uppercase tracking-[0.3em] text-zinc-700 hover:opacity-70">
-                                    Next: <?php echo esc_html(get_the_title($next_work->ID)); ?> ->
+                                    class="inline-flex items-center justify-end gap-2 !no-underline text-[10px] uppercase tracking-[0.3em] text-zinc-700 hover:opacity-70">
+                                    <span>Next: <?php echo esc_html(get_the_title($next_work->ID)); ?></span>
+                                    <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
+                                        alt="" class="h-3 w-3 object-contain">
                                 </a>
                             <?php endif; ?>
                         </div>
