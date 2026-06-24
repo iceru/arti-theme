@@ -23,7 +23,7 @@
         }
 
         body.admin-bar #site-menu-overlay {
-            top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px)) + 78px);
+            top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px)) + 80px);
         }
 
         #site-menu-overlay {
@@ -38,29 +38,34 @@
             visibility: visible;
         }
 
-        body.site-menu-open #site-header,
-        body.site-menu-closing #site-header {
+        body.site-menu-open #site-header {
             z-index: 60;
+            background: transparent !important;
+            pointer-events: none;
+        }
+
+        body.site-menu-open #site-header>div {
             background: transparent !important;
         }
 
-        body.site-menu-open #site-header>div,
-        body.site-menu-closing #site-header>div {
-            background: transparent !important;
+        body.site-menu-open #header-logo-link,
+        body.site-menu-open #site-menu-toggle {
+            pointer-events: auto;
         }
 
         #site-menu-panel {
             position: relative;
-            transform: translateY(calc(-100% - 78px));
+            transform: translateY(calc(-100% - 80px));
             transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
+            box-shadow: 0 18px 25px -18px rgb(0 0 0 / 0.25);
         }
 
         #site-menu-panel::before {
             content: '';
             position: absolute;
-            inset: -78px 0 auto;
-            height: 78px;
+            inset: -80px 0 auto;
+            height: 82px;
             background: inherit;
             pointer-events: none;
         }
@@ -110,7 +115,7 @@
             }
 
             body.admin-bar #site-menu-overlay {
-                top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px)) + 78px);
+                top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px)) + 80px);
             }
         }
     </style>
@@ -143,7 +148,7 @@
     <?php
     $loader_animation_uri = get_theme_file_uri('/images/arti-logo-a.json');
     $header_logo_animation_uri = get_theme_file_uri('/images/logo-arti-full.json');
-    $header_logo_image_uri = get_theme_file_uri('/images/logo.png');
+    $header_logo_image_uri = get_theme_file_uri('/images/logo-large.png');
     ?>
 
     <div id="site-loader"
@@ -294,7 +299,7 @@
         </header>
 
         <div id="site-menu-overlay"
-            class="pointer-events-none fixed top-[78px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
+            class="pointer-events-none fixed top-[80px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
             <div id="site-menu-panel"
                 class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6  relative">
@@ -339,6 +344,6 @@
             </div>
         </div>
 
-        <div id="content" class="site-content grow pt-[78px]">
+        <div id="content" class="site-content grow pt-[80px]">
             <?php do_action('tailpress_content_start'); ?>
             <main>
