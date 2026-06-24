@@ -93,6 +93,21 @@ get_header();
         margin-bottom: 0 !important;
     }
 
+    @media (max-width: 781px) {
+        .entry-content>.wp-block-columns {
+            display: flex !important;
+            flex-direction: column;
+        }
+
+        .entry-content>.wp-block-columns>.wp-block-column:has(.work-info) {
+            order: 2;
+        }
+
+        .entry-content>.wp-block-columns>.wp-block-column:not(:has(.work-info)) {
+            order: 1;
+        }
+    }
+
     @media (min-width: 782px) {
         .entry-content>.wp-block-columns {
             display: grid !important;
