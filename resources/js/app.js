@@ -19,7 +19,6 @@ window.addEventListener('load', function () {
 
     const menuToggle = document.getElementById('site-menu-toggle')
     const menuOverlay = document.getElementById('site-menu-overlay')
-    const siteHeader = document.getElementById('site-header')
     initContactTabs()
 
     if (!menuToggle || !menuOverlay) {
@@ -35,8 +34,6 @@ window.addEventListener('load', function () {
         document.body.classList.remove('site-menu-closing')
         menuOverlay.classList.remove(...closedClasses)
         menuOverlay.classList.add(...openClasses)
-        siteHeader?.classList.remove('bg-beige-1')
-        siteHeader?.classList.add('bg-beige-2')
         menuToggle.setAttribute('aria-expanded', 'true')
         menuToggle.setAttribute('aria-label', 'Close menu')
         menuToggle.querySelector('.site-menu-line-top')?.classList.add('translate-y-0', 'rotate-45')
@@ -52,8 +49,6 @@ window.addEventListener('load', function () {
         document.body.classList.add('site-menu-closing')
         menuOverlay.classList.remove(...openClasses)
         menuOverlay.classList.add(...closedClasses)
-        siteHeader?.classList.remove('bg-beige-2')
-        siteHeader?.classList.add('bg-beige-1')
         menuToggle.setAttribute('aria-expanded', 'false')
         menuToggle.setAttribute('aria-label', 'Open menu')
         menuToggle.querySelector('.site-menu-line-top')?.classList.remove('translate-y-0', 'rotate-45')

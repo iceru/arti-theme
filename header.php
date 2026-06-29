@@ -23,7 +23,7 @@
         }
 
         body.admin-bar #site-menu-overlay {
-            top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px)) + 80px);
+            top: var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 32px));
         }
 
         #site-menu-overlay {
@@ -33,25 +33,9 @@
             visibility: hidden;
         }
 
-        #site-menu-overlay::before {
-            content: '';
-            position: absolute;
-            inset: -80px 0 auto;
-            height: 80px;
-            background-color: var(--color-beige-2, #B5B1AC);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 500ms ease-out;
-        }
-
         body.site-menu-open #site-menu-overlay {
             transition-delay: 0s;
             visibility: visible;
-        }
-
-        body.site-menu-open #site-menu-overlay::before,
-        body.site-menu-closing #site-menu-overlay::before {
-            opacity: 1;
         }
 
         body.site-menu-open #site-header {
@@ -71,19 +55,12 @@
 
         #site-menu-panel {
             position: relative;
-            transform: translateY(calc(-100% - 80px));
+            min-height: 240px;
+            padding-top: 7rem;
+            transform: translateY(-100%);
             transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
             box-shadow: 0 18px 25px -18px rgb(0 0 0 / 0.25);
-        }
-
-        #site-menu-panel::before {
-            content: '';
-            position: absolute;
-            inset: -80px 0 auto;
-            height: 82px;
-            background: inherit;
-            pointer-events: none;
         }
 
         body.site-menu-open #site-menu-panel {
@@ -112,6 +89,12 @@
         }
 
         @media (min-width: 782px) {
+            #site-menu-panel {
+                height: calc(16vh + 80px);
+                max-height: 400px;
+                padding-top: 2rem;
+            }
+
             #header-logo-image {
                 display: none;
             }
@@ -131,7 +114,7 @@
             }
 
             body.admin-bar #site-menu-overlay {
-                top: calc(var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px)) + 80px);
+                top: var(--arti-admin-bar-offset, var(--wp-admin--admin-bar--height, 46px));
             }
         }
     </style>
@@ -315,12 +298,12 @@
         </header>
 
         <div id="site-menu-overlay"
-            class="pointer-events-none fixed top-[80px] inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
+            class="pointer-events-none fixed top-0 inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
             <div id="site-menu-panel"
                 class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6  relative">
                     <nav
-                        class="md:col-span-6 md:col-start-4 flex flex-col md:-top-[80px] relative md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
+                        class="md:col-span-6 md:col-start-4 flex flex-col relative md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
                         <a href="<?php echo esc_url(home_url('/studio')); ?>"
                             class="!no-underline text-zinc-900 hover:opacity-70">Studio</a>
                         <a href="/works" class="!no-underline text-zinc-900 hover:opacity-70">Works</a>
