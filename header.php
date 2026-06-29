@@ -40,12 +40,12 @@
 
         body.site-menu-open #site-header {
             z-index: 60;
-            background: transparent !important;
+            background-color: var(--color-beige-2, #B5B1AC) !important;
             pointer-events: none;
         }
 
         body.site-menu-open #site-header>div {
-            background: transparent !important;
+            background-color: transparent;
         }
 
         body.site-menu-open #header-logo-link,
