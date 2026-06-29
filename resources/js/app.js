@@ -19,6 +19,7 @@ window.addEventListener('load', function () {
 
     const menuToggle = document.getElementById('site-menu-toggle')
     const menuOverlay = document.getElementById('site-menu-overlay')
+    const menuCloseButtons = Array.from(document.querySelectorAll('[data-site-menu-close]'))
     initContactTabs()
 
     if (!menuToggle || !menuOverlay) {
@@ -70,6 +71,13 @@ window.addEventListener('load', function () {
             return
         }
         openMenu()
+    })
+
+    menuCloseButtons.forEach(function (button) {
+        button.addEventListener('click', function (e) {
+            e.preventDefault()
+            closeMenu()
+        })
     })
 
     menuOverlay.addEventListener('click', function (e) {

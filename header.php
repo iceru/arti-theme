@@ -39,24 +39,17 @@
             visibility: visible;
         }
 
-        body.site-menu-open #site-header,
-        body.site-menu-closing #site-header {
-            z-index: auto;
+        body.site-menu-open #site-header {
             background-color: var(--color-beige-2, #B5B1AC) !important;
             pointer-events: none;
         }
 
-        body.site-menu-open #site-header>div,
-        body.site-menu-closing #site-header>div {
+        body.site-menu-open #site-header>div {
             background: transparent !important;
         }
 
         body.site-menu-open #header-logo-link,
-        body.site-menu-open #site-menu-toggle,
-        body.site-menu-closing #header-logo-link,
-        body.site-menu-closing #site-menu-toggle {
-            position: relative;
-            z-index: 80;
+        body.site-menu-open #site-menu-toggle {
             pointer-events: auto;
         }
 
@@ -71,6 +64,21 @@
 
         body.site-menu-open #site-menu-panel {
             transform: translateY(0);
+        }
+
+        .site-menu-panel-header {
+            position: absolute;
+            inset: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1rem;
+        }
+
+        .site-menu-panel-logo {
+            display: block;
+            width: 56px;
+            height: auto;
         }
 
         #header-logo-link {
@@ -99,6 +107,15 @@
                 height: calc(16vh + 80px);
                 max-height: 400px;
                 padding-top: 2rem;
+            }
+
+            .site-menu-panel-header {
+                padding-right: 2.25rem;
+                padding-left: 2.25rem;
+            }
+
+            .site-menu-panel-logo {
+                width: 72px;
             }
 
             #header-logo-image {
@@ -307,6 +324,20 @@
             class="pointer-events-none fixed top-0 inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
             <div id="site-menu-panel"
                 class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 backdrop-blur-[1px]">
+                <div class="site-menu-panel-header">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center !no-underline"
+                        aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                        <img src="<?php echo esc_url($header_logo_image_uri); ?>"
+                            alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="site-menu-panel-logo">
+                    </a>
+                    <button type="button" aria-label="Close menu" data-site-menu-close
+                        class="relative inline-flex h-10 w-10 items-center justify-center text-zinc-500 transition hover:text-zinc-700">
+                        <span
+                            class="absolute block h-px w-6 md:w-8 translate-y-0 rotate-45 bg-current transition-transform duration-300"></span>
+                        <span
+                            class="absolute block h-px w-6 md:w-8 translate-y-0 -rotate-45 bg-current transition-transform duration-300"></span>
+                    </button>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6  relative">
                     <nav
                         class="md:col-span-6 md:col-start-4 flex flex-col relative md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
