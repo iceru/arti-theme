@@ -89,10 +89,6 @@ get_header();
         margin-bottom: 1em !important;
     }
 
-    .entry-content :where(.wp-block-column > :last-child, .wp-block-group > :last-child, :last-child) {
-        margin-bottom: 0 !important;
-    }
-
     @media (max-width: 781px) {
         .entry-content>.wp-block-columns {
             display: flex !important;
@@ -109,6 +105,10 @@ get_header();
     }
 
     @media (min-width: 782px) {
+        .entry-content :where(.wp-block-column > :last-child, .wp-block-group > :last-child, :last-child) {
+            margin-bottom: 0 !important;
+        }
+
         .entry-content>.wp-block-columns {
             display: grid !important;
             grid-template-columns: minmax(0, 33%) minmax(0, 1fr);
