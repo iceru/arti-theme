@@ -387,7 +387,7 @@ $resolve_attachment_id = static function ($item): int {
                 <div class="entry-content text-zinc-800/85
                     [&_p]:px-0 [&_p]:text-light-brown [&_p]:text-[12px]
                     [&_h2]:px-0 [&_h2]:text-dark-brown [&_h2]:text-[12px] [&_h2]:mt-0 [&_h2]:uppercase [&_h2]:mb-4 [&_h2]:md:mb-7 [&_h2]:tracking-[0.31em] [&_h2]:font-medium
-                    [&_.wp-block-column.gallery]:-mr-4 md:[&_.wp-block-column.gallery]:-mr-9 [&_.wp-block-column.gallery-right]:!-mr-4 md:[&_.wp-block-column.gallery-right]:!-mr-9 [&_.wp-block-column.gallery-left]:!-ml-4 md:[&_.wp-block-column.gallery-left]:!-ml-9
+                    md:[&_.wp-block-column.gallery]:-mr-9 [&_.wp-block-column.gallery-right]:!-mr-4 md:[&_.wp-block-column.gallery-right]:!-mr-9 [&_.wp-block-column.gallery-left]:!-ml-4 md:[&_.wp-block-column.gallery-left]:!-ml-9
                     [&_figure]:my-8 [&_figure]:!-mx-4 md:[&_figure]:!mx-0 [&_figure]:px-0 [&_figcaption]:px-4 [&_figcaption]:mt-2 [&_figcaption]:text-[0.66rem] [&_figcaption]:text-light-brown md:[&_figcaption]:px-9
                     [&_img]:block [&_img]:h-auto [&_img]:w-full [&_img]:object-cover">
                     <?php the_content(); ?>
