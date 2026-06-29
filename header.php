@@ -60,11 +60,19 @@
             transform: translateY(-100%);
             transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
-            box-shadow: 0 18px 25px -18px rgb(0 0 0 / 0.25);
         }
 
         body.site-menu-open #site-menu-panel {
             transform: translateY(0);
+        }
+
+        #site-menu-panel::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 -28px;
+            height: 28px;
+            background: linear-gradient(to bottom, var(--color-beige-2, #B5B1AC), rgb(181 177 172 / 0));
+            pointer-events: none;
         }
 
         #header-logo-link {
@@ -300,7 +308,7 @@
         <div id="site-menu-overlay"
             class="pointer-events-none fixed top-0 inset-0 z-50 -translate-y-8 opacity-0 transition-all duration-500 ease-out">
             <div id="site-menu-panel"
-                class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 shadow-xl backdrop-blur-[1px]">
+                class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 backdrop-blur-[1px]">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6  relative">
                     <nav
                         class="md:col-span-6 md:col-start-4 flex flex-col relative md:grid grid-cols-2 gap-y-8 gap-x-6 text-[12px] font-medium uppercase tracking-[0.42em]">
