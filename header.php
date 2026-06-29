@@ -69,16 +69,23 @@
         .site-menu-panel-header {
             position: absolute;
             inset: 0 0 auto;
+            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 1.25rem 1rem;
+            pointer-events: none;
         }
 
         .site-menu-panel-logo {
             display: block;
-            width: 56px;
+            width: 54px;
             height: auto;
+        }
+
+        .site-menu-panel-header a,
+        .site-menu-panel-header button {
+            pointer-events: auto;
         }
 
         #header-logo-link {
@@ -112,10 +119,6 @@
             .site-menu-panel-header {
                 padding-right: 2.25rem;
                 padding-left: 2.25rem;
-            }
-
-            .site-menu-panel-logo {
-                width: 72px;
             }
 
             #header-logo-image {
