@@ -83,6 +83,17 @@
             height: auto;
         }
 
+        #site-menu-logo-animation {
+            display: none;
+        }
+
+        #site-menu-logo-animation svg {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible;
+        }
+
         .site-menu-panel-header a,
         .site-menu-panel-header button {
             pointer-events: auto;
@@ -119,6 +130,18 @@
             .site-menu-panel-header {
                 padding-right: 2.25rem;
                 padding-left: 2.25rem;
+            }
+
+            .site-menu-panel-logo {
+                display: none;
+            }
+
+            #site-menu-logo-animation {
+                display: block;
+                flex-basis: 54px;
+                width: 54px !important;
+                min-width: 54px;
+                height: 27px;
             }
 
             #header-logo-image {
@@ -190,8 +213,10 @@
                 var animationContainer = document.getElementById('loader-logo-animation');
                 var headerLogoAnimationContainer = document.getElementById('header-logo-animation');
                 var headerLogoLink = document.getElementById('header-logo-link');
+                var menuLogoAnimationContainer = document.getElementById('site-menu-logo-animation');
+                var menuLogoLink = document.getElementById('site-menu-logo-link');
 
-                if (!animationContainer && !headerLogoAnimationContainer) {
+                if (!animationContainer && !headerLogoAnimationContainer && !menuLogoAnimationContainer) {
                     return;
                 }
 
@@ -210,20 +235,24 @@
                         });
                     }
 
-                    if (headerLogoAnimationContainer && headerLogoLink) {
-                        var headerLogoAnimation = window.lottie.loadAnimation({
-                            container: headerLogoAnimationContainer,
+                    function setupLogoAnimation(logoAnimationContainer, logoLink) {
+                        if (!logoAnimationContainer || !logoLink) {
+                            return;
+                        }
+
+                        var logoAnimation = window.lottie.loadAnimation({
+                            container: logoAnimationContainer,
                             renderer: 'svg',
                             rendererSettings: {
                                 preserveAspectRatio: 'xMidYMid meet'
                             },
                             loop: false,
                             autoplay: false,
-                            path: headerLogoAnimationContainer.getAttribute('data-animation-path')
+                            path: logoAnimationContainer.getAttribute('data-animation-path')
                         });
 
-                        function fitHeaderLogoToArtwork() {
-                            var logoSvg = headerLogoAnimationContainer.querySelector('svg');
+                        function fitLogoToArtwork() {
+                            var logoSvg = logoAnimationContainer.querySelector('svg');
                             var logoArtwork = logoSvg ? logoSvg.firstElementChild : null;
 
                             if (!logoSvg || !logoArtwork || !logoArtwork.getBBox) {
@@ -238,7 +267,7 @@
 
                             var logoPaddingX = 12;
                             var logoOffsetX = 10;
-                            var logoRect = headerLogoAnimationContainer.getBoundingClientRect();
+                            var logoRect = logoAnimationContainer.getBoundingClientRect();
                             var logoWidth = logoRect.width || 54;
                             var logoHeight = logoRect.height || 27;
                             logoSvg.setAttribute(
@@ -249,32 +278,35 @@
                             logoSvg.style.overflow = 'visible';
                             logoSvg.style.height = logoHeight + 'px';
                             logoSvg.style.width = logoWidth + 'px';
-                            headerLogoAnimationContainer.style.height = logoHeight + 'px';
-                            headerLogoAnimationContainer.style.width = logoWidth + 'px';
+                            logoAnimationContainer.style.height = logoHeight + 'px';
+                            logoAnimationContainer.style.width = logoWidth + 'px';
                         }
 
-                        function playHeaderLogoAnimation() {
-                            headerLogoAnimation.goToAndPlay(0, true);
+                        function playLogoAnimation() {
+                            logoAnimation.goToAndPlay(0, true);
                         }
 
-                        function holdHeaderLogoAnimationEnd() {
-                            headerLogoAnimation.goToAndStop(headerLogoAnimation.totalFrames - 1, true);
+                        function holdLogoAnimationEnd() {
+                            logoAnimation.goToAndStop(logoAnimation.totalFrames - 1, true);
                         }
 
-                        function resetHeaderLogoAnimation() {
-                            headerLogoAnimation.goToAndStop(0, true);
+                        function resetLogoAnimation() {
+                            logoAnimation.goToAndStop(0, true);
                         }
 
-                        headerLogoAnimation.addEventListener('DOMLoaded', function () {
-                            fitHeaderLogoToArtwork();
-                            resetHeaderLogoAnimation();
+                        logoAnimation.addEventListener('DOMLoaded', function () {
+                            fitLogoToArtwork();
+                            resetLogoAnimation();
                         });
-                        headerLogoAnimation.addEventListener('complete', holdHeaderLogoAnimationEnd);
-                        headerLogoLink.addEventListener('mouseenter', playHeaderLogoAnimation);
-                        headerLogoLink.addEventListener('focus', playHeaderLogoAnimation);
-                        headerLogoLink.addEventListener('mouseleave', resetHeaderLogoAnimation);
-                        headerLogoLink.addEventListener('blur', resetHeaderLogoAnimation);
+                        logoAnimation.addEventListener('complete', holdLogoAnimationEnd);
+                        logoLink.addEventListener('mouseenter', playLogoAnimation);
+                        logoLink.addEventListener('focus', playLogoAnimation);
+                        logoLink.addEventListener('mouseleave', resetLogoAnimation);
+                        logoLink.addEventListener('blur', resetLogoAnimation);
                     }
+
+                    setupLogoAnimation(headerLogoAnimationContainer, headerLogoLink);
+                    setupLogoAnimation(menuLogoAnimationContainer, menuLogoLink);
                 }
 
                 if (window.lottie) {
@@ -328,10 +360,15 @@
             <div id="site-menu-panel"
                 class="mx-0 flex md:h-[16vh] min-h-[160px] md:max-h-[320px] flex-col justify-between bg-beige-2 px-4 pt-8 pb-6 md:px-9 md:pt-8 backdrop-blur-[1px]">
                 <div class="site-menu-panel-header">
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center !no-underline"
+                    <a id="site-menu-logo-link" href="<?php echo esc_url(home_url('/')); ?>"
+                        class="inline-flex items-center !no-underline text-zinc-900"
                         aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
                         <img src="<?php echo esc_url($header_logo_image_uri); ?>"
                             alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="site-menu-panel-logo">
+                        <div id="site-menu-logo-animation" class="pointer-events-none ml-2 overflow-visible"
+                            data-animation-path="<?php echo esc_url($header_logo_animation_uri); ?>"
+                            aria-hidden="true">
+                        </div>
                     </a>
                     <button type="button" aria-label="Close menu" data-site-menu-close
                         class="relative inline-flex h-10 w-10 items-center justify-center text-zinc-500 transition hover:text-zinc-700">
