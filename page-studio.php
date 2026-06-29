@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: Studio
  *
@@ -65,7 +66,7 @@ get_header();
         </aside>
 
         <div class="min-w-0 pt-32 max-md:pt-14">
-            <section class="studio-scroll-reveal md:pb-32 pb-14 px-4 md:px-8" aria-labelledby="studio-about-title">
+            <section class="studio-scroll-reveal md:pb-32 pb-14 px-4 md:px-8 max-w-[1000px]" aria-labelledby="studio-about-title">
                 <h4 class="mb-10 md:mb-14 text-[12px] uppercase tracking-[31%] font-medium text-light-brown"
                     id="about-us">About
                     Us
@@ -288,7 +289,7 @@ get_header();
 
                             $expertise_description = wp_strip_all_tags(get_the_content());
                             $expertise_items = function_exists('get_field') ? get_field('expertise_items') : [];
-                            ?>
+                        ?>
                             <article class="min-w-0 overflow-visible">
                                 <div class="pr-4">
                                     <h2 class="mb-8 leading-[1.2] font-medium uppercase tracking-[0.2em] text-dark-brown"
@@ -416,7 +417,7 @@ get_header();
                             if ($award_year === '') {
                                 $award_year = get_the_date('Y');
                             }
-                            ?>
+                        ?>
                             <div
                                 class="grid grid-cols-[6fr_1fr] md:grid-cols-[1fr_260px] gap-4 border-b border-black/12 py-5 text-[12px] leading-[1.7] text-dark-brown">
                                 <p class="m-0"><?php the_title(); ?></p>
@@ -443,11 +444,11 @@ get_header();
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const revealSections = Array.from(document.querySelectorAll('.studio-scroll-reveal'));
         const revealItems = [];
 
-        revealSections.forEach(function (section, sectionIndex) {
+        revealSections.forEach(function(section, sectionIndex) {
             const isFirstSection = sectionIndex === 0;
             let sectionItems = [];
 
@@ -463,7 +464,7 @@ get_header();
                 sectionItems = Array.from(section.children);
             }
 
-            sectionItems.forEach(function (item, itemIndex) {
+            sectionItems.forEach(function(item, itemIndex) {
                 item.classList.add('studio-reveal-item');
                 item.style.transitionDelay = Math.min(itemIndex * 80, 320) + 'ms';
 
@@ -481,8 +482,8 @@ get_header();
             }
 
             if ('IntersectionObserver' in window) {
-                const revealObserver = new IntersectionObserver(function (entries, observer) {
-                    entries.forEach(function (entry) {
+                const revealObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
                         if (!entry.isIntersecting) {
                             return;
                         }
@@ -495,11 +496,11 @@ get_header();
                     threshold: 0.12
                 });
 
-                revealItems.forEach(function (item) {
+                revealItems.forEach(function(item) {
                     revealObserver.observe(item);
                 });
             } else {
-                revealItems.forEach(function (item) {
+                revealItems.forEach(function(item) {
                     item.classList.add('is-visible');
                 });
             }
@@ -546,7 +547,7 @@ get_header();
                 return;
             }
 
-            const introObserver = new MutationObserver(function () {
+            const introObserver = new MutationObserver(function() {
                 if (!page.classList.contains('opacity-100')) {
                     return;
                 }
@@ -560,7 +561,7 @@ get_header();
                 attributeFilter: ['class']
             });
 
-            window.setTimeout(function () {
+            window.setTimeout(function() {
                 introObserver.disconnect();
                 startRevealAnimations();
             }, 1800);
@@ -569,7 +570,9 @@ get_header();
         if (document.readyState === 'complete') {
             startRevealAfterPageIntro();
         } else {
-            window.addEventListener('load', startRevealAfterPageIntro, { once: true });
+            window.addEventListener('load', startRevealAfterPageIntro, {
+                once: true
+            });
         }
 
         const tracks = Array.from(document.querySelectorAll('.expertise-items-track[data-drag-scroll="true"]'));
@@ -577,16 +580,16 @@ get_header();
             return;
         }
 
-        tracks.forEach(function (track) {
+        tracks.forEach(function(track) {
             let isDragging = false;
             let startX = 0;
             let startScrollLeft = 0;
 
-            track.addEventListener('dragstart', function (event) {
+            track.addEventListener('dragstart', function(event) {
                 event.preventDefault();
             });
 
-            track.addEventListener('pointerdown', function (event) {
+            track.addEventListener('pointerdown', function(event) {
                 if (event.button !== 0 && event.pointerType === 'mouse') {
                     return;
                 }
@@ -598,7 +601,7 @@ get_header();
                 track.classList.add('is-dragging');
             });
 
-            track.addEventListener('pointermove', function (event) {
+            track.addEventListener('pointermove', function(event) {
                 if (!isDragging) {
                     return;
                 }
@@ -621,7 +624,7 @@ get_header();
 
             track.addEventListener('pointerup', stopDrag);
             track.addEventListener('pointercancel', stopDrag);
-            track.addEventListener('lostpointercapture', function () {
+            track.addEventListener('lostpointercapture', function() {
                 isDragging = false;
                 track.classList.remove('is-dragging');
             });
