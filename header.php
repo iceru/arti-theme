@@ -33,6 +33,11 @@
             visibility: hidden;
         }
 
+        :root {
+            --arti-header-logo-width: clamp(60px, 4.4vw, 78px);
+            --arti-header-logo-height: calc(var(--arti-header-logo-width) * 0.5);
+        }
+
         body.site-menu-open #site-menu-overlay,
         body.site-menu-closing #site-menu-overlay {
             transition-delay: 0s;
@@ -79,7 +84,7 @@
 
         .site-menu-panel-logo {
             display: block;
-            width: 54px;
+            width: var(--arti-header-logo-width);
             height: auto;
         }
 
@@ -105,7 +110,7 @@
 
         #header-logo-image {
             display: block;
-            width: 56px;
+            width: var(--arti-header-logo-width);
             height: auto;
         }
 
@@ -138,10 +143,10 @@
 
             #site-menu-logo-animation {
                 display: block;
-                flex-basis: 54px;
-                width: 54px !important;
-                min-width: 54px;
-                height: 27px;
+                flex-basis: var(--arti-header-logo-width);
+                width: var(--arti-header-logo-width) !important;
+                min-width: var(--arti-header-logo-width);
+                height: var(--arti-header-logo-height);
             }
 
             #header-logo-image {
@@ -150,10 +155,10 @@
 
             #header-logo-animation {
                 display: block;
-                flex-basis: 54px;
-                width: 54px !important;
-                min-width: 54px;
-                height: 27px;
+                flex-basis: var(--arti-header-logo-width);
+                width: var(--arti-header-logo-width) !important;
+                min-width: var(--arti-header-logo-width);
+                height: var(--arti-header-logo-height);
             }
         }
 
@@ -268,8 +273,9 @@
                             var logoPaddingX = 12;
                             var logoOffsetX = 10;
                             var logoRect = logoAnimationContainer.getBoundingClientRect();
-                            var logoWidth = logoRect.width || 54;
-                            var logoHeight = logoRect.height || 27;
+                            var logoStyles = window.getComputedStyle(logoAnimationContainer);
+                            var logoWidth = logoRect.width || parseFloat(logoStyles.width) || 60;
+                            var logoHeight = logoRect.height || parseFloat(logoStyles.height) || (logoWidth * 0.5);
                             logoSvg.setAttribute(
                                 'viewBox',
                                 (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
