@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Theme header template.
  *
@@ -173,7 +174,7 @@
         }
     </style>
     <script>
-        (function () {
+        (function() {
             function updateAdminBarOffset() {
                 var adminBar = document.getElementById('wpadminbar');
 
@@ -194,7 +195,9 @@
 
             window.addEventListener('load', updateAdminBarOffset);
             window.addEventListener('resize', updateAdminBarOffset);
-            window.addEventListener('scroll', updateAdminBarOffset, { passive: true });
+            window.addEventListener('scroll', updateAdminBarOffset, {
+                passive: true
+            });
         })();
     </script>
     <?php do_action('tailpress_site_before'); ?>
@@ -213,7 +216,7 @@
     </div>
 
     <script>
-        (function () {
+        (function() {
             function initLogoAnimations() {
                 var animationContainer = document.getElementById('loader-logo-animation');
                 var headerLogoAnimationContainer = document.getElementById('header-logo-animation');
@@ -272,10 +275,16 @@
 
                             var logoPaddingX = 12;
                             var logoOffsetX = 10;
+
+                            var rootStyles = getComputedStyle(document.documentElement);
+                            var cssLogoWidth = parseFloat(rootStyles.getPropertyValue('--arti-header-logo-width'));
+                            var cssLogoHeight = parseFloat(rootStyles.getPropertyValue('--arti-header-logo-height'));
+
                             var logoRect = logoAnimationContainer.getBoundingClientRect();
                             var logoStyles = window.getComputedStyle(logoAnimationContainer);
-                            var logoWidth = logoRect.width || parseFloat(logoStyles.width) || 60;
-                            var logoHeight = logoRect.height || parseFloat(logoStyles.height) || (logoWidth * 0.5);
+                            var logoWidth = logoRect.width || parseFloat(logoStyles.width) || cssLogoWidth || 60;
+                            var logoHeight = logoRect.height || parseFloat(logoStyles.height) || cssLogoHeight || (logoWidth * 0.5);
+
                             logoSvg.setAttribute(
                                 'viewBox',
                                 (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
@@ -300,9 +309,17 @@
                             logoAnimation.goToAndStop(0, true);
                         }
 
-                        logoAnimation.addEventListener('DOMLoaded', function () {
-                            fitLogoToArtwork();
-                            resetLogoAnimation();
+                        logoAnimation.addEventListener('DOMLoaded', function() {
+                            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                            if (isSafari) {
+                                setTimeout(function() {
+                                    fitLogoToArtwork();
+                                    resetLogoAnimation();
+                                }, 100);
+                            } else {
+                                fitLogoToArtwork();
+                                resetLogoAnimation();
+                            }
                         });
                         logoAnimation.addEventListener('complete', holdLogoAnimationEnd);
                         logoLink.addEventListener('mouseenter', playLogoAnimation);
