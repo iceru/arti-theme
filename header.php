@@ -287,7 +287,7 @@
                                     (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
                                 );
                             } else {
-                                logoSvg.setAttribute('viewBox', '0 0 947 474');
+                                logoSvg.setAttribute('viewBox', '387.96 286 414.04 374');
                             }
                         
                             logoSvg.style.display = 'block';
