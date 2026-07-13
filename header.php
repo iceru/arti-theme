@@ -261,42 +261,42 @@
 
                         function fitLogoToArtwork() {
                             var logoSvg = logoAnimationContainer.querySelector('svg');
-                            var logoArtwork = logoSvg ? logoSvg.firstElementChild : null;
-
-                            if (!logoSvg || !logoArtwork || !logoArtwork.getBBox) {
+                        
+                            if (!logoSvg) {
                                 return;
                             }
-
-                            var logoBounds = logoArtwork.getBBox();
-
-                            if (!logoBounds.width || !logoBounds.height) {
-                                return;
-                            }
-
-                            var logoPaddingX = 12;
-                            var logoOffsetX = 10;
-
+                        
                             var rootStyles = getComputedStyle(document.documentElement);
-                            var cssLogoWidth = parseFloat(rootStyles.getPropertyValue('--arti-header-logo-width'));
-                            var cssLogoHeight = parseFloat(rootStyles.getPropertyValue('--arti-header-logo-height'));
-
-                            var logoRect = logoAnimationContainer.getBoundingClientRect();
-                            var logoStyles = window.getComputedStyle(logoAnimationContainer);
-                            var logoWidth = logoRect.width || parseFloat(logoStyles.width) || cssLogoWidth || 60;
-                            var logoHeight = logoRect.height || parseFloat(logoStyles.height) || cssLogoHeight || (logoWidth * 0.5);
-
-                            logoSvg.setAttribute(
-                                'viewBox',
-                                (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
-                            );
+                            var logoWidth = parseFloat(rootStyles.getPropertyValue('--arti-header-logo-width')) || 60;
+                            var logoHeight = logoWidth * 0.5;
+                        
+                            var logoBounds = null;
+                            var logoArtwork = logoSvg.firstElementChild;
+                            if (logoArtwork && logoArtwork.getBBox) {
+                                var b = logoArtwork.getBBox();
+                                if (b.width && b.height) {
+                                    logoBounds = b;
+                                }
+                            }
+                        
+                            if (logoBounds) {
+                                var logoPaddingX = 12;
+                                var logoOffsetX = 10;
+                                logoSvg.setAttribute(
+                                    'viewBox',
+                                    (logoBounds.x - logoPaddingX - logoOffsetX) + ' ' + logoBounds.y + ' ' + (logoBounds.width + (logoPaddingX * 2)) + ' ' + logoBounds.height
+                                );
+                            } else {
+                                logoSvg.setAttribute('viewBox', '0 0 947 474');
+                            }
+                        
                             logoSvg.style.display = 'block';
                             logoSvg.style.overflow = 'visible';
-                            logoSvg.style.height = logoHeight + 'px';
                             logoSvg.style.width = logoWidth + 'px';
-                            logoAnimationContainer.style.height = logoHeight + 'px';
+                            logoSvg.style.height = logoHeight + 'px';
                             logoAnimationContainer.style.width = logoWidth + 'px';
+                            logoAnimationContainer.style.height = logoHeight + 'px';
                         }
-
                         function playLogoAnimation() {
                             logoAnimation.goToAndPlay(0, true);
                         }
