@@ -37,6 +37,40 @@
         :root {
             --arti-header-logo-width: clamp(60px, 4.4vw, 78px);
             --arti-header-logo-height: calc(var(--arti-header-logo-width) * 0.5);
+            --arti-page-gutter-extra: 20px;
+        }
+
+        #site-header {
+            padding-left: calc(1rem + var(--arti-page-gutter-extra)) !important;
+            padding-right: calc(1rem + var(--arti-page-gutter-extra)) !important;
+        }
+
+        #site-menu-panel {
+            padding-left: calc(1rem + var(--arti-page-gutter-extra)) !important;
+            padding-right: calc(1rem + var(--arti-page-gutter-extra)) !important;
+        }
+
+        #colophon > div {
+            padding-left: calc(1rem + var(--arti-page-gutter-extra)) !important;
+            padding-right: calc(1rem + var(--arti-page-gutter-extra)) !important;
+        }
+
+        #content > main > .homepage-hero {
+            padding-left: calc(1.5rem + var(--arti-page-gutter-extra)) !important;
+            padding-right: calc(1.5rem + var(--arti-page-gutter-extra)) !important;
+        }
+
+        #content > main > section.bg-beige-1:not(.px-4),
+        #content > main > article.bg-beige-1:not(.px-4) {
+            padding-left: var(--arti-page-gutter-extra);
+            padding-right: var(--arti-page-gutter-extra);
+        }
+
+        #content > main > section.bg-beige-1.px-4,
+        #content > main > article.bg-beige-1.px-4,
+        #content > main > section.bg-beige-1 > .px-4 {
+            padding-left: calc(1rem + var(--arti-page-gutter-extra)) !important;
+            padding-right: calc(1rem + var(--arti-page-gutter-extra)) !important;
         }
 
         body.site-menu-open #site-menu-overlay,
@@ -134,8 +168,32 @@
             }
 
             .site-menu-panel-header {
-                padding-right: 2.25rem;
-                padding-left: 2.25rem;
+                padding-right: calc(2.25rem + var(--arti-page-gutter-extra));
+                padding-left: calc(2.25rem + var(--arti-page-gutter-extra));
+            }
+
+            #site-header,
+            #site-menu-panel {
+                padding-left: calc(2.25rem + var(--arti-page-gutter-extra)) !important;
+                padding-right: calc(2.25rem + var(--arti-page-gutter-extra)) !important;
+            }
+
+            #colophon > div {
+                padding-left: var(--arti-page-gutter-extra) !important;
+                padding-right: calc(3rem + var(--arti-page-gutter-extra)) !important;
+            }
+
+            #content > main > section.bg-beige-1.md\:px-8,
+            #content > main > section.bg-beige-1 > .md\:px-8 {
+                padding-left: calc(2rem + var(--arti-page-gutter-extra)) !important;
+                padding-right: calc(2rem + var(--arti-page-gutter-extra)) !important;
+            }
+
+            #content > main > section.bg-beige-1.md\:px-9,
+            #content > main > article.bg-beige-1.md\:px-9,
+            #content > main > section.bg-beige-1 > .md\:px-9 {
+                padding-left: calc(2.25rem + var(--arti-page-gutter-extra)) !important;
+                padding-right: calc(2.25rem + var(--arti-page-gutter-extra)) !important;
             }
 
             .site-menu-panel-logo {
