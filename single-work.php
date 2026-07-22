@@ -53,6 +53,8 @@ get_header();
     #work-hero {
         isolation: isolate;
         border-bottom-right-radius: 180px;
+        margin-left: calc(var(--arti-page-gutter-extra, 20px) * -1);
+        margin-right: calc(var(--arti-page-gutter-extra, 20px) * -1);
     }
 
     #work-hero::after {

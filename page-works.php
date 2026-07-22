@@ -60,6 +60,11 @@ $featured_works_query = new WP_Query([
         transition: opacity 720ms ease;
     }
 
+    .works-featured-hero {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     .works-featured-hero__slide.is-active {
         z-index: 1;
         opacity: 1;
