@@ -167,6 +167,58 @@ function arti_populate_preferred_role_cf7_select($tag)
 add_filter('wpcf7_form_tag', 'arti_populate_preferred_role_cf7_select', 10, 1);
 
 /**
+ * Route Contact Form 7 emails by contact form title and enquiry type.
+ *
+ * @param array $components Contact Form 7 mail components.
+ * @return array
+ */
+function arti_route_contact_form_emails(array $components): array
+{
+    if (!class_exists('WPCF7_ContactForm')) {
+        return $components;
+    }
+
+    $contact_form = WPCF7_ContactForm::get_current();
+    if (!$contact_form || !method_exists($contact_form, 'title')) {
+        return $components;
+    }
+
+    $form_title = strtolower(trim((string) $contact_form->title()));
+    $recipients_by_form = [
+        'press' => ['ray@arti-design.com'],
+        'collaboration' => ['ray@arti-design.com', 'nat@arti-design.com'],
+        'career' => ['hr@arti-design.com'],
+        'carreer' => ['hr@arti-design.com'],
+    ];
+
+    $recipients = $recipients_by_form[$form_title] ?? [];
+
+    if ($form_title === 'enquiries' && class_exists('WPCF7_Submission')) {
+        $submission = WPCF7_Submission::get_instance();
+        $posted_data = $submission ? $submission->get_posted_data() : [];
+        $enquiry_type = isset($posted_data['enquiry-type']) ? strtolower(trim((string) $posted_data['enquiry-type'])) : '';
+
+        $recipients_by_enquiry_type = [
+            'commercial' => ['ray@arti-design.com'],
+            'residential' => ['nat@arti-design.com'],
+            'interior' => ['rey@arti-design.com'],
+        ];
+
+        $recipients = $recipients_by_enquiry_type[$enquiry_type] ?? [];
+    }
+
+    if (empty($recipients)) {
+        return $components;
+    }
+
+    $components['recipient'] = implode(', ', array_map('sanitize_email', $recipients));
+
+    return $components;
+}
+
+add_filter('wpcf7_mail_components', 'arti_route_contact_form_emails', 10, 1);
+
+/**
  * Render news cards HTML for AJAX and template usage.
  *
  * @param WP_Query $query News query instance.
@@ -179,7 +231,7 @@ function arti_render_news_cards_html(WP_Query $query): string
     if ($query->have_posts()):
         while ($query->have_posts()):
             $query->the_post();
-            ?>
+?>
             <article class="w-[40%] shrink-0">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
                     <div class="overflow-hidden">
@@ -199,7 +251,7 @@ function arti_render_news_cards_html(WP_Query $query): string
                     </span>
                 </a>
             </article>
-            <?php
+        <?php
         endwhile;
         wp_reset_postdata();
     else:
@@ -322,7 +374,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
             $icon_outside = function_exists('get_field') ? get_field('icon_outside') : '';
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             $category_label = (!is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : '';
-            ?>
+        ?>
             <article
                 class="grid 2xl:grid-cols-[minmax(0,60%)_minmax(0,1fr)] grid-cols-[minmax(0,68%)_minmax(0,1fr)] gap-0 max-md:grid-cols-1">
                 <a href="<?php the_permalink(); ?>" class="group block !no-underline">
@@ -365,7 +417,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                     </div>
                 </div>
             </article>
-            <?php
+        <?php
         endwhile;
         wp_reset_postdata();
     else:
@@ -378,7 +430,7 @@ function arti_render_work_cards_html(WP_Query $query, string $taxonomy): string
                 Try another filter or search keyword.
             </p>
         </article>
-        <?php
+<?php
     endif;
 
     return (string) ob_get_clean();

@@ -53,6 +53,8 @@ get_header();
         background-position: right 0.125rem center;
         background-repeat: no-repeat;
         background-size: 14px 8px;
+        line-height: 1.5;
+        min-height: 43px;
         padding-right: 1.75rem !important;
     }
 
