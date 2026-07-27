@@ -37,7 +37,7 @@
         :root {
             --arti-header-logo-width: clamp(60px, 4.4vw, 78px);
             --arti-header-logo-height: calc(var(--arti-header-logo-width) * 0.5);
-            --arti-page-gutter-extra: 20px;
+            --arti-page-gutter-extra: 0px;
         }
 
         #site-header {
@@ -161,6 +161,10 @@
         }
 
         @media (min-width: 782px) {
+            :root {
+                --arti-page-gutter-extra: 20px;
+            }
+
             #site-menu-panel {
                 height: calc(16vh + 80px);
                 max-height: 400px;
@@ -319,15 +323,15 @@
 
                         function fitLogoToArtwork() {
                             var logoSvg = logoAnimationContainer.querySelector('svg');
-                        
+
                             if (!logoSvg) {
                                 return;
                             }
-                        
+
                             var rootStyles = getComputedStyle(document.documentElement);
                             var logoWidth = parseFloat(rootStyles.getPropertyValue('--arti-header-logo-width')) || 60;
                             var logoHeight = logoWidth * 0.5;
-                        
+
                             var logoBounds = null;
                             var logoArtwork = logoSvg.firstElementChild;
                             if (logoArtwork && logoArtwork.getBBox) {
@@ -336,7 +340,7 @@
                                     logoBounds = b;
                                 }
                             }
-                        
+
                             if (logoBounds) {
                                 var logoPaddingX = 12;
                                 var logoOffsetX = 10;
@@ -347,7 +351,7 @@
                             } else {
                                 logoSvg.setAttribute('viewBox', '387.96 286 414.04 374');
                             }
-                        
+
                             logoSvg.style.display = 'block';
                             logoSvg.style.overflow = 'visible';
                             logoSvg.style.width = logoWidth + 'px';

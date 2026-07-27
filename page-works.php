@@ -163,6 +163,11 @@ $featured_works_query = new WP_Query([
         display: none;
     }
 
+    .works-filter-shell {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
     .works-reveal-item {
         opacity: 0;
         transform: translateY(28px);
@@ -184,6 +189,13 @@ $featured_works_query = new WP_Query([
             opacity: 1;
             transform: none;
             transition: none;
+        }
+    }
+
+    @media (min-width: 782px) {
+        .works-filter-shell {
+            padding-left: 2.25rem;
+            padding-right: 2.25rem;
         }
     }
 </style>
@@ -245,7 +257,7 @@ $featured_works_query = new WP_Query([
 <?php endif; ?>
 
 <section class="bg-beige-1 pb-16 pt-8 md:pt-10 min-h-[80vh]">
-    <div class="px-4 md:px-9">
+    <div class="works-filter-shell">
         <div class="mb-8 flex items-start justify-between gap-6 md:py-10">
             <div class="w-full">
                 <button type="button" id="works-filter-toggle"
