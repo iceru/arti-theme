@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: Works
  *
@@ -214,7 +215,7 @@ $featured_works_query = new WP_Query([
                 $featured_terms = $work_taxonomy ? get_the_terms(get_the_ID(), $work_taxonomy) : [];
                 $featured_type = (!is_wp_error($featured_terms) && !empty($featured_terms)) ? $featured_terms[0]->name : '';
             }
-            ?>
+        ?>
             <article
                 class="works-featured-hero__slide <?php echo $featured_index === 0 ? 'is-active' : ''; ?> absolute inset-0">
                 <a href="<?php the_permalink(); ?>" class="group block h-full !no-underline text-white">
@@ -225,7 +226,7 @@ $featured_works_query = new WP_Query([
                     <?php endif; ?>
 
                     <div
-                        class="absolute inset-x-0 bottom-0 flex min-h-[42%] items-end bg-gradient-to-t from-black/75 to-transparent px-6 pb-10 md:px-9 md:pb-11">
+                        class="absolute inset-x-0 bottom-0 flex min-h-[42%] items-end bg-gradient-to-t from-black/75 to-transparent px-6 pb-10 md:px-14 md:pb-11">
                         <div class="flex w-full items-end justify-between gap-8">
                             <div>
                                 <h2 class="m-0 text-[16px] font-medium uppercase tracking-[0.42em] text-white md:text-[18px]">
@@ -244,7 +245,7 @@ $featured_works_query = new WP_Query([
                     </div>
                 </a>
             </article>
-            <?php
+        <?php
             $featured_index++;
         endwhile;
         wp_reset_postdata();
@@ -311,7 +312,7 @@ $featured_works_query = new WP_Query([
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const hero = document.querySelector('[data-featured-works-hero]');
         if (!hero) {
             return;
@@ -323,7 +324,9 @@ $featured_works_query = new WP_Query([
         }
 
         updateHeaderState();
-        window.addEventListener('scroll', updateHeaderState, { passive: true });
+        window.addEventListener('scroll', updateHeaderState, {
+            passive: true
+        });
         window.addEventListener('resize', updateHeaderState);
 
         const slides = Array.from(hero.querySelectorAll('.works-featured-hero__slide'));
@@ -371,15 +374,17 @@ $featured_works_query = new WP_Query([
                 return;
             }
 
-            heroInterval = window.setInterval(function () {
+            heroInterval = window.setInterval(function() {
                 showSlide((activeIndex + 1) % slides.length);
             }, duration);
         }
 
-        window.addEventListener('worksRevealStarted', startHeroSlider, { once: true });
+        window.addEventListener('worksRevealStarted', startHeroSlider, {
+            once: true
+        });
     });
 
-    jQuery(function ($) {
+    jQuery(function($) {
         const $toggle = $('#works-filter-toggle');
         const $toggleLabel = $('#works-filter-toggle-label');
         const $panel = $('#works-filter-panel');
@@ -422,7 +427,7 @@ $featured_works_query = new WP_Query([
         }
 
         function prepareRevealItems() {
-            collectRevealItems().forEach(function (item, index) {
+            collectRevealItems().forEach(function(item, index) {
                 revealItem(item, index);
             });
 
@@ -438,8 +443,8 @@ $featured_works_query = new WP_Query([
             window.dispatchEvent(new CustomEvent('worksRevealStarted'));
 
             if ('IntersectionObserver' in window) {
-                revealObserver = new IntersectionObserver(function (entries, observer) {
-                    entries.forEach(function (entry) {
+                revealObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
                         if (!entry.isIntersecting) {
                             return;
                         }
@@ -452,13 +457,13 @@ $featured_works_query = new WP_Query([
                     threshold: 0.12
                 });
 
-                collectRevealItems().forEach(function (item) {
+                collectRevealItems().forEach(function(item) {
                     revealObserver.observe(item);
                 });
                 return;
             }
 
-            collectRevealItems().forEach(function (item) {
+            collectRevealItems().forEach(function(item) {
                 item.classList.add('is-visible');
             });
         }
@@ -504,7 +509,7 @@ $featured_works_query = new WP_Query([
                 return;
             }
 
-            const introObserver = new MutationObserver(function () {
+            const introObserver = new MutationObserver(function() {
                 if (!page.classList.contains('opacity-100')) {
                     return;
                 }
@@ -518,7 +523,7 @@ $featured_works_query = new WP_Query([
                 attributeFilter: ['class']
             });
 
-            window.setTimeout(function () {
+            window.setTimeout(function() {
                 introObserver.disconnect();
                 startRevealAnimations();
             }, 1800);
@@ -555,7 +560,7 @@ $featured_works_query = new WP_Query([
             let nearestIndex = 0;
             let nearestDistance = Infinity;
 
-            $items.each(function (idx) {
+            $items.each(function(idx) {
                 const rect = this.getBoundingClientRect();
                 const itemCenterY = rect.top + (rect.height / 2);
                 const distance = Math.abs(itemCenterY - viewportCenterY);
@@ -575,7 +580,7 @@ $featured_works_query = new WP_Query([
             }
 
             scrollTicking = true;
-            window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function() {
                 updateActiveItemByViewportCenter();
                 scrollTicking = false;
             });
@@ -600,10 +605,10 @@ $featured_works_query = new WP_Query([
                     types: Array.from(selectedTypes),
                     search: $search.val()
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     $cards.css('opacity', '0.35');
                 },
-                success: function (response) {
+                success: function(response) {
                     if (!response || !response.success || !response.data) {
                         return;
                     }
@@ -613,13 +618,13 @@ $featured_works_query = new WP_Query([
                     initWorkScrollState();
                     queueActiveUpdate();
                 },
-                complete: function () {
+                complete: function() {
                     $cards.css('opacity', '1');
                 }
             });
         }
 
-        $(document).on('click', '.works-filter-btn', function () {
+        $(document).on('click', '.works-filter-btn', function() {
             const type = String($(this).data('work-type') || '').trim();
 
             if (!type) {
@@ -638,14 +643,14 @@ $featured_works_query = new WP_Query([
             fetchWorks();
         });
 
-        $search.on('input', function () {
+        $search.on('input', function() {
             clearTimeout(searchTimer);
-            searchTimer = setTimeout(function () {
+            searchTimer = setTimeout(function() {
                 fetchWorks();
             }, 280);
         });
 
-        $toggle.on('click', function () {
+        $toggle.on('click', function() {
             const isOpen = !$panel.hasClass('is-collapsed');
             setPanelState(!isOpen);
         });
