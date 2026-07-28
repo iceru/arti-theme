@@ -85,6 +85,30 @@ get_header();
         padding-right: 24px !important;
         text-align: left;
     }
+
+    .contact-form-shell .wpcf7-not-valid-tip {
+        align-items: center;
+        color: var(--color-light-brown);
+        display: flex;
+        gap: 0.55rem;
+        line-height: 1.35;
+    }
+
+    .contact-form-shell .wpcf7-not-valid-tip::before {
+        align-items: center;
+        border: 1.5px solid currentColor;
+        border-radius: 50%;
+        content: "!";
+        display: inline-flex;
+        flex: 0 0 18px;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        height: 18px;
+        justify-content: center;
+        line-height: 1;
+        width: 18px;
+    }
 </style>
 
 <?php while (have_posts()):

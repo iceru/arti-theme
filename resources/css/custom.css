@@ -5,9 +5,9 @@
   line-height: var(--text-lg--line-height);
 
   :where(
-      .entry-content > *:not(li),
-      .block-editor-block-list__layout > *:not(li)
-    ) {
+    .entry-content > *:not(li),
+    .block-editor-block-list__layout > *:not(li)
+  ) {
     margin-top: --spacing(6);
     margin-bottom: --spacing(6);
   }
@@ -119,3 +119,9 @@
   z-index: 1;
 }
 
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output,
+.wpcf7 form.payment-required .wpcf7-response-output {
+  border: none;
+  padding: 0;
+}
