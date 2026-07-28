@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: Contact
  *
@@ -92,6 +93,7 @@ get_header();
         display: flex;
         gap: 0.55rem;
         line-height: 1.35;
+        font-size: 12px;
     }
 
     .contact-form-shell .wpcf7-not-valid-tip::before {
@@ -100,14 +102,14 @@ get_header();
         border-radius: 50%;
         content: "!";
         display: inline-flex;
-        flex: 0 0 18px;
+        flex: 0 0 15px;
         font-family: Arial, sans-serif;
-        font-size: 13px;
+        font-size: 11 px;
         font-weight: 700;
-        height: 18px;
+        height: 15px;
         justify-content: center;
         line-height: 1;
-        width: 18px;
+        width: 15px;
     }
 </style>
 
@@ -269,7 +271,7 @@ get_header();
                         foreach ($contact_tabs as $tab_key => $tab_label):
                             $tab_index++;
                             $is_active = $tab_index === 1;
-                            ?>
+                        ?>
                             <button type="button"
                                 class="contact-tab-trigger border-0 text-[7px] md:text-[10px] bg-transparent pb-[9px] text-left uppercase font-medium tracking-[0.28em] transition-colors duration-200 <?php echo $is_active ? 'border-b-2 border-zinc-500 text-zinc-700' : 'border-b border-zinc-400/45 text-zinc-700/50'; ?>"
                                 data-tab-trigger="<?php echo esc_attr($tab_key); ?>"
@@ -336,7 +338,7 @@ get_header();
 <?php endwhile; ?>
 
 <script>
-    (function () {
+    (function() {
         function updateSelectPlaceholder(select) {
             var selectedOption = select.options[select.selectedIndex];
             var isPlaceholder = select.value === '' || Boolean(selectedOption && selectedOption.disabled && selectedOption.value === '');
@@ -348,7 +350,7 @@ get_header();
             var container = scope || document;
             var selects = container.querySelectorAll('.contact-form-shell select');
 
-            selects.forEach(function (select) {
+            selects.forEach(function(select) {
                 updateSelectPlaceholder(select);
 
                 if (select.dataset.placeholderReady === 'true') {
@@ -356,7 +358,7 @@ get_header();
                 }
 
                 select.dataset.placeholderReady = 'true';
-                select.addEventListener('change', function (event) {
+                select.addEventListener('change', function(event) {
                     updateSelectPlaceholder(select);
 
                     if (/^preferred[-_]?roles?(?:\[\])?$/i.test(select.name)) {
@@ -369,11 +371,11 @@ get_header();
         function updatePanelControls() {
             var panels = document.querySelectorAll('[data-tab-panel]');
 
-            panels.forEach(function (panel) {
+            panels.forEach(function(panel) {
                 var isActive = !panel.classList.contains('hidden');
                 var controls = panel.querySelectorAll('input, select, textarea, button');
 
-                controls.forEach(function (control) {
+                controls.forEach(function(control) {
                     if (
                         control.type === 'submit' ||
                         control.type === 'hidden' ||
@@ -392,20 +394,20 @@ get_header();
 
             updatePanelControls();
 
-            triggers.forEach(function (trigger) {
+            triggers.forEach(function(trigger) {
                 if (trigger.dataset.validationReady === 'true') {
                     return;
                 }
 
                 trigger.dataset.validationReady = 'true';
-                trigger.addEventListener('click', function () {
+                trigger.addEventListener('click', function() {
                     window.requestAnimationFrame(updatePanelControls);
                 });
             });
         }
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 initContactSelects(document);
                 initContactTabsValidation();
             });
@@ -416,8 +418,8 @@ get_header();
 
         window.addEventListener('load', updatePanelControls);
 
-        document.addEventListener('wpcf7reset', function (event) {
-            window.setTimeout(function () {
+        document.addEventListener('wpcf7reset', function(event) {
+            window.setTimeout(function() {
                 initContactSelects(event.target);
                 updatePanelControls();
             }, 0);
