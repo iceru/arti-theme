@@ -122,6 +122,6 @@
 .wpcf7 form.invalid .wpcf7-response-output,
 .wpcf7 form.unaccepted .wpcf7-response-output,
 .wpcf7 form.payment-required .wpcf7-response-output {
-  border: none;
-  padding: 0;
+  border: none !important;
+  padding: 0 !important;
 }
