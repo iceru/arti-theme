@@ -339,9 +339,9 @@ $resolve_attachment_id = static function ($item): int {
         <div class="mx-auto max-w-[1800px]">
             <section id="work-hero" class="relative overflow-hidden -mt-[78px]">
                 <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[65vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
+                    <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[70vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
                 <?php else: ?>
-                    <div class="work-hero-media h-[65vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
+                    <div class="work-hero-media h-[70vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
                     </div>
                 <?php endif; ?>
 
