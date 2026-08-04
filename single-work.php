@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Single Work template.
  *
@@ -92,9 +93,16 @@ get_header();
     }
 
     @media (max-width: 781px) {
-        .entry-content>.wp-block-columns {
+        .entry-content .wp-block-columns {
             display: flex !important;
             flex-direction: column;
+            align-items: stretch !important;
+        }
+
+        .entry-content .wp-block-columns>.wp-block-column {
+            flex-basis: auto !important;
+            width: 100%;
+            max-width: none;
         }
 
         .entry-content>.wp-block-columns>.wp-block-column:has(.work-info) {
@@ -218,7 +226,7 @@ $resolve_attachment_id = static function ($item): int {
 
     $render_work_info = static function (string $extra_classes = '') use ($work_type, $site_area, $floor_area, $bedrooms, $floors, $client, $credits): string {
         ob_start();
-        ?>
+    ?>
         <aside class="<?php echo esc_attr(trim("work-info min-w-0 border-t border-zinc-500/35 pt-3 {$extra_classes}")); ?>">
             <div class="m-0 text-[1.7rem] leading-none text-zinc-800">
                 <?php echo esc_html($work_type); ?>
@@ -295,7 +303,7 @@ $resolve_attachment_id = static function ($item): int {
                 </details>
             <?php endif; ?>
         </aside>
-        <?php
+    <?php
         return (string) ob_get_clean();
     };
 
@@ -331,15 +339,15 @@ $resolve_attachment_id = static function ($item): int {
         <div class="mx-auto max-w-[1800px]">
             <section id="work-hero" class="relative overflow-hidden -mt-[78px]">
                 <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[95vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
+                    <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[90vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
                 <?php else: ?>
-                    <div class="work-hero-media h-[95vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
+                    <div class="work-hero-media h-[90vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
                     </div>
                 <?php endif; ?>
 
                 <div class="work-hero-content absolute inset-x-0 bottom-0 w-full h-full flex flex-col justify-end overflow-hidden
                     pb-16 md:pb-11 pt-16 pl-4 md:pl-9">
-                    <h1 class="relative z-10 m-0 text-[28px] uppercase tracking-[0.31em] mb-7 text-white ">
+                    <h1 class="relative z-10 m-0 text-[24px] uppercase tracking-[0.31em] mb-7 text-white ">
                         <?php the_title(); ?>
                     </h1>
                     <div
@@ -592,7 +600,7 @@ $resolve_attachment_id = static function ($item): int {
 <?php endwhile; ?>
 
 <script>
-    (function () {
+    (function() {
         var hero = document.getElementById('work-hero');
 
         if (!hero) {
@@ -605,7 +613,9 @@ $resolve_attachment_id = static function ($item): int {
         }
 
         updateHeaderState();
-        window.addEventListener('scroll', updateHeaderState, { passive: true });
+        window.addEventListener('scroll', updateHeaderState, {
+            passive: true
+        });
         window.addEventListener('resize', updateHeaderState);
     })();
 </script>
