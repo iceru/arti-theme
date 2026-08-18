@@ -62,6 +62,7 @@ $featured_works_query = new WP_Query([
     }
 
     .works-featured-hero {
+        margin-top: calc(var(--arti-header-height, 80px) * -1);
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
@@ -203,7 +204,7 @@ $featured_works_query = new WP_Query([
 
 <?php if ($featured_works_query->have_posts()): ?>
     <section
-        class="hidden md:block works-featured-hero relative -mt-[78px] min-h-[98vh] overflow-hidden bg-black text-white"
+        class="hidden md:block works-featured-hero relative min-h-[98vh] overflow-hidden bg-black text-white"
         style="--works-hero-duration: 5000ms;" data-featured-works-hero data-slide-duration="5000"
         aria-label="Featured works">
         <?php

@@ -37,6 +37,7 @@
         :root {
             --arti-header-logo-width: clamp(60px, 4.4vw, 78px);
             --arti-header-logo-height: calc(var(--arti-header-logo-width) * 0.5);
+            --arti-header-height: 80px;
             --arti-page-gutter-extra: 0px;
         }
 
@@ -505,6 +506,6 @@
             </div>
         </div>
 
-        <div id="content" class="site-content grow pt-[80px]">
+        <div id="content" class="site-content grow" style="padding-top: var(--arti-header-height);">
             <?php do_action('tailpress_content_start'); ?>
             <main>

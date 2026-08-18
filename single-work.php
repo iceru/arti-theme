@@ -54,6 +54,7 @@ get_header();
     #work-hero {
         isolation: isolate;
         border-bottom-right-radius: 180px;
+        margin-top: calc(var(--arti-header-height, 80px) * -1);
         margin-left: calc(var(--arti-page-gutter-extra, 20px) * -1);
         margin-right: calc(var(--arti-page-gutter-extra, 20px) * -1);
     }
@@ -73,6 +74,34 @@ get_header();
 
     .work-hero-icon {
         z-index: 3;
+    }
+
+    .work-other-works-mobile__title {
+        color: #686868;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2rem;
+        font-style: italic;
+        line-height: 1.12;
+    }
+
+    .work-other-works-mobile__divider {
+        border-top: 2px solid rgba(104, 104, 104, 0.24);
+    }
+
+    .work-other-works-mobile__arrow {
+        width: 4.5rem;
+        height: 1.25rem;
+        object-fit: contain;
+        opacity: 0.78;
+    }
+
+    .work-other-works-mobile__name {
+        color: #686868;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        line-height: 1.55;
+        text-transform: uppercase;
     }
 
     @media (min-width: 768px) {
@@ -337,28 +366,30 @@ $resolve_attachment_id = static function ($item): int {
 
     <article <?php post_class('bg-beige-1 text-zinc-800 pb-16 md:pb-20'); ?>>
         <div class="mx-auto max-w-[1800px]">
-            <section id="work-hero" class="relative overflow-hidden -mt-[78px]">
-                <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[70vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
-                <?php else: ?>
-                    <div class="work-hero-media h-[70vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
-                    </div>
-                <?php endif; ?>
+            <div class="relative">
+                <section id="work-hero" class="relative overflow-hidden">
+                    <?php if (has_post_thumbnail()): ?>
+                        <?php the_post_thumbnail('full', ['class' => 'work-hero-media block w-full h-[70vh] md:h-[74vh] xl:h-[95vh] object-cover']); ?>
+                    <?php else: ?>
+                        <div class="work-hero-media h-[70vh] w-full bg-black/10 md:h-[74vh] xl:h-[95vh]">
+                        </div>
+                    <?php endif; ?>
 
-                <div class="work-hero-content absolute inset-x-0 bottom-0 w-full h-full flex flex-col justify-end overflow-hidden
-                    pb-16 md:pb-11 pt-16 pl-4 md:pl-9">
-                    <h1 class="relative z-10 m-0 text-[24px] uppercase tracking-[0.31em] mb-7 text-white ">
-                        <?php the_title(); ?>
-                    </h1>
-                    <div
-                        class="relative z-10 mt-2 flex flex-wrap items-center gap-x-16 md:gap-x-32 gap-y-1 text-[12px] uppercase tracking-[0.3em] text-light-brown">
+                    <div class="work-hero-content absolute inset-x-0 bottom-0 w-full h-full flex flex-col justify-end overflow-hidden
+                        pb-16 md:pb-11 pt-16 pl-4 md:pl-9">
+                        <h1 class="relative z-10 m-0 text-[24px] uppercase tracking-[0.31em] mb-7 text-white ">
+                            <?php the_title(); ?>
+                        </h1>
+                        <div
+                            class="relative z-10 mt-2 flex flex-wrap items-center gap-x-16 md:gap-x-32 gap-y-1 text-[12px] uppercase tracking-[0.3em] text-light-brown">
 
-                        <span><?php echo esc_html($work_type); ?></span>
-                        <?php if ($status !== ''): ?>
-                            <span><?php echo esc_html($status); ?></span>
-                        <?php endif; ?>
+                            <span><?php echo esc_html($work_type); ?></span>
+                            <?php if ($status !== ''): ?>
+                                <span><?php echo esc_html($status); ?></span>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
+                </section>
 
                 <?php
                 $icon_inside_url = '';
@@ -379,7 +410,7 @@ $resolve_attachment_id = static function ($item): int {
                 <div class="work-hero-icon absolute right-4 bottom-3 flex md:bottom-10 md:right-12">
                     <img src="<?php echo esc_url($icon_inside_url); ?>" alt="" class="h-8 w-8 object-contain md:h-6">
                 </div>
-            </section>
+            </div>
 
             <!-- <section class="grid grid-cols-1 gap-8 py-12 md:grid-cols-[220px_1fr_1fr] md:gap-8 md:py-16">
                 <p class="m-0 pt-1 text-[12px] uppercase tracking-[0.32em] text-zinc-700/80">
@@ -567,9 +598,39 @@ $resolve_attachment_id = static function ($item): int {
                 </section>
             <?php endif; ?>
 
-            <section class="mt-16 hidden min-w-0 gap-[4em] px-4 md:grid md:grid-cols-[minmax(0,33%)_minmax(0,1fr)] md:px-9">
+            <section class="mt-16 min-w-0 px-4 md:grid md:grid-cols-[minmax(0,33%)_minmax(0,1fr)] md:gap-[4em] md:px-9">
+                <div class="md:hidden">
+                    <p class="work-other-works-mobile__title m-0">Explore our other works</p>
+                    <div class="work-other-works-mobile__divider mt-12"></div>
+                    <div class="mt-16 grid grid-cols-2 gap-6">
+                        <div>
+                            <?php if ($prev_work instanceof WP_Post): ?>
+                                <a href="<?php echo esc_url(get_permalink($prev_work->ID)); ?>"
+                                    class="block !no-underline hover:opacity-70">
+                                    <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
+                                        alt="" class="work-other-works-mobile__arrow rotate-180">
+                                    <span class="work-other-works-mobile__name mt-8 block">
+                                        <?php echo esc_html(get_the_title($prev_work->ID)); ?>
+                                    </span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                        <div class="text-right">
+                            <?php if ($next_work instanceof WP_Post): ?>
+                                <a href="<?php echo esc_url(get_permalink($next_work->ID)); ?>"
+                                    class="block !no-underline hover:opacity-70">
+                                    <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
+                                        alt="" class="work-other-works-mobile__arrow ml-auto">
+                                    <span class="work-other-works-mobile__name mt-8 block">
+                                        <?php echo esc_html(get_the_title($next_work->ID)); ?>
+                                    </span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
                 <div aria-hidden="true"></div>
-                <div class="min-w-0">
+                <div class="hidden min-w-0 md:block">
                     <p class="m-0 text-[10px] uppercase tracking-[0.3em] text-light-brown">Explore Other Works</p>
                     <div class="mt-4 grid grid-cols-2 items-center gap-4 border-t border-beige-2 pt-4">
                         <div>
