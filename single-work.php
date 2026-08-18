@@ -79,7 +79,7 @@ get_header();
     .work-other-works-mobile__title {
         color: #686868;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 2rem;
+        font-size: 14px;
         font-style: italic;
         line-height: 1.12;
     }
@@ -89,15 +89,15 @@ get_header();
     }
 
     .work-other-works-mobile__arrow {
-        width: 4.5rem;
-        height: 1.25rem;
+        width: 20px;
+        height: auto;
         object-fit: contain;
         opacity: 0.78;
     }
 
     .work-other-works-mobile__name {
         color: #686868;
-        font-size: 1rem;
+        font-size: 10px;
         font-weight: 500;
         letter-spacing: 0.28em;
         line-height: 1.55;
@@ -601,15 +601,15 @@ $resolve_attachment_id = static function ($item): int {
             <section class="mt-16 min-w-0 px-4 md:grid md:grid-cols-[minmax(0,33%)_minmax(0,1fr)] md:gap-[4em] md:px-9">
                 <div class="md:hidden">
                     <p class="work-other-works-mobile__title m-0">Explore our other works</p>
-                    <div class="work-other-works-mobile__divider mt-12"></div>
-                    <div class="mt-16 grid grid-cols-2 gap-6">
+                    <div class="work-other-works-mobile__divider mt-4"></div>
+                    <div class="mt-4 grid grid-cols-2 gap-6">
                         <div>
                             <?php if ($prev_work instanceof WP_Post): ?>
                                 <a href="<?php echo esc_url(get_permalink($prev_work->ID)); ?>"
                                     class="block !no-underline hover:opacity-70">
                                     <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
                                         alt="" class="work-other-works-mobile__arrow rotate-180">
-                                    <span class="work-other-works-mobile__name mt-8 block">
+                                    <span class="work-other-works-mobile__name mt-2 block">
                                         <?php echo esc_html(get_the_title($prev_work->ID)); ?>
                                     </span>
                                 </a>
@@ -621,7 +621,7 @@ $resolve_attachment_id = static function ($item): int {
                                     class="block !no-underline hover:opacity-70">
                                     <img src="<?php echo esc_url(get_template_directory_uri() . '/images/arrow-right.png'); ?>"
                                         alt="" class="work-other-works-mobile__arrow ml-auto">
-                                    <span class="work-other-works-mobile__name mt-8 block">
+                                    <span class="work-other-works-mobile__name mt-2 block">
                                         <?php echo esc_html(get_the_title($next_work->ID)); ?>
                                     </span>
                                 </a>
